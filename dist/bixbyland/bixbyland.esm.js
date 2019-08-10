@@ -1,0 +1,1 @@
+import{p,b as f}from"./p-f7abfff5.js";p().then(p=>f([["p-hsbh9czb",[[0,"portfolio-app",{test:[1]}]]]],p));
