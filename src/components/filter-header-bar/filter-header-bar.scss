@@ -1,0 +1,45 @@
+filter-header-bar {
+    font-family: $font-family-primary;
+    .filter-wrap {
+        padding: 45px 0;
+        max-width: 1200px;
+        margin: auto;
+        @extend %danzerpress-flex-row;
+        justify-content: space-between;
+    }
+    .filters,
+    .views {
+        @extend %danzerpress-flex-row;
+        span, div {
+            font-size: 20px;
+        }
+        span {
+            margin-right: 28px;
+            color: #7C8388;
+        }
+        div {
+            position: relative;
+            color: #B4BFC8;
+            margin-right: 40px;
+            text-transform: uppercase;
+            font-weight: 500;
+            cursor: pointer;
+            &.active {
+                color: #11284A;
+                &:after {
+                    content: "";
+                    width: 100%;
+                    height: 2px;
+                    background: black;
+                    position: absolute;
+                    bottom: -3px;
+                    left: 0;
+                    max-width: 40px;
+                }
+            }
+        }
+    }
+    .views {
+        @extend %danzerpress-flex-row;
+    }
+}

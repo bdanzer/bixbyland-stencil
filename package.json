@@ -24,7 +24,8 @@
   "devDependencies": {
     "@stencil/core": "^1.2.3",
     "@stencil/sass": "^1.0.1",
-    "danzerpress-layouts": ">0.1.0",
+    "axios": "^0.19.0",
+    "danzerpress-layouts": "^0.2.1",
     "generator-stencil": "github:AkashGutha/generator-stencil#master"
   },
   "license": "MIT"

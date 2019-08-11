@@ -9,31 +9,99 @@ import { HTMLStencilElement, JSXBase } from './stencil.core';
 
 
 export namespace Components {
+  interface CardList {
+    'posts': any;
+  }
+  interface FilterHeaderBar {
+    'activeFilter': string;
+    'activeView': string;
+    'categories': any;
+    'filter': Function;
+    'view': Function;
+    'views': any;
+  }
   interface PortfolioApp {
-    'test': string;
+    'googleApiKey': string;
+    'urlToFetch': string;
+  }
+  interface PropertyCard {
+    'postData': any;
+  }
+  interface PropertyListings {
+    'posts': any;
   }
 }
 
 declare global {
 
 
+  interface HTMLCardListElement extends Components.CardList, HTMLStencilElement {}
+  var HTMLCardListElement: {
+    prototype: HTMLCardListElement;
+    new (): HTMLCardListElement;
+  };
+
+  interface HTMLFilterHeaderBarElement extends Components.FilterHeaderBar, HTMLStencilElement {}
+  var HTMLFilterHeaderBarElement: {
+    prototype: HTMLFilterHeaderBarElement;
+    new (): HTMLFilterHeaderBarElement;
+  };
+
   interface HTMLPortfolioAppElement extends Components.PortfolioApp, HTMLStencilElement {}
   var HTMLPortfolioAppElement: {
     prototype: HTMLPortfolioAppElement;
     new (): HTMLPortfolioAppElement;
   };
+
+  interface HTMLPropertyCardElement extends Components.PropertyCard, HTMLStencilElement {}
+  var HTMLPropertyCardElement: {
+    prototype: HTMLPropertyCardElement;
+    new (): HTMLPropertyCardElement;
+  };
+
+  interface HTMLPropertyListingsElement extends Components.PropertyListings, HTMLStencilElement {}
+  var HTMLPropertyListingsElement: {
+    prototype: HTMLPropertyListingsElement;
+    new (): HTMLPropertyListingsElement;
+  };
   interface HTMLElementTagNameMap {
+    'card-list': HTMLCardListElement;
+    'filter-header-bar': HTMLFilterHeaderBarElement;
     'portfolio-app': HTMLPortfolioAppElement;
+    'property-card': HTMLPropertyCardElement;
+    'property-listings': HTMLPropertyListingsElement;
   }
 }
 
 declare namespace LocalJSX {
+  interface CardList extends JSXBase.HTMLAttributes<HTMLCardListElement> {
+    'posts'?: any;
+  }
+  interface FilterHeaderBar extends JSXBase.HTMLAttributes<HTMLFilterHeaderBarElement> {
+    'activeFilter'?: string;
+    'activeView'?: string;
+    'categories'?: any;
+    'filter'?: Function;
+    'view'?: Function;
+    'views'?: any;
+  }
   interface PortfolioApp extends JSXBase.HTMLAttributes<HTMLPortfolioAppElement> {
-    'test'?: string;
+    'googleApiKey'?: string;
+    'urlToFetch'?: string;
+  }
+  interface PropertyCard extends JSXBase.HTMLAttributes<HTMLPropertyCardElement> {
+    'postData'?: any;
+  }
+  interface PropertyListings extends JSXBase.HTMLAttributes<HTMLPropertyListingsElement> {
+    'posts'?: any;
   }
 
   interface IntrinsicElements {
+    'card-list': CardList;
+    'filter-header-bar': FilterHeaderBar;
     'portfolio-app': PortfolioApp;
+    'property-card': PropertyCard;
+    'property-listings': PropertyListings;
   }
 }
 

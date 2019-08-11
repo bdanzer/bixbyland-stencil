@@ -1,0 +1,31 @@
+.property-card {
+    @extend %danzerpress-flex-row;
+    .property-image-wrap {
+        @extend %danzerpress-one-fourth;
+        img {
+            width: 100%;
+        }
+    }
+    .property-content-wrap {
+        background: white;
+        padding: 20px;
+        @extend %danzerpress-three-fourths;
+        .property-title {
+            font-size: 23px;
+            font-family: $font-family-primary;
+            color: #11284A;
+            margin-bottom: 6px;
+            display: block;
+        }
+        span {
+            color: #11284A;
+            font-size: 16px;
+            font-weight: 700;
+            font-style: italic;
+        }
+        p {
+            margin-bottom: 7px;
+            color: #7C8388;
+        }
+    }
+}

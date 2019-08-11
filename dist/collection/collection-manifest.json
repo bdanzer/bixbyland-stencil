@@ -1,6 +1,10 @@
 {
   "entries": [
-    "components/portfolio-app/portfolio-app.js"
+    "components/portfolio-app/portfolio-app.js",
+    "components/property-listings/property-listings.js",
+    "components/card-list/card-list.js",
+    "components/property-card/property-card.js",
+    "components/filter-header-bar/filter-header-bar.js"
   ],
   "compiler": {
     "name": "@stencil/core",

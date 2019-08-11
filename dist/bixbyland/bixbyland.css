@@ -119,18 +119,27 @@ h6 {
 }
 
 html {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   -ms-overflow-style: scrollbar;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-direction: column;
   flex-direction: column;
   width: 100%;
 }
 html .main-content {
+  -ms-flex: 1 0 auto;
   flex: 1 0 auto;
 }
 
 *,
 *::before,
 *::after {
+  -webkit-box-sizing: inherit;
   box-sizing: inherit;
+}
+
+body {
+  background: #F7F7F7;
 }

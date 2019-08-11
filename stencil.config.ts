@@ -19,9 +19,10 @@ export const config: Config = {
   plugins: [
     sass({
       injectGlobalPaths: [
+        'src/globals/component.scss',
         './node_modules/danzerpress-layouts/src/styles/main.scss'
       ]
     })
   ],
-  globalStyle: 'src/globals/app.scss'
+  globalStyle: './src/globals/app.scss'
 };

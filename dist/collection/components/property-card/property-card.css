@@ -45,6 +45,14 @@ h5 {
   margin-right: 15px;
 }
 
+@media screen and (max-width: 1024px) {
+  .property-card .property-content-wrap, .property-card .property-image-wrap {
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
 @media screen and (max-width: 767px) {
   .danzerpress-col-5, .danzerpress-col-4, .danzerpress-col-3, .danzerpress-col-2 {
     -ms-flex: 0 0 100%;
@@ -61,7 +69,7 @@ h5 {
   }
 }
 
-.danzerpress-col-5, .danzerpress-col-4, .danzerpress-col-3, .danzerpress-col-2, .danzerpress-col-1 {
+.property-card .property-content-wrap, .property-card .property-image-wrap, .danzerpress-col-5, .danzerpress-col-4, .danzerpress-col-3, .danzerpress-col-2, .danzerpress-col-1 {
   width: 100%;
   position: relative;
   margin-bottom: 20px;
@@ -96,6 +104,24 @@ h5 {
   -ms-flex: 0 0 20%;
   flex: 0 0 20%;
   max-width: 20%;
+}
+
+.property-card .property-image-wrap {
+  -ms-flex: 0 0 25%;
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+.property-card .property-content-wrap {
+  -ms-flex: 0 0 75%;
+  flex: 0 0 75%;
+  max-width: 75%;
+}
+
+.property-card {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 p,
@@ -133,4 +159,29 @@ html .main-content {
 *::before,
 *::after {
   box-sizing: inherit;
+}
+
+.property-card .property-image-wrap img {
+  width: 100%;
+}
+.property-card .property-content-wrap {
+  background: white;
+  padding: 20px;
+}
+.property-card .property-content-wrap .property-title {
+  font-size: 23px;
+  font-family: "Roboto", sans-serif;
+  color: #11284A;
+  margin-bottom: 6px;
+  display: block;
+}
+.property-card .property-content-wrap span {
+  color: #11284A;
+  font-size: 16px;
+  font-weight: 700;
+  font-style: italic;
+}
+.property-card .property-content-wrap p {
+  margin-bottom: 7px;
+  color: #7C8388;
 }
