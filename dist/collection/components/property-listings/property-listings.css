@@ -45,6 +45,14 @@ h5 {
   margin-right: 15px;
 }
 
+@media screen and (max-width: 1024px) {
+  property-listings google-map, property-listings card-list {
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
 @media screen and (max-width: 767px) {
   .danzerpress-col-5, .danzerpress-col-4, .danzerpress-col-3, .danzerpress-col-2 {
     -ms-flex: 0 0 100%;
@@ -61,7 +69,7 @@ h5 {
   }
 }
 
-.danzerpress-col-5, .danzerpress-col-4, .danzerpress-col-3, .danzerpress-col-2, .danzerpress-col-1 {
+property-listings google-map, property-listings card-list, .danzerpress-col-5, .danzerpress-col-4, .danzerpress-col-3, .danzerpress-col-2, .danzerpress-col-1 {
   width: 100%;
   position: relative;
   margin-bottom: 20px;
@@ -98,6 +106,27 @@ h5 {
   max-width: 20%;
 }
 
+property-listings card-list {
+  -ms-flex: 0 0 33.333333%;
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
+}
+
+property-listings google-map {
+  -ms-flex: 0 0 66.666667%;
+  flex: 0 0 66.666667%;
+  max-width: 66.666667%;
+}
+
+property-listings {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+/*--------------------------------------------------------------
+##Position Overrides
+--------------------------------------------------------------*/
 p,
 li,
 a,
@@ -133,4 +162,15 @@ html .main-content {
 *::before,
 *::after {
   box-sizing: inherit;
+}
+
+property-listings card-list {
+  display: inherit;
+  max-height: 500px;
+  overflow: scroll;
+  flex-wrap: wrap;
+}
+property-listings google-map #map {
+  width: 100%;
+  min-height: 500px;
 }

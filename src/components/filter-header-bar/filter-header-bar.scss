@@ -12,6 +12,7 @@ filter-header-bar {
         @extend %danzerpress-flex-row;
         span, div {
             font-size: 20px;
+            transition: .2s;
         }
         span {
             margin-right: 28px;

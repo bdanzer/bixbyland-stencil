@@ -105,6 +105,9 @@ filter-header-bar .views, filter-header-bar .filter-wrap {
   flex-wrap: wrap;
 }
 
+/*--------------------------------------------------------------
+##Position Overrides
+--------------------------------------------------------------*/
 p,
 li,
 a,
@@ -155,6 +158,7 @@ filter-header-bar .filters span, filter-header-bar .filters div,
 filter-header-bar .views span,
 filter-header-bar .views div {
   font-size: 20px;
+  transition: 0.2s;
 }
 filter-header-bar .filters span,
 filter-header-bar .views span {

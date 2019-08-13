@@ -1,4 +1,4 @@
-const BUILD = {"allRenderFn":true,"cmpDidLoad":true,"cmpDidUnload":false,"cmpDidUpdate":false,"cmpDidRender":false,"cmpWillLoad":false,"cmpWillUpdate":true,"cmpWillRender":false,"connectedCallback":false,"disconnectedCallback":false,"element":false,"event":false,"hasRenderFn":true,"lifecycle":true,"hostListener":false,"hostListenerTargetWindow":false,"hostListenerTargetDocument":false,"hostListenerTargetBody":false,"hostListenerTargetParent":false,"hostListenerTarget":false,"member":true,"method":false,"mode":false,"noVdomRender":false,"observeAttribute":true,"prop":true,"propBoolean":false,"propNumber":false,"propString":true,"propMutable":false,"reflect":false,"scoped":false,"shadowDom":false,"slot":false,"slotRelocation":false,"state":true,"style":true,"svg":false,"updatable":true,"vdomAttribute":true,"vdomClass":true,"vdomFunctional":true,"vdomKey":true,"vdomListener":true,"vdomRef":true,"vdomRender":true,"vdomStyle":true,"vdomText":true,"watchCallback":false,"taskQueue":true,"lazyLoad":true,"hydrateServerSide":false,"cssVarShim":true,"hydrateClientSide":false,"isDebug":false,"isDev":true,"lifecycleDOMEvents":false,"profile":false,"hotModuleReplacement":true,"constructableCSS":false,"initializeNextTick":true,"cssAnnotations":true};
+const BUILD = {"allRenderFn":true,"cmpDidLoad":true,"cmpDidUnload":false,"cmpDidUpdate":false,"cmpDidRender":false,"cmpWillLoad":true,"cmpWillUpdate":true,"cmpWillRender":false,"connectedCallback":false,"disconnectedCallback":false,"element":false,"event":false,"hasRenderFn":true,"lifecycle":true,"hostListener":false,"hostListenerTargetWindow":false,"hostListenerTargetDocument":false,"hostListenerTargetBody":false,"hostListenerTargetParent":false,"hostListenerTarget":false,"member":true,"method":false,"mode":false,"noVdomRender":false,"observeAttribute":true,"prop":true,"propBoolean":false,"propNumber":false,"propString":true,"propMutable":false,"reflect":false,"scoped":false,"shadowDom":false,"slot":false,"slotRelocation":false,"state":true,"style":true,"svg":false,"updatable":true,"vdomAttribute":true,"vdomClass":true,"vdomFunctional":true,"vdomKey":true,"vdomListener":true,"vdomRef":true,"vdomRender":true,"vdomStyle":true,"vdomText":true,"watchCallback":true,"taskQueue":true,"lazyLoad":true,"hydrateServerSide":false,"cssVarShim":true,"hydrateClientSide":false,"isDebug":false,"isDev":true,"lifecycleDOMEvents":false,"profile":false,"hotModuleReplacement":true,"constructableCSS":false,"initializeNextTick":true,"cssAnnotations":true};
 const NAMESPACE = 'bixbyland';
 
 let queueCongestion = 0;
@@ -2322,7 +2322,52 @@ const insertChildVNodeAnnotations = (doc, vnodeChild, cmpData, hostId, depth, in
     }
 };
 
+Context.store = (() => {
+    let _store;
+    const setStore = (store) => {
+        _store = store;
+    };
+    const getState = () => {
+        return _store && _store.getState();
+    };
+    const getStore = () => {
+        return _store;
+    };
+    const mapDispatchToProps = (component, props) => {
+        Object.keys(props).forEach(actionName => {
+            const action = props[actionName];
+            Object.defineProperty(component, actionName, {
+                get: () => (...args) => _store.dispatch(action(...args)),
+                configurable: true,
+                enumerable: true,
+            });
+        });
+    };
+    const mapStateToProps = (component, mapState) => {
+        const _mapStateToProps = (_component, _mapState) => {
+            const mergeProps = mapState(_store.getState());
+            Object.keys(mergeProps).forEach(newPropName => {
+                const newPropValue = mergeProps[newPropName];
+                component[newPropName] = newPropValue;
+            });
+        };
+        const unsubscribe = _store.subscribe(() => _mapStateToProps(component, mapState));
+        _mapStateToProps(component, mapState);
+        return unsubscribe;
+    };
+    return {
+        getStore,
+        setStore,
+        getState,
+        mapDispatchToProps,
+        mapStateToProps,
+    };
+})();
+
+function global0(){}
+
 function globals() {
+  global0();
 }
 
-export { Host as H, patchEsm as a, bootstrapLazy as b, globals as g, h, patchBrowser as p, registerInstance as r };
+export { Host as H, patchEsm as a, bootstrapLazy as b, getContext as c, globals as g, h, patchBrowser as p, registerInstance as r };

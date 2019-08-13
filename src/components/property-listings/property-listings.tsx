@@ -6,15 +6,33 @@ import { Component, h, Prop, Host } from '@stencil/core';
 })
 export class PropertyListings {
   @Prop() posts: any;
+  @Prop() activePostId: any = null;
+
+  handleMarker(_e, markerObj)
+  {
+    this.activePostId = markerObj.ID;
+  }
+
+  handleCard(post)
+  {
+    console.log('card clicked', post.ID);
+    this.activePostId = post.ID;
+  }
 
   render() 
   {
     return (
       <Host>
-        <google-map>
-            <map-marker></map-marker>
+        <google-map 
+          posts={this.posts}
+          handleMarker={this.handleMarker.bind(this)}
+          activePostId={this.activePostId}>
         </google-map>
-        <card-list posts={this.posts}></card-list>
+        <card-list
+          handleCard={this.handleCard.bind(this)}
+          activePostId={this.activePostId}
+          posts={this.posts}>
+        </card-list>
       </Host>
     );
   }

@@ -1,11 +1,17 @@
 import { Component, h, Host, State, Prop } from '@stencil/core';
 import axios from 'axios';
 
+import '@stencil/redux';
+import { Store } from "@stencil/redux";
+import { configureStore } from "../../store/index";
+
 @Component({
   tag: 'portfolio-app',
   styleUrl: 'portfolio-app.scss'
 })
 export class PortfolioApp {
+  @Prop({ context: "store" }) store: Store;
+
   @Prop() googleApiKey: string;
   @Prop() urlToFetch: string = 'http://bixbyland.test/wp-json/bixby/v1/properties';
   
@@ -15,6 +21,10 @@ export class PortfolioApp {
 
   oldFilter: string = 'all';
   oldView: string = 'map';
+
+  componentWillLoad() {
+    this.store.setStore(configureStore({}));
+  }
 
   componentWillUpdate() 
   {

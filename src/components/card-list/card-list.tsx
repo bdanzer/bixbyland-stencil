@@ -6,15 +6,20 @@ import { Component, h, Prop, Host } from '@stencil/core';
 })
 export class CardList {
   @Prop() posts: any;
+  @Prop() activePostId: any = false;
+  @Prop() handleCard: Function;
 
   render() 
   {
     return (
       this.posts && <Host>
         {this.posts.map(post => {
-          console.log(post, 'cardList');
           return (
-            <property-card postData={post}></property-card>
+            <property-card
+              onClick={() => this.handleCard(post)}
+              activePostId={this.activePostId}
+              postData={post}>
+            </property-card>
           );
         })}
       </Host>

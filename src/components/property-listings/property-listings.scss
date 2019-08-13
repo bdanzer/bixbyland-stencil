@@ -1,2 +1,17 @@
-.property-listings {
+property-listings {
+    @extend %danzerpress-flex-row;
+    card-list {
+        @extend %danzerpress-one-third;
+        display: inherit;
+        max-height: 500px;
+        overflow: scroll;
+        flex-wrap: wrap;
+    }
+    google-map {
+        @extend %danzerpress-two-thirds;
+        #map {
+            width: 100%;
+            min-height: 500px;
+        }
+    }    
 }

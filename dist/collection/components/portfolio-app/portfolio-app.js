@@ -1,5 +1,6 @@
 import { h, Host } from "@stencil/core";
 import axios from 'axios';
+import { configureStore } from "../../store/index";
 export class PortfolioApp {
     constructor() {
         this.urlToFetch = 'http://bixbyland.test/wp-json/bixby/v1/properties';
@@ -7,6 +8,9 @@ export class PortfolioApp {
         this.view = 'map';
         this.oldFilter = 'all';
         this.oldView = 'map';
+    }
+    componentWillLoad() {
+        this.store.setStore(configureStore({}));
     }
     componentWillUpdate() {
         if (this.filter != this.oldFilter) {
@@ -97,6 +101,10 @@ export class PortfolioApp {
             "defaultValue": "'http://bixbyland.test/wp-json/bixby/v1/properties'"
         }
     }; }
+    static get contextProps() { return [{
+            "name": "store",
+            "context": "store"
+        }]; }
     static get states() { return {
         "filter": {},
         "view": {},
