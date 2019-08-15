@@ -1,16 +1,49 @@
-import { Component, h, Prop, Host } from '@stencil/core';
+import { Component, h, Prop, Host, State } from '@stencil/core';
+import { Store, Action } from "@stencil/redux";
+import { loadDataBegin } from "../../actions/data";
 
 @Component({
   tag: 'card-list',
   styleUrl: 'card-list.scss'
 })
 export class CardList {
+  @Prop({ context: "store" }) store: Store;
   @Prop() posts: any;
   @Prop() activePostId: any = false;
   @Prop() handleCard: Function;
 
+  @State() items: any;
+  @State() loading: boolean;
+  @State() error: any;
+
+  loadDataBegin: Action;
+  
+  componentWillLoad() {
+    this.store.mapStateToProps(this, state => {
+      const {
+        dataReducer: { items, loading, error, posts }
+      } = state;
+      return {
+        items,
+        loading,
+        error,
+        posts
+      };
+    });
+
+    this.store.mapDispatchToProps(this, {
+      loadDataBegin
+    });
+  }
+
+  componentDidLoad() {
+    this.loadDataBegin('hi')
+  }
+
   render() 
   {
+    console.log('posts CardList', this.posts);
+    console.log('items', this.items);
     return (
       this.posts && <Host>
         {this.posts.map(post => {

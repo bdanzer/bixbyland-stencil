@@ -1,15 +1,16 @@
 import { Actions } from "../actions/index";
 export interface LoadDataBeginAction {
     type: Actions.LOAD_DATA_BEGIN;
-}
-export declare const loadDataBegin: () => (dispatch: any, _getState: any) => Promise<any>;
-export interface LoadDataSuccessAction {
-    type: Actions.LOAD_DATA_SUCCESS;
     payload: any;
 }
-export declare const loadDataSuccess: (data: any) => (dispatch: any, _getState: any) => Promise<any>;
-export interface LoadDataFailureAction {
-    type: Actions.LOAD_DATA_FAILURE;
+export declare const loadDataBegin: (data: any) => (dispatch: any, _getState: any) => Promise<any>;
+export interface LoadPosts {
+    type: Actions.LOAD_POSTS;
     payload: any;
 }
-export declare const loadDataFailure: (error: any) => (dispatch: any, _getState: any) => Promise<any>;
+export declare const loadPosts: () => (dispatch: any, _getState: any) => Promise<any>;
+export interface ChangeFilter {
+    type: Actions.CHANGE_FILTER;
+    payload: string;
+}
+export declare const changeFilter: (data: any) => (dispatch: any, _getState: any) => Promise<any>;

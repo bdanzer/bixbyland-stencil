@@ -1,9 +1,9 @@
 import { Component, h, Host, State, Prop } from '@stencil/core';
-import axios from 'axios';
 
 import '@stencil/redux';
-import { Store } from "@stencil/redux";
+import { Store, Action } from "@stencil/redux";
 import { configureStore } from "../../store/index";
+import { loadPosts, changeFilter } from "../../actions/data";
 
 @Component({
   tag: 'portfolio-app',
@@ -22,52 +22,38 @@ export class PortfolioApp {
   oldFilter: string = 'all';
   oldView: string = 'map';
 
+  loadPosts: Action;
+  changeFilter: Action;
+
   componentWillLoad() {
     this.store.setStore(configureStore({}));
-  }
 
-  componentWillUpdate() 
-  {
-    if (this.filter != this.oldFilter) {
-      this.fetchPosts(this.filter);
-      this.oldFilter = this.filter;
-    }
+    this.store.mapStateToProps(this, state => {
+      const {
+        dataReducer: { posts, filter }
+      } = state;
+      return {
+        posts,
+        filter
+      };
+    });
 
-    if (this.view != this.oldView) {
-      this.oldView = this.view;
-    }
+    this.store.mapDispatchToProps(this, {
+      loadPosts,
+      changeFilter
+    });
   }
 
   componentDidLoad() 
   {
     console.log('loaded');
-    this.fetchPosts('all');
-  }
-
-  private async fetchPosts(filter) 
-  {
-    console.log('fetch/filter', filter);
-
-    try {
-      let response = await axios.get(`${this.urlToFetch}`, {
-        params: {
-          'filter': filter
-        }
-      });
-
-      if (response.status == 200) {
-        console.log(response.data);
-        this.posts = response.data;
-      }
-    } catch(e) {
-      console.log(e);
-    }
+    this.loadPosts();
   }
 
   private handleFilter(filter) 
   {
-    console.log('handleFilter', filter);
-    this.filter = filter;
+    this.changeFilter(filter);
+    this.loadPosts();
   }
 
   private handleView(view) 
@@ -78,6 +64,7 @@ export class PortfolioApp {
 
   render() 
   {
+    console.log('posts', this.posts);
     return (
       <Host class="portfolio-app">
         <filter-header-bar

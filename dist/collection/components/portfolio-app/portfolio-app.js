@@ -1,6 +1,6 @@
 import { h, Host } from "@stencil/core";
-import axios from 'axios';
 import { configureStore } from "../../store/index";
+import { loadPosts, changeFilter } from "../../actions/data";
 export class PortfolioApp {
     constructor() {
         this.urlToFetch = 'http://bixbyland.test/wp-json/bixby/v1/properties';
@@ -11,46 +11,32 @@ export class PortfolioApp {
     }
     componentWillLoad() {
         this.store.setStore(configureStore({}));
-    }
-    componentWillUpdate() {
-        if (this.filter != this.oldFilter) {
-            this.fetchPosts(this.filter);
-            this.oldFilter = this.filter;
-        }
-        if (this.view != this.oldView) {
-            this.oldView = this.view;
-        }
+        this.store.mapStateToProps(this, state => {
+            const { dataReducer: { posts, filter } } = state;
+            return {
+                posts,
+                filter
+            };
+        });
+        this.store.mapDispatchToProps(this, {
+            loadPosts,
+            changeFilter
+        });
     }
     componentDidLoad() {
         console.log('loaded');
-        this.fetchPosts('all');
-    }
-    async fetchPosts(filter) {
-        console.log('fetch/filter', filter);
-        try {
-            let response = await axios.get(`${this.urlToFetch}`, {
-                params: {
-                    'filter': filter
-                }
-            });
-            if (response.status == 200) {
-                console.log(response.data);
-                this.posts = response.data;
-            }
-        }
-        catch (e) {
-            console.log(e);
-        }
+        this.loadPosts();
     }
     handleFilter(filter) {
-        console.log('handleFilter', filter);
-        this.filter = filter;
+        this.changeFilter(filter);
+        this.loadPosts();
     }
     handleView(view) {
         console.log('handleView', view);
         this.view = view;
     }
     render() {
+        console.log('posts', this.posts);
         return (h(Host, { class: "portfolio-app" },
             h("filter-header-bar", { filter: this.handleFilter.bind(this), view: this.handleView.bind(this) }),
             h("property-info-bar", null),

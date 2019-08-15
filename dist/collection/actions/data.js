@@ -1,18 +1,34 @@
 import { Actions } from "../actions/index";
-export const loadDataBegin = () => async (dispatch, _getState) => {
+import axios from 'axios';
+export const loadDataBegin = data => async (dispatch, _getState) => {
+    console.log('data', data);
     return dispatch({
-        type: Actions.LOAD_DATA_BEGIN
-    });
-};
-export const loadDataSuccess = data => async (dispatch, _getState) => {
-    return dispatch({
-        type: Actions.LOAD_DATA_SUCCESS,
+        type: Actions.LOAD_DATA_BEGIN,
         payload: { data }
     });
 };
-export const loadDataFailure = error => async (dispatch, _getState) => {
+export const loadPosts = () => async (dispatch, _getState) => {
+    let { filter, fetchUrl } = _getState().dataReducer;
+    try {
+        let response = await axios.get(fetchUrl, {
+            params: {
+                'filter': filter
+            }
+        });
+        if (response.status == 200) {
+            return dispatch({
+                type: Actions.LOAD_POSTS,
+                payload: response.data
+            });
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
+};
+export const changeFilter = (data) => async (dispatch, _getState) => {
     return dispatch({
-        type: Actions.LOAD_DATA_FAILURE,
-        payload: { error }
+        type: Actions.CHANGE_FILTER,
+        payload: data
     });
 };

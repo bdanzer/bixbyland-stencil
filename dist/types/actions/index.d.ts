@@ -1,7 +1,7 @@
-import { LoadDataBeginAction, LoadDataSuccessAction, LoadDataFailureAction } from "./data";
-export declare type ActionTypes = LoadDataBeginAction | LoadDataSuccessAction | LoadDataFailureAction;
+import { LoadDataBeginAction, LoadPosts, ChangeFilter } from "./data";
+export declare type ActionTypes = LoadDataBeginAction | LoadPosts | ChangeFilter;
 export declare enum Actions {
     LOAD_DATA_BEGIN = "LOAD_DATA_BEGIN",
-    LOAD_DATA_SUCCESS = "LOAD_DATA_SUCCESS",
-    LOAD_DATA_FAILURE = "LOAD_DATA_FAILURE"
+    LOAD_POSTS = "LOAD_POSTS",
+    CHANGE_FILTER = "CHANGE_FILTER"
 }

@@ -1,11 +1,12 @@
 {
   "entries": [
-    "components/property-listings/property-listings.js",
     "components/card-list/card-list.js",
-    "components/property-card/property-card.js",
     "components/portfolio-app/portfolio-app.js",
-    "components/google-map/google-map.js",
-    "components/filter-header-bar/filter-header-bar.js"
+    "components/property-filters/property-filters.js",
+    "components/property-card/property-card.js",
+    "components/filter-header-bar/filter-header-bar.js",
+    "components/property-listings/property-listings.js",
+    "components/google-map/google-map.js"
   ],
   "compiler": {
     "name": "@stencil/core",

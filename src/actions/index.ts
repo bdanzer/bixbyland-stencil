@@ -1,17 +1,15 @@
 import {
-  LoadDataBeginAction,
-  LoadDataSuccessAction,
-  LoadDataFailureAction
+  LoadDataBeginAction, LoadPosts, ChangeFilter
 } from "./data";
 
 // Keep this type updated with each known action
 export type ActionTypes =
   | LoadDataBeginAction
-  | LoadDataSuccessAction
-  | LoadDataFailureAction;
+  | LoadPosts
+  | ChangeFilter;
 
 export enum Actions {
   LOAD_DATA_BEGIN = "LOAD_DATA_BEGIN",
-  LOAD_DATA_SUCCESS = "LOAD_DATA_SUCCESS",
-  LOAD_DATA_FAILURE = "LOAD_DATA_FAILURE"
+  LOAD_POSTS = "LOAD_POSTS",
+  CHANGE_FILTER = "CHANGE_FILTER"
 }

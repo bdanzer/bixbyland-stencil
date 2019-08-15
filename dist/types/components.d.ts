@@ -35,6 +35,7 @@ export namespace Components {
     'activePostId': any;
     'postData': any;
   }
+  interface PropertyFilters {}
   interface PropertyListings {
     'activePostId': any;
     'posts': any;
@@ -74,6 +75,12 @@ declare global {
     new (): HTMLPropertyCardElement;
   };
 
+  interface HTMLPropertyFiltersElement extends Components.PropertyFilters, HTMLStencilElement {}
+  var HTMLPropertyFiltersElement: {
+    prototype: HTMLPropertyFiltersElement;
+    new (): HTMLPropertyFiltersElement;
+  };
+
   interface HTMLPropertyListingsElement extends Components.PropertyListings, HTMLStencilElement {}
   var HTMLPropertyListingsElement: {
     prototype: HTMLPropertyListingsElement;
@@ -85,6 +92,7 @@ declare global {
     'google-map': HTMLGoogleMapElement;
     'portfolio-app': HTMLPortfolioAppElement;
     'property-card': HTMLPropertyCardElement;
+    'property-filters': HTMLPropertyFiltersElement;
     'property-listings': HTMLPropertyListingsElement;
   }
 }
@@ -116,6 +124,7 @@ declare namespace LocalJSX {
     'activePostId'?: any;
     'postData'?: any;
   }
+  interface PropertyFilters extends JSXBase.HTMLAttributes<HTMLPropertyFiltersElement> {}
   interface PropertyListings extends JSXBase.HTMLAttributes<HTMLPropertyListingsElement> {
     'activePostId'?: any;
     'posts'?: any;
@@ -127,6 +136,7 @@ declare namespace LocalJSX {
     'google-map': GoogleMap;
     'portfolio-app': PortfolioApp;
     'property-card': PropertyCard;
+    'property-filters': PropertyFilters;
     'property-listings': PropertyListings;
   }
 }

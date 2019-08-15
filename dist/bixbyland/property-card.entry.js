@@ -1,4 +1,4 @@
-import { r as registerInstance, h } from './core-79479660.js';
+import { r as registerInstance, h } from './core-a7bcbb1f.js';
 
 const PropertyCard = class {
     constructor(hostRef) {

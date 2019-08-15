@@ -1,9 +1,29 @@
 import { h, Host } from "@stencil/core";
+import { loadDataBegin } from "../../actions/data";
 export class CardList {
     constructor() {
         this.activePostId = false;
     }
+    componentWillLoad() {
+        this.store.mapStateToProps(this, state => {
+            const { dataReducer: { items, loading, error, posts } } = state;
+            return {
+                items,
+                loading,
+                error,
+                posts
+            };
+        });
+        this.store.mapDispatchToProps(this, {
+            loadDataBegin
+        });
+    }
+    componentDidLoad() {
+        this.loadDataBegin('hi');
+    }
     render() {
+        console.log('posts CardList', this.posts);
+        console.log('items', this.items);
         return (this.posts && h(Host, null, this.posts.map(post => {
             return (h("property-card", { onClick: () => this.handleCard(post), activePostId: this.activePostId, postData: post }));
         })));
@@ -70,5 +90,14 @@ export class CardList {
                 "text": ""
             }
         }
+    }; }
+    static get contextProps() { return [{
+            "name": "store",
+            "context": "store"
+        }]; }
+    static get states() { return {
+        "items": {},
+        "loading": {},
+        "error": {}
     }; }
 }

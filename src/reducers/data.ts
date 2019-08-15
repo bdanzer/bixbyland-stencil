@@ -4,13 +4,19 @@ interface DataState {
   items: string[];
   loading: boolean;
   error: any;
+  posts: any;
+  filter: string;
+  fetchUrl: string;
 }
 
 const getInitialState = () => {
   return {
     items: [],
     loading: false,
-    error: null
+    error: null,
+    posts: [],
+    filter: 'all',
+    fetchUrl: 'http://bixbyland.test/wp-json/bixby/v1/properties'
   };
 };
 
@@ -18,16 +24,9 @@ const dataReducer = (
   state: DataState = getInitialState(),
   action: ActionTypes
 ) => {
+  console.log(Actions, 'called');
   switch (action.type) {
     case Actions.LOAD_DATA_BEGIN: {
-      return {
-        ...state,
-        loading: true,
-        error: null
-      };
-    }
-
-    case Actions.LOAD_DATA_SUCCESS: {
       return {
         ...state,
         loading: false,
@@ -35,12 +34,19 @@ const dataReducer = (
       };
     }
 
-    case Actions.LOAD_DATA_FAILURE: {
+    case Actions.LOAD_POSTS: {
+      console.log('loadPosts', action.payload);
       return {
         ...state,
-        loading: false,
-        error: action.payload.error
-      };
+        posts: action.payload
+      }
+    }
+
+    case Actions.CHANGE_FILTER: {
+      return {
+        ...state,
+        filter: action.payload
+      }
     }
   }
 
