@@ -6,7 +6,8 @@
     "components/property-card/property-card.js",
     "components/filter-header-bar/filter-header-bar.js",
     "components/property-listings/property-listings.js",
-    "components/google-map/google-map.js"
+    "components/google-map/google-map.js",
+    "components/no-ui-slider-wrapper/no-ui-slider-wrapper.js"
   ],
   "compiler": {
     "name": "@stencil/core",

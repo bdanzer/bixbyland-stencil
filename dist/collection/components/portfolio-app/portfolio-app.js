@@ -32,11 +32,9 @@ export class PortfolioApp {
         this.loadPosts();
     }
     handleView(view) {
-        console.log('handleView', view);
         this.view = view;
     }
     render() {
-        console.log('posts', this.posts);
         return (h(Host, { class: "portfolio-app" },
             h("filter-header-bar", { filter: this.handleFilter.bind(this), view: this.handleView.bind(this) }),
             h("property-info-bar", null),

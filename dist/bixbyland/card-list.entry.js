@@ -1,4 +1,4 @@
-import { r as registerInstance, c as getContext, h, H as Host } from './core-a7bcbb1f.js';
+import { r as registerInstance, c as getContext, h, H as Host } from './core-365f7bf1.js';
 import { a as loadDataBegin } from './data-ad099704.js';
 
 const CardList = class {

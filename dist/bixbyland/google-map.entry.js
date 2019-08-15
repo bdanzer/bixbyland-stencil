@@ -1,4 +1,4 @@
-import { r as registerInstance, h } from './core-a7bcbb1f.js';
+import { r as registerInstance, h } from './core-365f7bf1.js';
 
 const GoogleMap = class {
     constructor(hostRef) {

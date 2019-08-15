@@ -58,13 +58,11 @@ export class PortfolioApp {
 
   private handleView(view) 
   {
-    console.log('handleView', view);
     this.view = view;
   }
 
   render() 
   {
-    console.log('posts', this.posts);
     return (
       <Host class="portfolio-app">
         <filter-header-bar

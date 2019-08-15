@@ -27,6 +27,11 @@ export namespace Components {
     'handleMarker': Function;
     'posts': any;
   }
+  interface NoUiSliderWrapper {
+    'el': Element;
+    'slider': Element;
+    'title': string;
+  }
   interface PortfolioApp {
     'googleApiKey': string;
     'urlToFetch': string;
@@ -35,7 +40,9 @@ export namespace Components {
     'activePostId': any;
     'postData': any;
   }
-  interface PropertyFilters {}
+  interface PropertyFilters {
+    'search': any;
+  }
   interface PropertyListings {
     'activePostId': any;
     'posts': any;
@@ -61,6 +68,12 @@ declare global {
   var HTMLGoogleMapElement: {
     prototype: HTMLGoogleMapElement;
     new (): HTMLGoogleMapElement;
+  };
+
+  interface HTMLNoUiSliderWrapperElement extends Components.NoUiSliderWrapper, HTMLStencilElement {}
+  var HTMLNoUiSliderWrapperElement: {
+    prototype: HTMLNoUiSliderWrapperElement;
+    new (): HTMLNoUiSliderWrapperElement;
   };
 
   interface HTMLPortfolioAppElement extends Components.PortfolioApp, HTMLStencilElement {}
@@ -90,6 +103,7 @@ declare global {
     'card-list': HTMLCardListElement;
     'filter-header-bar': HTMLFilterHeaderBarElement;
     'google-map': HTMLGoogleMapElement;
+    'no-ui-slider-wrapper': HTMLNoUiSliderWrapperElement;
     'portfolio-app': HTMLPortfolioAppElement;
     'property-card': HTMLPropertyCardElement;
     'property-filters': HTMLPropertyFiltersElement;
@@ -116,6 +130,11 @@ declare namespace LocalJSX {
     'handleMarker'?: Function;
     'posts'?: any;
   }
+  interface NoUiSliderWrapper extends JSXBase.HTMLAttributes<HTMLNoUiSliderWrapperElement> {
+    'el'?: Element;
+    'slider'?: Element;
+    'title'?: string;
+  }
   interface PortfolioApp extends JSXBase.HTMLAttributes<HTMLPortfolioAppElement> {
     'googleApiKey'?: string;
     'urlToFetch'?: string;
@@ -124,7 +143,9 @@ declare namespace LocalJSX {
     'activePostId'?: any;
     'postData'?: any;
   }
-  interface PropertyFilters extends JSXBase.HTMLAttributes<HTMLPropertyFiltersElement> {}
+  interface PropertyFilters extends JSXBase.HTMLAttributes<HTMLPropertyFiltersElement> {
+    'search'?: any;
+  }
   interface PropertyListings extends JSXBase.HTMLAttributes<HTMLPropertyListingsElement> {
     'activePostId'?: any;
     'posts'?: any;
@@ -134,6 +155,7 @@ declare namespace LocalJSX {
     'card-list': CardList;
     'filter-header-bar': FilterHeaderBar;
     'google-map': GoogleMap;
+    'no-ui-slider-wrapper': NoUiSliderWrapper;
     'portfolio-app': PortfolioApp;
     'property-card': PropertyCard;
     'property-filters': PropertyFilters;
