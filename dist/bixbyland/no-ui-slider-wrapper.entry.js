@@ -2496,6 +2496,17 @@ const NoUiSliderWrapper = class {
                 'max': 100
             },
             tooltips: true,
+            format: {
+                // 'to' the formatted value. Receives a number.
+                to: function (value) {
+                    return Math.round(value) + 'k';
+                },
+                // 'from' the formatted value.
+                // Receives a string, should return a number.
+                from: function (value) {
+                    return Number(value.replace(',-', ''));
+                }
+            }
         });
         if (this.onStart) {
             sliderComponent.on("start", this.onStart);
@@ -2504,10 +2515,14 @@ const NoUiSliderWrapper = class {
             sliderComponent.on("slide", this.onSlide);
         }
         if (this.onUpdate) {
-            sliderComponent.on("update", this.onUpdate);
+            sliderComponent.on("update", (_values, _handle, _unencoded, _tap, _positions) => {
+                this.onUpdate(_values, _handle, _unencoded, _tap, _positions);
+            });
         }
         if (this.onChange) {
-            sliderComponent.on("change", this.onChange);
+            sliderComponent.on("change", (_values, _handle, _unencoded, _tap, _positions) => {
+                this.onChange(_values, _handle, _unencoded, _tap, _positions);
+            });
         }
         if (this.onSet) {
             sliderComponent.on("set", this.onSet);
@@ -2518,7 +2533,7 @@ const NoUiSliderWrapper = class {
     }
     ;
     onChange(_values, _handle, _unencoded, _tap, _positions) {
-        console.log(_values, _handle, _unencoded, _tap, _positions);
+        this.callback(...arguments);
     }
     onEnd(_values, _handle, _unencoded, _tap, _positions) { }
     onSet(_values, _handle, _unencoded, _tap, _positions) { }
@@ -2531,7 +2546,7 @@ const NoUiSliderWrapper = class {
             h("div", { ref: el => this.el = el, id: "double-slider" })
         ];
     }
-    static get style() { return "p {\n  margin: 0 0 20px;\n  font-size: 16px;\n  line-height: 26px;\n  color: grey;\n}\np:last-child {\n  margin: 0;\n}\n\nh1 {\n  font-size: 40px;\n  letter-spacing: 3.5px;\n  font-weight: 800;\n  text-transform: uppercase;\n  text-align: center;\n  padding: 0px;\n  margin-top: 0px;\n  margin-bottom: 15px;\n}\n\nh2 {\n  font-size: 32px;\n  line-height: 1;\n  margin-bottom: 5px;\n  margin-top: 20px;\n}\n\nh3,\nh4 {\n  margin-top: 0px;\n  text-transform: uppercase;\n  font-size: 15px;\n  margin-bottom: 0;\n}\n\nh5 {\n  margin-top: 0px;\n  text-transform: uppercase;\n  margin-bottom: 5px;\n  font-size: 22px;\n}\n\n.danzerpress-button-left {\n  margin-right: 15px;\n}\n\n\@media screen and (max-width: 767px) {\n  .danzerpress-col-5, .danzerpress-col-4, .danzerpress-col-3, .danzerpress-col-2 {\n    -ms-flex: 0 0 100%;\n    flex: 0 0 100%;\n    max-width: 100%;\n  }\n}\n\n\@media screen and (max-width: 767px) {\n  .danzerpress-col-5, .danzerpress-col-4, .danzerpress-col-3 {\n    -ms-flex: 0 0 50%;\n    flex: 0 0 50%;\n    max-width: 50%;\n  }\n}\n\n.danzerpress-col-5, .danzerpress-col-4, .danzerpress-col-3, .danzerpress-col-2, .danzerpress-col-1 {\n  width: 100%;\n  position: relative;\n  margin-bottom: 20px;\n  padding: 0 15px;\n}\n\n.danzerpress-col-1 {\n  -ms-flex: 0 0 100%;\n  flex: 0 0 100%;\n  max-width: 100%;\n}\n\n.danzerpress-col-2 {\n  -ms-flex: 0 0 50%;\n  flex: 0 0 50%;\n  max-width: 50%;\n}\n\n.danzerpress-col-3 {\n  -ms-flex: 0 0 33.333333%;\n  flex: 0 0 33.333333%;\n  max-width: 33.333333%;\n}\n\n.danzerpress-col-4 {\n  -ms-flex: 0 0 25%;\n  flex: 0 0 25%;\n  max-width: 25%;\n}\n\n.danzerpress-col-5 {\n  -ms-flex: 0 0 20%;\n  flex: 0 0 20%;\n  max-width: 20%;\n}\n\n/*--------------------------------------------------------------\n##Position Overrides\n--------------------------------------------------------------*/\np,\nli,\na,\nul,\ninput,\ntextarea {\n  font-family: \"Open Sans\", sans-serif;\n}\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-family: \"Raleway\", sans-serif;\n  font-weight: 600;\n  color: #333333;\n}\n\nhtml {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  -ms-overflow-style: scrollbar;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: column;\n  flex-direction: column;\n  width: 100%;\n}\nhtml .main-content {\n  -ms-flex: 1 0 auto;\n  flex: 1 0 auto;\n}\n\n*,\n*::before,\n*::after {\n  -webkit-box-sizing: inherit;\n  box-sizing: inherit;\n}\n\nno-ui-slider-wrapper {\n  -ms-flex: 1;\n  flex: 1;\n  min-width: 250px;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: column;\n  flex-direction: column;\n  padding: 12px 16px;\n  background: #FFFFFF 0% 0% no-repeat padding-box;\n  -webkit-box-shadow: 0px 3px 6px #000000;\n  box-shadow: 0px 3px 6px #000000;\n  border-radius: 5px;\n  opacity: 1;\n}\nno-ui-slider-wrapper slot-fb[name=title] {\n  text-align: left;\n  font: Regular 15px/20px Roboto;\n  letter-spacing: 0.9px;\n  color: #11284A;\n  opacity: 1;\n}\nno-ui-slider-wrapper #double-slider {\n  max-width: 300px;\n  width: 100%;\n  margin: auto;\n}\nno-ui-slider-wrapper #double-slider .noUi-connect {\n  background: #11284A 0% 0% no-repeat padding-box;\n  border-radius: 5px;\n  opacity: 1;\n}\nno-ui-slider-wrapper #double-slider.noUi-horizontal .noUi-tooltip {\n  bottom: 0;\n  background: #11284A 0% 0% no-repeat padding-box;\n  border-radius: 5px;\n  opacity: 1;\n  color: white;\n}"; }
+    static get style() { return "p {\n  margin: 0 0 20px;\n  font-size: 16px;\n  line-height: 26px;\n  color: grey;\n}\np:last-child {\n  margin: 0;\n}\n\nh1 {\n  font-size: 40px;\n  letter-spacing: 3.5px;\n  font-weight: 800;\n  text-transform: uppercase;\n  text-align: center;\n  padding: 0px;\n  margin-top: 0px;\n  margin-bottom: 15px;\n}\n\nh2 {\n  font-size: 32px;\n  line-height: 1;\n  margin-bottom: 5px;\n  margin-top: 20px;\n}\n\nh3,\nh4 {\n  margin-top: 0px;\n  text-transform: uppercase;\n  font-size: 15px;\n  margin-bottom: 0;\n}\n\nh5 {\n  margin-top: 0px;\n  text-transform: uppercase;\n  margin-bottom: 5px;\n  font-size: 22px;\n}\n\n.danzerpress-button-left {\n  margin-right: 15px;\n}\n\n\@media screen and (max-width: 767px) {\n  .danzerpress-col-5, .danzerpress-col-4, .danzerpress-col-3, .danzerpress-col-2 {\n    -ms-flex: 0 0 100%;\n    flex: 0 0 100%;\n    max-width: 100%;\n  }\n}\n\n\@media screen and (max-width: 767px) {\n  .danzerpress-col-5, .danzerpress-col-4, .danzerpress-col-3 {\n    -ms-flex: 0 0 50%;\n    flex: 0 0 50%;\n    max-width: 50%;\n  }\n}\n\n.danzerpress-col-5, .danzerpress-col-4, .danzerpress-col-3, .danzerpress-col-2, .danzerpress-col-1 {\n  width: 100%;\n  position: relative;\n  margin-bottom: 20px;\n  padding: 0 15px;\n}\n\n.danzerpress-col-1 {\n  -ms-flex: 0 0 100%;\n  flex: 0 0 100%;\n  max-width: 100%;\n}\n\n.danzerpress-col-2 {\n  -ms-flex: 0 0 50%;\n  flex: 0 0 50%;\n  max-width: 50%;\n}\n\n.danzerpress-col-3 {\n  -ms-flex: 0 0 33.333333%;\n  flex: 0 0 33.333333%;\n  max-width: 33.333333%;\n}\n\n.danzerpress-col-4 {\n  -ms-flex: 0 0 25%;\n  flex: 0 0 25%;\n  max-width: 25%;\n}\n\n.danzerpress-col-5 {\n  -ms-flex: 0 0 20%;\n  flex: 0 0 20%;\n  max-width: 20%;\n}\n\n/*--------------------------------------------------------------\n##Position Overrides\n--------------------------------------------------------------*/\np,\nli,\na,\nul,\ninput,\ntextarea {\n  font-family: \"Open Sans\", sans-serif;\n}\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-family: \"Raleway\", sans-serif;\n  font-weight: 600;\n  color: #333333;\n}\n\nhtml {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  -ms-overflow-style: scrollbar;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: column;\n  flex-direction: column;\n  width: 100%;\n}\nhtml .main-content {\n  -ms-flex: 1 0 auto;\n  flex: 1 0 auto;\n}\n\n*,\n*::before,\n*::after {\n  -webkit-box-sizing: inherit;\n  box-sizing: inherit;\n}\n\nno-ui-slider-wrapper {\n  -ms-flex: 1;\n  flex: 1;\n  min-width: 250px;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: column;\n  flex-direction: column;\n  padding: 12px 16px;\n  background: #FFFFFF 0% 0% no-repeat padding-box;\n  -webkit-box-shadow: 0px 3px 6px #000000;\n  box-shadow: 0px 3px 6px #000000;\n  border-radius: 5px;\n  opacity: 1;\n}\nno-ui-slider-wrapper slot-fb[name=title] {\n  text-align: left;\n  font: Regular 15px/20px Roboto;\n  letter-spacing: 0.9px;\n  color: #11284A;\n  opacity: 1;\n  margin-bottom: 14px;\n}\nno-ui-slider-wrapper #double-slider {\n  max-width: 300px;\n  width: 100%;\n  margin: auto;\n}\nno-ui-slider-wrapper #double-slider .noUi-handle {\n  border: none;\n  background: none;\n  -webkit-box-shadow: none;\n  box-shadow: none;\n  outline: none;\n}\nno-ui-slider-wrapper #double-slider .noUi-handle.noUi-handle-upper {\n  right: -2px;\n}\nno-ui-slider-wrapper #double-slider .noUi-handle.noUi-handle-lower {\n  right: -28px;\n}\nno-ui-slider-wrapper #double-slider .noUi-handle:before, no-ui-slider-wrapper #double-slider .noUi-handle:after {\n  display: none;\n}\nno-ui-slider-wrapper #double-slider .noUi-connect {\n  background: #11284A 0% 0% no-repeat padding-box;\n  border-radius: 5px;\n  opacity: 1;\n}\nno-ui-slider-wrapper #double-slider.noUi-horizontal {\n  height: 4px;\n  border: none;\n  background: grey;\n}\nno-ui-slider-wrapper #double-slider.noUi-horizontal .noUi-tooltip {\n  font-family: \"Roboto\", sans-serif;\n  bottom: 9px;\n  background: #11284A 0% 0% no-repeat padding-box;\n  border-radius: 5px;\n  opacity: 1;\n  font-size: 11px;\n  letter-spacing: 0.66px;\n  color: #FFFFFF;\n  border: none;\n}"; }
 };
 
 export { NoUiSliderWrapper as no_ui_slider_wrapper };

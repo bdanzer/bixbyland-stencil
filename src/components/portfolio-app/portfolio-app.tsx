@@ -52,7 +52,7 @@ export class PortfolioApp {
 
   private handleFilter(filter) 
   {
-    this.changeFilter(filter);
+    this.changeFilter({"category": filter});
     this.loadPosts();
   }
 

@@ -20,12 +20,12 @@ export interface LoadPosts {
 }
 
 export const loadPosts = () => async (dispatch, _getState) => {
-  let {filter, fetchUrl} = _getState().dataReducer;
+  let {filters, fetchUrl} = _getState().dataReducer;
 
   try {
     let response = await axios.get(fetchUrl, {
       params: {
-        'filter': filter
+        ...filters
       }
     });
 
@@ -42,7 +42,7 @@ export const loadPosts = () => async (dispatch, _getState) => {
 
 export interface ChangeFilter {
   type: Actions.CHANGE_FILTER,
-  payload: string;
+  payload: object;
 }
 
 export const changeFilter = (data) => async (dispatch, _getState) => {

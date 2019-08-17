@@ -28,7 +28,7 @@ export class PortfolioApp {
         this.loadPosts();
     }
     handleFilter(filter) {
-        this.changeFilter(filter);
+        this.changeFilter({ "category": filter });
         this.loadPosts();
     }
     handleView(view) {

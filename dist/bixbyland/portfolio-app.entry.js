@@ -1,5 +1,6 @@
 import { r as registerInstance, c as getContext, h, H as Host } from './core-365f7bf1.js';
-import { A as Actions, l as loadPosts, c as changeFilter } from './data-ad099704.js';
+import { A as Actions, l as loadPosts, c as changeFilter } from './data-3b44a258.js';
+import { i as isEmpty } from './index-b6ff7673.js';
 import { c as createCommonjsModule, a as commonjsGlobal, u as unwrapExports } from './_commonjsHelpers-b12caf5b.js';
 
 function symbolObservablePonyfill(root) {
@@ -702,7 +703,13 @@ const getInitialState = () => {
         loading: false,
         error: null,
         posts: [],
-        filter: 'all',
+        filters: {
+            "category": "",
+            "region": "",
+            "search": "",
+            "sqFootage": "",
+            "sortBy": ""
+        },
         fetchUrl: 'http://bixbyland.test/wp-json/bixby/v1/properties'
     };
 };
@@ -717,7 +724,14 @@ const dataReducer = (state = getInitialState(), action) => {
             return Object.assign({}, state, { posts: action.payload });
         }
         case Actions.CHANGE_FILTER: {
-            return Object.assign({}, state, { filter: action.payload });
+            var filters = {};
+            if (!isEmpty(action.payload)) {
+                filters = Object.assign({}, state.filters, action.payload);
+            }
+            else {
+                filters = Object.assign({}, getInitialState().filters);
+            }
+            return Object.assign({}, state, { filters: filters });
         }
     }
     return state;
@@ -783,7 +797,7 @@ const PortfolioApp = class {
         this.loadPosts();
     }
     handleFilter(filter) {
-        this.changeFilter(filter);
+        this.changeFilter({ "category": filter });
         this.loadPosts();
     }
     handleView(view) {

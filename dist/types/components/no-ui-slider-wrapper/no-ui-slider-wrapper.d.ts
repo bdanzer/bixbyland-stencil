@@ -2,6 +2,7 @@ export declare class NoUiSliderWrapper {
     title: string;
     slider: Element;
     el: Element;
+    callback: Function;
     componentDidLoad(): void;
     createSlider(): void;
     onChange(_values: any, _handle: any, _unencoded: any, _tap: any, _positions: any): void;

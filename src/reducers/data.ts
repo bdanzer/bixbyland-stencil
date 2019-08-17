@@ -1,11 +1,12 @@
 import { Actions, ActionTypes } from "../actions/index";
+import * as R from "ramda";
 
 interface DataState {
   items: string[];
   loading: boolean;
   error: any;
   posts: any;
-  filter: string;
+  filters: object;
   fetchUrl: string;
 }
 
@@ -15,7 +16,13 @@ const getInitialState = () => {
     loading: false,
     error: null,
     posts: [],
-    filter: 'all',
+    filters: {
+      "category": "",
+      "region": "",
+      "search": "",
+      "sqFootage": "",
+      "sortBy": ""
+    },
     fetchUrl: 'http://bixbyland.test/wp-json/bixby/v1/properties'
   };
 };
@@ -43,9 +50,22 @@ const dataReducer = (
     }
 
     case Actions.CHANGE_FILTER: {
+      var filters = {};
+
+      if (!R.isEmpty(action.payload)) {
+        filters = {
+          ...state.filters,
+          ...action.payload
+        }
+      } else {
+        filters = {
+          ...getInitialState().filters
+        }
+      }
+
       return {
         ...state,
-        filter: action.payload
+        filters: filters
       }
     }
   }

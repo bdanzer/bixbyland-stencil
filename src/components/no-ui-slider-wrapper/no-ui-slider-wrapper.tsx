@@ -9,6 +9,7 @@ export class NoUiSliderWrapper {
   @Prop() title: string;
   @Prop() slider: Element;
   @Prop() el: Element;
+  @Prop() callback: Function;
 
   componentDidLoad() {
     this.createSlider();
@@ -26,6 +27,17 @@ export class NoUiSliderWrapper {
           'max': 100
       },
       tooltips: true,
+      format: {
+         // 'to' the formatted value. Receives a number.
+         to: function (value) {
+          return Math.round(value) + 'k';
+        },
+        // 'from' the formatted value.
+        // Receives a string, should return a number.
+        from: function (value) {
+            return Number(value.replace(',-', ''));
+        }
+      }
     });
 
     if (this.onStart) {
@@ -37,11 +49,15 @@ export class NoUiSliderWrapper {
     }
 
     if (this.onUpdate) {
-      sliderComponent.on("update", this.onUpdate);
+      sliderComponent.on("update", (_values, _handle, _unencoded, _tap, _positions) => {
+        this.onUpdate(_values, _handle, _unencoded, _tap, _positions);
+      });
     }
 
     if (this.onChange) {
-      sliderComponent.on("change", this.onChange);
+      sliderComponent.on("change", (_values, _handle, _unencoded, _tap, _positions) => {
+        this.onChange(_values, _handle, _unencoded, _tap, _positions);
+      });
     }
 
     if (this.onSet) {
@@ -54,7 +70,7 @@ export class NoUiSliderWrapper {
   };
 
   onChange(_values, _handle, _unencoded, _tap, _positions) {
-    console.log(_values, _handle, _unencoded, _tap, _positions);
+    this.callback(...arguments);
   }
 
   onEnd(_values, _handle, _unencoded, _tap, _positions) {}

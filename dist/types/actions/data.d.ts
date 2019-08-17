@@ -11,6 +11,6 @@ export interface LoadPosts {
 export declare const loadPosts: () => (dispatch: any, _getState: any) => Promise<any>;
 export interface ChangeFilter {
     type: Actions.CHANGE_FILTER;
-    payload: string;
+    payload: object;
 }
 export declare const changeFilter: (data: any) => (dispatch: any, _getState: any) => Promise<any>;

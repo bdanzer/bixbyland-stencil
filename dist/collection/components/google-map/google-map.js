@@ -6,10 +6,10 @@ export class GoogleMap {
         this.markersObj = {};
     }
     componentDidLoad() {
-        this.map = new google.maps.Map(document.getElementById('map'), {
+        this.mapObject = new google.maps.Map(this.map, {
             center: {
-                'lat': 0,
-                'lng': 0
+                'lat': 34.052437,
+                'lng': -118.263159
             },
             zoom: 7,
             streetViewControl: false,
@@ -27,7 +27,7 @@ export class GoogleMap {
     activePostIdWatch(newId, oldId) {
         if (newId !== oldId) {
             let markerData = this.markersObj[newId];
-            this.map.setCenter(markerData.position);
+            this.mapObject.setCenter(markerData.position);
         }
     }
     addMarkers() {
@@ -38,7 +38,7 @@ export class GoogleMap {
             };
             var marker = new google.maps.Marker({
                 position: position,
-                map: this.map,
+                map: this.mapObject,
                 title: 'Hello World!'
             });
             let markerObj = {
@@ -47,10 +47,10 @@ export class GoogleMap {
                 position: position
             };
             this.markersObj[post.ID] = markerObj;
-            marker.setMap(this.map);
+            marker.setMap(this.mapObject);
             marker.addListener('click', (e) => {
-                this.handleMarker(e, markerObj, this.map);
-                this.map.setCenter({
+                this.handleMarker(e, markerObj, this.mapObject);
+                this.mapObject.setCenter({
                     'lat': e.latLng.lat(),
                     'lng': e.latLng.lng()
                 });
@@ -67,7 +67,7 @@ export class GoogleMap {
         this.markersObj = {};
     }
     render() {
-        return (h("div", { id: "map" }));
+        return (h("div", { id: "map", ref: el => this.map = el }));
     }
     static get is() { return "google-map"; }
     static get originalStyleUrls() { return {
@@ -132,6 +132,9 @@ export class GoogleMap {
             "reflect": false,
             "defaultValue": "false"
         }
+    }; }
+    static get states() { return {
+        "mapObject": {}
     }; }
     static get watchers() { return [{
             "propName": "posts",

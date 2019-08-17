@@ -4,7 +4,7 @@ interface DataState {
     loading: boolean;
     error: any;
     posts: any;
-    filter: string;
+    filters: object;
     fetchUrl: string;
 }
 declare const dataReducer: (state: DataState, action: ActionTypes) => {
@@ -12,7 +12,7 @@ declare const dataReducer: (state: DataState, action: ActionTypes) => {
     items: any;
     error: any;
     posts: any;
-    filter: string;
+    filters: object;
     fetchUrl: string;
 };
 export default dataReducer;

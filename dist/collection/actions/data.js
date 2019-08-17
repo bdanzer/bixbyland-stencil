@@ -8,12 +8,10 @@ export const loadDataBegin = data => async (dispatch, _getState) => {
     });
 };
 export const loadPosts = () => async (dispatch, _getState) => {
-    let { filter, fetchUrl } = _getState().dataReducer;
+    let { filters, fetchUrl } = _getState().dataReducer;
     try {
         let response = await axios.get(fetchUrl, {
-            params: {
-                'filter': filter
-            }
+            params: Object.assign({}, filters)
         });
         if (response.status == 200) {
             return dispatch({

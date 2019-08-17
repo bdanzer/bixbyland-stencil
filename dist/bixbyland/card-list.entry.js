@@ -1,5 +1,5 @@
 import { r as registerInstance, c as getContext, h, H as Host } from './core-365f7bf1.js';
-import { a as loadDataBegin } from './data-ad099704.js';
+import { a as loadDataBegin } from './data-3b44a258.js';
 
 const CardList = class {
     constructor(hostRef) {

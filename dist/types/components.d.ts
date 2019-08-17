@@ -28,6 +28,7 @@ export namespace Components {
     'posts': any;
   }
   interface NoUiSliderWrapper {
+    'callback': Function;
     'el': Element;
     'slider': Element;
     'title': string;
@@ -41,8 +42,10 @@ export namespace Components {
     'postData': any;
   }
   interface PropertyFilters {
+    'filters': any;
     'search': any;
   }
+  interface PropertyInfoBar {}
   interface PropertyListings {
     'activePostId': any;
     'posts': any;
@@ -94,6 +97,12 @@ declare global {
     new (): HTMLPropertyFiltersElement;
   };
 
+  interface HTMLPropertyInfoBarElement extends Components.PropertyInfoBar, HTMLStencilElement {}
+  var HTMLPropertyInfoBarElement: {
+    prototype: HTMLPropertyInfoBarElement;
+    new (): HTMLPropertyInfoBarElement;
+  };
+
   interface HTMLPropertyListingsElement extends Components.PropertyListings, HTMLStencilElement {}
   var HTMLPropertyListingsElement: {
     prototype: HTMLPropertyListingsElement;
@@ -107,6 +116,7 @@ declare global {
     'portfolio-app': HTMLPortfolioAppElement;
     'property-card': HTMLPropertyCardElement;
     'property-filters': HTMLPropertyFiltersElement;
+    'property-info-bar': HTMLPropertyInfoBarElement;
     'property-listings': HTMLPropertyListingsElement;
   }
 }
@@ -131,6 +141,7 @@ declare namespace LocalJSX {
     'posts'?: any;
   }
   interface NoUiSliderWrapper extends JSXBase.HTMLAttributes<HTMLNoUiSliderWrapperElement> {
+    'callback'?: Function;
     'el'?: Element;
     'slider'?: Element;
     'title'?: string;
@@ -144,8 +155,10 @@ declare namespace LocalJSX {
     'postData'?: any;
   }
   interface PropertyFilters extends JSXBase.HTMLAttributes<HTMLPropertyFiltersElement> {
+    'filters'?: any;
     'search'?: any;
   }
+  interface PropertyInfoBar extends JSXBase.HTMLAttributes<HTMLPropertyInfoBarElement> {}
   interface PropertyListings extends JSXBase.HTMLAttributes<HTMLPropertyListingsElement> {
     'activePostId'?: any;
     'posts'?: any;
@@ -159,6 +172,7 @@ declare namespace LocalJSX {
     'portfolio-app': PortfolioApp;
     'property-card': PropertyCard;
     'property-filters': PropertyFilters;
+    'property-info-bar': PropertyInfoBar;
     'property-listings': PropertyListings;
   }
 }

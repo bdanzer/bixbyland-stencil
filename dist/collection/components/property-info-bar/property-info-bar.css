@@ -98,13 +98,6 @@ h5 {
   max-width: 20%;
 }
 
-filter-header-bar .filters,
-filter-header-bar .views, filter-header-bar .filter-wrap {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
 /*--------------------------------------------------------------
 ##Position Overrides
 --------------------------------------------------------------*/
@@ -145,47 +138,45 @@ html .main-content {
   box-sizing: inherit;
 }
 
-filter-header-bar {
-  font-family: "Roboto", sans-serif;
-}
-filter-header-bar .filter-wrap {
-  padding: 45px 0;
+.property-info-bar-wrap {
   max-width: 1300px;
   margin: auto;
+  display: flex;
   justify-content: space-between;
+  align-items: center;
 }
-filter-header-bar .filters span, filter-header-bar .filters div,
-filter-header-bar .views span,
-filter-header-bar .views div {
-  font-size: 20px;
-  transition: 0.2s;
+
+.property-info-bar {
+  padding: 41px 80px;
+  background: #11284A 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #000000;
 }
-filter-header-bar .filters span,
-filter-header-bar .views span {
-  margin-right: 28px;
-  color: #7C8388;
-}
-filter-header-bar .filters div,
-filter-header-bar .views div {
-  position: relative;
+.property-info-bar .property-info-stats {
+  font: 600 Italic 24px/32px Roboto;
+  letter-spacing: 1.44px;
   color: #B4BFC8;
-  margin-right: 40px;
-  text-transform: uppercase;
-  font-weight: 500;
-  cursor: pointer;
+  opacity: 1;
+  display: flex;
+  align-items: center;
 }
-filter-header-bar .filters div.active,
-filter-header-bar .views div.active {
-  color: #11284A;
+.property-info-bar .property-info-header {
+  text-align: left;
+  font: Bold Italic 24px/32px Roboto;
+  letter-spacing: 1.44px;
+  color: #FFFFFF;
+  opacity: 1;
 }
-filter-header-bar .filters div.active:after,
-filter-header-bar .views div.active:after {
-  content: "";
-  width: 100%;
-  height: 2px;
-  background: black;
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  max-width: 40px;
+.property-info-bar .property-info-subheader {
+  text-align: left;
+  font: 400 20px/26px Roboto;
+  letter-spacing: 1.2px;
+  color: #FFFFFF;
+  opacity: 1;
+}
+.property-info-bar .number-wrap {
+  font: 400 74px/90px Roboto;
+  letter-spacing: 4.44px;
+  color: #FFFFFF;
+  opacity: 1;
+  margin-right: 10px;
 }

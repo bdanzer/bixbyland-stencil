@@ -15,6 +15,17 @@ export class NoUiSliderWrapper {
                 'max': 100
             },
             tooltips: true,
+            format: {
+                // 'to' the formatted value. Receives a number.
+                to: function (value) {
+                    return Math.round(value) + 'k';
+                },
+                // 'from' the formatted value.
+                // Receives a string, should return a number.
+                from: function (value) {
+                    return Number(value.replace(',-', ''));
+                }
+            }
         });
         if (this.onStart) {
             sliderComponent.on("start", this.onStart);
@@ -23,10 +34,14 @@ export class NoUiSliderWrapper {
             sliderComponent.on("slide", this.onSlide);
         }
         if (this.onUpdate) {
-            sliderComponent.on("update", this.onUpdate);
+            sliderComponent.on("update", (_values, _handle, _unencoded, _tap, _positions) => {
+                this.onUpdate(_values, _handle, _unencoded, _tap, _positions);
+            });
         }
         if (this.onChange) {
-            sliderComponent.on("change", this.onChange);
+            sliderComponent.on("change", (_values, _handle, _unencoded, _tap, _positions) => {
+                this.onChange(_values, _handle, _unencoded, _tap, _positions);
+            });
         }
         if (this.onSet) {
             sliderComponent.on("set", this.onSet);
@@ -37,7 +52,7 @@ export class NoUiSliderWrapper {
     }
     ;
     onChange(_values, _handle, _unencoded, _tap, _positions) {
-        console.log(_values, _handle, _unencoded, _tap, _positions);
+        this.callback(...arguments);
     }
     onEnd(_values, _handle, _unencoded, _tap, _positions) { }
     onSet(_values, _handle, _unencoded, _tap, _positions) { }
@@ -102,6 +117,25 @@ export class NoUiSliderWrapper {
                 "resolved": "Element",
                 "references": {
                     "Element": {
+                        "location": "global"
+                    }
+                }
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            }
+        },
+        "callback": {
+            "type": "unknown",
+            "mutable": false,
+            "complexType": {
+                "original": "Function",
+                "resolved": "Function",
+                "references": {
+                    "Function": {
                         "location": "global"
                     }
                 }

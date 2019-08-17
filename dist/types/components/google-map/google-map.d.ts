@@ -2,6 +2,7 @@ export declare class GoogleMap {
     posts: any;
     handleMarker: Function;
     activePostId: any;
+    mapObject: any;
     map: any;
     markersObj: any;
     componentDidLoad(): void;

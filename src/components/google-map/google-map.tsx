@@ -1,4 +1,4 @@
-import { Component, h, Prop, Watch } from '@stencil/core';
+import { Component, h, Prop, Watch, State } from '@stencil/core';
 
 declare var google: any;
 
@@ -11,15 +11,17 @@ export class GoogleMap {
   @Prop() handleMarker: Function;
   @Prop() activePostId: any = false;
 
+  @State() mapObject;
+
   map: any;
   markersObj: any = {};
 
   componentDidLoad() 
   {
-    this.map = new google.maps.Map(document.getElementById('map'), {
+    this.mapObject = new google.maps.Map(this.map, {
       center: {
-        'lat': 0,
-        'lng': 0
+        'lat': 34.052437,
+        'lng': -118.263159
       },
       zoom: 7,
       streetViewControl: false,
@@ -41,7 +43,7 @@ export class GoogleMap {
   activePostIdWatch(newId, oldId) {
     if (newId !== oldId) {
       let markerData = this.markersObj[newId];
-      this.map.setCenter(markerData.position);
+      this.mapObject.setCenter(markerData.position);
     }
   }
 
@@ -55,7 +57,7 @@ export class GoogleMap {
 
       var marker = new google.maps.Marker({
         position: position,
-        map: this.map,
+        map: this.mapObject,
         title: 'Hello World!'
       });
 
@@ -67,11 +69,11 @@ export class GoogleMap {
 
       this.markersObj[post.ID] = markerObj;
 
-      marker.setMap(this.map);
+      marker.setMap(this.mapObject);
 
       marker.addListener('click', (e) => {
-        this.handleMarker(e, markerObj, this.map);
-        this.map.setCenter({
+        this.handleMarker(e, markerObj, this.mapObject);
+        this.mapObject.setCenter({
           'lat': e.latLng.lat(),
           'lng': e.latLng.lng()
         });
@@ -95,7 +97,7 @@ export class GoogleMap {
   render() 
   {
     return (
-      <div id="map"></div>
+      <div id="map" ref={el => this.map = el}></div>
     );
   }
 }

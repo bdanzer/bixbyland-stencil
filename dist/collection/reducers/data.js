@@ -1,11 +1,18 @@
 import { Actions } from "../actions/index";
+import * as R from "ramda";
 const getInitialState = () => {
     return {
         items: [],
         loading: false,
         error: null,
         posts: [],
-        filter: 'all',
+        filters: {
+            "category": "",
+            "region": "",
+            "search": "",
+            "sqFootage": "",
+            "sortBy": ""
+        },
         fetchUrl: 'http://bixbyland.test/wp-json/bixby/v1/properties'
     };
 };
@@ -20,7 +27,14 @@ const dataReducer = (state = getInitialState(), action) => {
             return Object.assign({}, state, { posts: action.payload });
         }
         case Actions.CHANGE_FILTER: {
-            return Object.assign({}, state, { filter: action.payload });
+            var filters = {};
+            if (!R.isEmpty(action.payload)) {
+                filters = Object.assign({}, state.filters, action.payload);
+            }
+            else {
+                filters = Object.assign({}, getInitialState().filters);
+            }
+            return Object.assign({}, state, { filters: filters });
         }
     }
     return state;
