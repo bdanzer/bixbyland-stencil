@@ -22,8 +22,6 @@ export class CardList {
         this.loadDataBegin('hi');
     }
     render() {
-        console.log('posts CardList', this.posts);
-        console.log('items', this.items);
         return (this.posts && h(Host, null, this.posts.map(post => {
             return (h("property-card", { onClick: () => this.handleCard(post), activePostId: this.activePostId, postData: post }));
         })));

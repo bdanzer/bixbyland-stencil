@@ -7,7 +7,6 @@ export interface LoadDataBeginAction {
 }
 
 export const loadDataBegin = data => async (dispatch, _getState) => {
-  console.log('data', data);
   return dispatch({
     type: Actions.LOAD_DATA_BEGIN,
     payload: {data}

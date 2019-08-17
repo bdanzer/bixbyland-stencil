@@ -173,7 +173,10 @@ property-card .property-card.active .property-card-content-wrap {
   background: #B4BFC8;
 }
 property-card .property-card .property-card-content-wrap {
-  padding: 20px;
+  padding: 15px;
+}
+property-card .property-card .property-card-content-wrap .property-content, property-card .property-card .property-card-content-wrap .property-image-wrap {
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.23);
 }
 property-card .property-card .property-card-content-wrap .property-image-wrap img {
   width: 100%;

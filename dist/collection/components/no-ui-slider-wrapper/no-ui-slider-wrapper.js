@@ -1,14 +1,22 @@
 import { h } from "@stencil/core";
 import noUiSlider from 'nouislider';
+import * as R from 'ramda';
 export class NoUiSliderWrapper {
     componentDidLoad() {
         this.createSlider();
     }
+    watchStart(newValue, oldValue) {
+        if (!R.equals(newValue, oldValue)) {
+            this.sliderComponent.updateOptions({
+                start: newValue
+            });
+        }
+    }
     createSlider() {
         this.slider = this.el;
         // const { onUpdate, onChange, onSlide, onStart, onEnd, onSet } = props;
-        const sliderComponent = noUiSlider.create(this.slider, {
-            start: [20, 80],
+        this.sliderComponent = noUiSlider.create(this.slider, {
+            start: this.start,
             connect: true,
             range: {
                 'min': 0,
@@ -28,26 +36,26 @@ export class NoUiSliderWrapper {
             }
         });
         if (this.onStart) {
-            sliderComponent.on("start", this.onStart);
+            this.sliderComponent.on("start", this.onStart);
         }
         if (this.onSlide) {
-            sliderComponent.on("slide", this.onSlide);
+            this.sliderComponent.on("slide", this.onSlide);
         }
         if (this.onUpdate) {
-            sliderComponent.on("update", (_values, _handle, _unencoded, _tap, _positions) => {
+            this.sliderComponent.on("update", (_values, _handle, _unencoded, _tap, _positions) => {
                 this.onUpdate(_values, _handle, _unencoded, _tap, _positions);
             });
         }
         if (this.onChange) {
-            sliderComponent.on("change", (_values, _handle, _unencoded, _tap, _positions) => {
+            this.sliderComponent.on("change", (_values, _handle, _unencoded, _tap, _positions) => {
                 this.onChange(_values, _handle, _unencoded, _tap, _positions);
             });
         }
         if (this.onSet) {
-            sliderComponent.on("set", this.onSet);
+            this.sliderComponent.on("set", this.onSet);
         }
         if (this.onEnd) {
-            sliderComponent.on("end", this.onEnd);
+            this.sliderComponent.on("end", this.onEnd);
         }
     }
     ;
@@ -146,6 +154,27 @@ export class NoUiSliderWrapper {
                 "tags": [],
                 "text": ""
             }
+        },
+        "start": {
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "start",
+            "reflect": false
         }
     }; }
+    static get watchers() { return [{
+            "propName": "start",
+            "methodName": "watchStart"
+        }]; }
 }

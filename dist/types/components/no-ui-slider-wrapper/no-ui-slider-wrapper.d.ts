@@ -3,7 +3,10 @@ export declare class NoUiSliderWrapper {
     slider: Element;
     el: Element;
     callback: Function;
+    start: any;
+    sliderComponent: any;
     componentDidLoad(): void;
+    watchStart(newValue: any, oldValue: any): void;
     createSlider(): void;
     onChange(_values: any, _handle: any, _unencoded: any, _tap: any, _positions: any): void;
     onEnd(_values: any, _handle: any, _unencoded: any, _tap: any, _positions: any): void;

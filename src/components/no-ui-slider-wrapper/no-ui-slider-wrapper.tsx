@@ -1,5 +1,6 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Prop, Watch } from '@stencil/core';
 import noUiSlider from 'nouislider';
+import * as R from 'ramda';
 
 @Component({
   tag: 'no-ui-slider-wrapper',
@@ -10,17 +11,29 @@ export class NoUiSliderWrapper {
   @Prop() slider: Element;
   @Prop() el: Element;
   @Prop() callback: Function;
+  @Prop() start: any;
+
+  sliderComponent: any;
 
   componentDidLoad() {
     this.createSlider();
+  }
+
+  @Watch('start')
+  watchStart(newValue, oldValue) {
+    if (!R.equals(newValue, oldValue)) {
+      this.sliderComponent.updateOptions({
+        start: newValue
+      });
+    }
   }
 
   createSlider() {
     this.slider = this.el;
 
     // const { onUpdate, onChange, onSlide, onStart, onEnd, onSet } = props;
-    const sliderComponent = noUiSlider.create(this.slider, {
-      start: [20, 80],
+    this.sliderComponent = noUiSlider.create(this.slider, {
+      start: this.start,
       connect: true,
       range: {
           'min': 0,
@@ -41,31 +54,31 @@ export class NoUiSliderWrapper {
     });
 
     if (this.onStart) {
-      sliderComponent.on("start", this.onStart);
+      this.sliderComponent.on("start", this.onStart);
     }
 
     if (this.onSlide) {
-      sliderComponent.on("slide", this.onSlide);
+      this.sliderComponent.on("slide", this.onSlide);
     }
 
     if (this.onUpdate) {
-      sliderComponent.on("update", (_values, _handle, _unencoded, _tap, _positions) => {
+      this.sliderComponent.on("update", (_values, _handle, _unencoded, _tap, _positions) => {
         this.onUpdate(_values, _handle, _unencoded, _tap, _positions);
       });
     }
 
     if (this.onChange) {
-      sliderComponent.on("change", (_values, _handle, _unencoded, _tap, _positions) => {
+      this.sliderComponent.on("change", (_values, _handle, _unencoded, _tap, _positions) => {
         this.onChange(_values, _handle, _unencoded, _tap, _positions);
       });
     }
 
     if (this.onSet) {
-      sliderComponent.on("set", this.onSet);
+      this.sliderComponent.on("set", this.onSet);
     }
 
     if (this.onEnd) {
-      sliderComponent.on("end", this.onEnd);
+      this.sliderComponent.on("end", this.onEnd);
     }
   };
 

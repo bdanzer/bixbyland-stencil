@@ -149,7 +149,7 @@ html .main-content {
 .property-info-bar {
   padding: 41px 80px;
   background: #11284A 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #000000;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.23);
 }
 .property-info-bar .property-info-stats {
   font: 600 Italic 24px/32px Roboto;

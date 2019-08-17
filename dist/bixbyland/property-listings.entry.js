@@ -9,7 +9,6 @@ const PropertyListings = class {
         this.activePostId = markerObj.ID;
     }
     handleCard(post) {
-        console.log('card clicked', post.ID);
         this.activePostId = post.ID;
     }
     render() {

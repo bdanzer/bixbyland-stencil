@@ -1,5 +1,4 @@
 import { Component, h, Prop } from '@stencil/core';
-
 import { Store, Action } from "@stencil/redux";
 import { changeFilter, loadPosts } from "../../actions/data";
 import * as R from "ramda";
@@ -11,7 +10,6 @@ import * as R from "ramda";
 export class PropertyFilters {
   @Prop({ context: "store" }) store: Store;
   @Prop() search;
-
   @Prop() filters;
 
   changeFilter: Action;
@@ -44,9 +42,9 @@ export class PropertyFilters {
     let value = (e.target as HTMLInputElement).value;
     this.changeFilter({"search": value});
 
-    if (value.length >= 3) {
+    // if (value.length >= 3) {
       this.loadPosts();
-    }
+    // }
   }
 
   handleRegion(e) 
@@ -56,7 +54,6 @@ export class PropertyFilters {
 
   handleSqFeet(_values, _handle, _unencoded, _tap, _positions) 
   {
-    console.log(...arguments);
     let roundNumbers = _unencoded.map(number => Math.round(number));
 
     this.changeFilter({"sqFootage": roundNumbers});
@@ -80,26 +77,26 @@ export class PropertyFilters {
   }
 
   render() {
-    console.log(this.filters, 'filter');
     return (
       <div class="property-filters">
         <span class="property-count-wrap">
           <div class="result-header">Property Results</div>
           <span class="property-count">25</span> properties match your results
         </span>
-        <input onInput={(e) => this.handleSearch(e)} type="text" value="" placeholder="Search properties by address or location" class="search"/>
+        <input onChange={(e) => this.handleSearch(e)} type="text" value={(this.filters && this.filters.search) ? this.filters.search : ''} placeholder="Search properties by address or location" class="search"/>
         <select name="cars" class="dropdown" onChange={(e) => this.handleRegion(e)}>
-          <option disabled>Regions</option>
+          <option selected disabled>Regions</option>
           <option value="saab">Saab 95</option>
           <option value="mercedes">Mercedes SLK</option>
           <option value="audi">Audi TT</option>
         </select>
         <no-ui-slider-wrapper
+          start={(this.filters && this.filters.sqFootage) ? this.filters.sqFootage : [0, 100]}
           callback={this.handleSqFeet.bind(this)}>
-          <slot name="title">Square Footage</slot>
+            <slot name="title">Square Footage</slot>
         </no-ui-slider-wrapper>
         <select name="cars" class="dropdown" onChange={(e) => this.handleSortBy(e)}>
-          <option disabled>SortBy</option>
+          <option selected disabled>SortBy</option>
           <option value="volvo">Volvo XC90</option>
           <option value="saab">Saab 95</option>
           <option value="mercedes">Mercedes SLK</option>

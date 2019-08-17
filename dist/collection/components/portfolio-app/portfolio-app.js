@@ -24,7 +24,6 @@ export class PortfolioApp {
         });
     }
     componentDidLoad() {
-        console.log('loaded');
         this.loadPosts();
     }
     handleFilter(filter) {

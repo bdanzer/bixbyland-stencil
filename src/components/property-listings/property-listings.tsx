@@ -15,7 +15,6 @@ export class PropertyListings {
 
   handleCard(post)
   {
-    console.log('card clicked', post.ID);
     this.activePostId = post.ID;
   }
 

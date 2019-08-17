@@ -42,8 +42,6 @@ export class CardList {
 
   render() 
   {
-    console.log('posts CardList', this.posts);
-    console.log('items', this.items);
     return (
       this.posts && <Host>
         {this.posts.map(post => {

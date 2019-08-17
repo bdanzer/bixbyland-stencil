@@ -20,7 +20,7 @@ const getInitialState = () => {
       "category": "",
       "region": "",
       "search": "",
-      "sqFootage": "",
+      "sqFootage": [0, 100],
       "sortBy": ""
     },
     fetchUrl: 'http://bixbyland.test/wp-json/bixby/v1/properties'
@@ -31,7 +31,6 @@ const dataReducer = (
   state: DataState = getInitialState(),
   action: ActionTypes
 ) => {
-  console.log(Actions, 'called');
   switch (action.type) {
     case Actions.LOAD_DATA_BEGIN: {
       return {
@@ -42,7 +41,6 @@ const dataReducer = (
     }
 
     case Actions.LOAD_POSTS: {
-      console.log('loadPosts', action.payload);
       return {
         ...state,
         posts: action.payload

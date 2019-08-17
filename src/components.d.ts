@@ -31,6 +31,7 @@ export namespace Components {
     'callback': Function;
     'el': Element;
     'slider': Element;
+    'start': any;
     'title': string;
   }
   interface PortfolioApp {
@@ -45,7 +46,9 @@ export namespace Components {
     'filters': any;
     'search': any;
   }
-  interface PropertyInfoBar {}
+  interface PropertyInfoBar {
+    'posts': any;
+  }
   interface PropertyListings {
     'activePostId': any;
     'posts': any;
@@ -144,6 +147,7 @@ declare namespace LocalJSX {
     'callback'?: Function;
     'el'?: Element;
     'slider'?: Element;
+    'start'?: any;
     'title'?: string;
   }
   interface PortfolioApp extends JSXBase.HTMLAttributes<HTMLPortfolioAppElement> {
@@ -158,7 +162,9 @@ declare namespace LocalJSX {
     'filters'?: any;
     'search'?: any;
   }
-  interface PropertyInfoBar extends JSXBase.HTMLAttributes<HTMLPropertyInfoBarElement> {}
+  interface PropertyInfoBar extends JSXBase.HTMLAttributes<HTMLPropertyInfoBarElement> {
+    'posts'?: any;
+  }
   interface PropertyListings extends JSXBase.HTMLAttributes<HTMLPropertyListingsElement> {
     'activePostId'?: any;
     'posts'?: any;
