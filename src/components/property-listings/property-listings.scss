@@ -6,6 +6,9 @@ property-listings {
         max-height: 500px;
         overflow: scroll;
         flex-wrap: wrap;
+        &.grid {
+            @extend %danzerpress-col-1;
+        }
     }
     google-map {
         @extend %danzerpress-two-thirds;
@@ -13,5 +16,5 @@ property-listings {
             width: 100%;
             min-height: 500px;
         }
-    }    
+    }
 }

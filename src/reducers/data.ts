@@ -7,6 +7,7 @@ interface DataState {
   error: any;
   posts: any;
   filters: object;
+  views: string;
   fetchUrl: string;
 }
 
@@ -23,6 +24,7 @@ const getInitialState = () => {
       "sqFootage": [0, 100],
       "sortBy": ""
     },
+    views: "map",
     fetchUrl: 'http://bixbyland.test/wp-json/bixby/v1/properties'
   };
 };
@@ -64,6 +66,13 @@ const dataReducer = (
       return {
         ...state,
         filters: filters
+      }
+    }
+
+    case Actions.CHANGE_VIEW: {
+      return {
+        ...state,
+        views: action.payload
       }
     }
   }

@@ -5,12 +5,11 @@ export declare class PortfolioApp {
     googleApiKey: string;
     urlToFetch: string;
     filter: any;
-    view: any;
+    views: any;
     posts: any;
-    oldFilter: string;
-    oldView: string;
     loadPosts: Action;
     changeFilter: Action;
+    changeView: Action;
     componentWillLoad(): void;
     componentDidLoad(): void;
     private handleFilter;

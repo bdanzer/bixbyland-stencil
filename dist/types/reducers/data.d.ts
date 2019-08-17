@@ -5,6 +5,7 @@ interface DataState {
     error: any;
     posts: any;
     filters: object;
+    views: string;
     fetchUrl: string;
 }
 declare const dataReducer: (state: DataState, action: ActionTypes) => {
@@ -13,6 +14,7 @@ declare const dataReducer: (state: DataState, action: ActionTypes) => {
     error: any;
     posts: any;
     filters: object;
+    views: string;
     fetchUrl: string;
 };
 export default dataReducer;

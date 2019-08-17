@@ -29,3 +29,9 @@ export const changeFilter = (data) => async (dispatch, _getState) => {
         payload: data
     });
 };
+export const changeView = (data) => async (dispatch, _getState) => {
+    return dispatch({
+        type: Actions.CHANGE_VIEW,
+        payload: data
+    });
+};

@@ -3,7 +3,7 @@ import { Component, h, Host, State, Prop } from '@stencil/core';
 import '@stencil/redux';
 import { Store, Action } from "@stencil/redux";
 import { configureStore } from "../../store/index";
-import { loadPosts, changeFilter } from "../../actions/data";
+import { loadPosts, changeFilter, changeView } from "../../actions/data";
 
 @Component({
   tag: 'portfolio-app',
@@ -16,31 +16,31 @@ export class PortfolioApp {
   @Prop() urlToFetch: string = 'http://bixbyland.test/wp-json/bixby/v1/properties';
   
   @State() filter: any = 'all';
-  @State() view: any = 'map';
+  @State() views: any = 'map';
   @State() posts: any;
-
-  oldFilter: string = 'all';
-  oldView: string = 'map';
 
   loadPosts: Action;
   changeFilter: Action;
+  changeView: Action;
 
   componentWillLoad() {
     this.store.setStore(configureStore({}));
 
     this.store.mapStateToProps(this, state => {
       const {
-        dataReducer: { posts, filter }
+        dataReducer: { posts, filter, views }
       } = state;
       return {
         posts,
-        filter
+        filter,
+        views
       };
     });
 
     this.store.mapDispatchToProps(this, {
       loadPosts,
-      changeFilter
+      changeFilter,
+      changeView
     });
   }
 
@@ -57,7 +57,8 @@ export class PortfolioApp {
 
   private handleView(view) 
   {
-    this.view = view;
+    console.log(view);
+    this.changeView(view);
   }
 
   render() 
@@ -71,6 +72,8 @@ export class PortfolioApp {
         <property-info-bar></property-info-bar>
         <property-filters></property-filters>
         <property-listings
+          class={this.views}
+          view={this.views}
           posts={this.posts}>
         </property-listings>
       </Host>

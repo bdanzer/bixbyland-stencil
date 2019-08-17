@@ -50,3 +50,15 @@ export const changeFilter = (data) => async (dispatch, _getState) => {
     payload: data
   });
 }
+
+export interface ChangeView {
+  type: Actions.CHANGE_VIEW,
+  payload: string;
+}
+
+export const changeView = (data) => async (dispatch, _getState) => {
+  return dispatch({
+    type: Actions.CHANGE_VIEW,
+    payload: data
+  });
+}

@@ -1,5 +1,5 @@
 import { r as registerInstance, c as getContext, h } from './core-365f7bf1.js';
-import { c as changeFilter, l as loadPosts } from './data-5e522dbf.js';
+import { c as changeFilter, l as loadPosts } from './data-8b316b97.js';
 import { i as isEmpty, r as reject } from './index-33100fd2.js';
 
 const PropertyFilters = class {

@@ -69,14 +69,14 @@ h5 {
   }
 }
 
-property-card .property-card .property-card-content-wrap .property-content, property-card .property-card .property-card-content-wrap .property-image-wrap, .danzerpress-col-5, .danzerpress-col-4, .danzerpress-col-3, .danzerpress-col-2, property-card, .danzerpress-col-1 {
+property-card .property-card .property-card-content-wrap .property-content, property-card .property-card .property-card-content-wrap .property-image-wrap, .danzerpress-col-5, .danzerpress-col-4, .danzerpress-col-3, .danzerpress-col-2, card-list.grid .property-card .property-card-content-wrap .property-content, card-list.grid .property-card .property-card-content-wrap .property-image-wrap, property-card, .danzerpress-col-1 {
   width: 100%;
   position: relative;
   margin-bottom: 20px;
   padding: 0 15px;
 }
 
-property-card, .danzerpress-col-1 {
+card-list.grid .property-card .property-card-content-wrap .property-content, card-list.grid .property-card .property-card-content-wrap .property-image-wrap, property-card, .danzerpress-col-1 {
   -ms-flex: 0 0 100%;
   flex: 0 0 100%;
   max-width: 100%;
@@ -127,7 +127,7 @@ property-card .property-card .property-card-content-wrap {
 /*--------------------------------------------------------------
 ##Position Overrides
 --------------------------------------------------------------*/
-property-card .property-card .property-card-content-wrap .property-content, property-card .property-card .property-card-content-wrap .property-image-wrap, property-card {
+card-list.grid .property-card .property-card-content-wrap .property-content, card-list.grid .property-card .property-card-content-wrap .property-image-wrap, property-card .property-card .property-card-content-wrap .property-content, property-card .property-card .property-card-content-wrap .property-image-wrap, property-card {
   padding: 0px;
   margin: 0px;
 }
@@ -203,4 +203,9 @@ property-card .property-card .property-card-content-wrap .property-content .prop
 property-card .property-card .property-card-content-wrap .property-content .property-content-wrap p {
   margin-bottom: 7px;
   color: #7C8388;
+}
+
+card-list.grid .property-card .property-card-content-wrap .property-image-wrap {
+  max-height: 360px;
+  min-height: 360px;
 }

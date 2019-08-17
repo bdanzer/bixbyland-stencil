@@ -13,6 +13,7 @@ const getInitialState = () => {
             "sqFootage": [0, 100],
             "sortBy": ""
         },
+        views: "map",
         fetchUrl: 'http://bixbyland.test/wp-json/bixby/v1/properties'
     };
 };
@@ -33,6 +34,9 @@ const dataReducer = (state = getInitialState(), action) => {
                 filters = Object.assign({}, getInitialState().filters);
             }
             return Object.assign({}, state, { filters: filters });
+        }
+        case Actions.CHANGE_VIEW: {
+            return Object.assign({}, state, { views: action.payload });
         }
     }
     return state;

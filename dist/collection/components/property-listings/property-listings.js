@@ -10,9 +10,10 @@ export class PropertyListings {
         this.activePostId = post.ID;
     }
     render() {
+        console.log('view', this.view);
         return (h(Host, null,
-            h("google-map", { posts: this.posts, handleMarker: this.handleMarker.bind(this), activePostId: this.activePostId }),
-            h("card-list", { handleCard: this.handleCard.bind(this), activePostId: this.activePostId, posts: this.posts })));
+            this.view === 'map' && (h("google-map", { posts: this.posts, handleMarker: this.handleMarker.bind(this), activePostId: this.activePostId })),
+            h("card-list", { class: this.view, handleCard: this.handleCard.bind(this), activePostId: this.activePostId, posts: this.posts })));
     }
     static get is() { return "property-listings"; }
     static get originalStyleUrls() { return {
@@ -56,6 +57,23 @@ export class PropertyListings {
             "attribute": "active-post-id",
             "reflect": false,
             "defaultValue": "null"
+        },
+        "view": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "view",
+            "reflect": false
         }
     }; }
 }

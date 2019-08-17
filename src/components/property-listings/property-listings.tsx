@@ -7,6 +7,7 @@ import { Component, h, Prop, Host } from '@stencil/core';
 export class PropertyListings {
   @Prop() posts: any;
   @Prop() activePostId: any = null;
+  @Prop() view: string;
 
   handleMarker(_e, markerObj)
   {
@@ -20,14 +21,18 @@ export class PropertyListings {
 
   render() 
   {
+    console.log('view', this.view)
     return (
       <Host>
-        <google-map 
-          posts={this.posts}
-          handleMarker={this.handleMarker.bind(this)}
-          activePostId={this.activePostId}>
-        </google-map>
+        {this.view === 'map' && (
+          <google-map 
+            posts={this.posts}
+            handleMarker={this.handleMarker.bind(this)}
+            activePostId={this.activePostId}>
+          </google-map>
+        )}
         <card-list
+          class={this.view}
           handleCard={this.handleCard.bind(this)}
           activePostId={this.activePostId}
           posts={this.posts}>

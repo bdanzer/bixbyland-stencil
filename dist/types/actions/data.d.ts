@@ -14,3 +14,8 @@ export interface ChangeFilter {
     payload: object;
 }
 export declare const changeFilter: (data: any) => (dispatch: any, _getState: any) => Promise<any>;
+export interface ChangeView {
+    type: Actions.CHANGE_VIEW;
+    payload: string;
+}
+export declare const changeView: (data: any) => (dispatch: any, _getState: any) => Promise<any>;

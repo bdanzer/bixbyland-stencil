@@ -52,6 +52,7 @@ export namespace Components {
   interface PropertyListings {
     'activePostId': any;
     'posts': any;
+    'view': string;
   }
 }
 
@@ -168,6 +169,7 @@ declare namespace LocalJSX {
   interface PropertyListings extends JSXBase.HTMLAttributes<HTMLPropertyListingsElement> {
     'activePostId'?: any;
     'posts'?: any;
+    'view'?: string;
   }
 
   interface IntrinsicElements {

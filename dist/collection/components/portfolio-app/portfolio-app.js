@@ -1,26 +1,26 @@
 import { h, Host } from "@stencil/core";
 import { configureStore } from "../../store/index";
-import { loadPosts, changeFilter } from "../../actions/data";
+import { loadPosts, changeFilter, changeView } from "../../actions/data";
 export class PortfolioApp {
     constructor() {
         this.urlToFetch = 'http://bixbyland.test/wp-json/bixby/v1/properties';
         this.filter = 'all';
-        this.view = 'map';
-        this.oldFilter = 'all';
-        this.oldView = 'map';
+        this.views = 'map';
     }
     componentWillLoad() {
         this.store.setStore(configureStore({}));
         this.store.mapStateToProps(this, state => {
-            const { dataReducer: { posts, filter } } = state;
+            const { dataReducer: { posts, filter, views } } = state;
             return {
                 posts,
-                filter
+                filter,
+                views
             };
         });
         this.store.mapDispatchToProps(this, {
             loadPosts,
-            changeFilter
+            changeFilter,
+            changeView
         });
     }
     componentDidLoad() {
@@ -31,14 +31,15 @@ export class PortfolioApp {
         this.loadPosts();
     }
     handleView(view) {
-        this.view = view;
+        console.log(view);
+        this.changeView(view);
     }
     render() {
         return (h(Host, { class: "portfolio-app" },
             h("filter-header-bar", { filter: this.handleFilter.bind(this), view: this.handleView.bind(this) }),
             h("property-info-bar", null),
             h("property-filters", null),
-            h("property-listings", { posts: this.posts })));
+            h("property-listings", { class: this.views, view: this.views, posts: this.posts })));
     }
     static get is() { return "portfolio-app"; }
     static get originalStyleUrls() { return {
@@ -90,7 +91,7 @@ export class PortfolioApp {
         }]; }
     static get states() { return {
         "filter": {},
-        "view": {},
+        "views": {},
         "posts": {}
     }; }
 }

@@ -1,0 +1,8 @@
+card-list {
+    &.grid {
+        display: flex;
+        property-card {
+            @extend %danzerpress-col-3;
+        }
+    } 
+}

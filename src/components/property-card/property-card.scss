@@ -51,3 +51,22 @@ property-card {
         }
     }
 }
+
+card-list {
+    &.grid {
+        .property-card {
+            .property-card-content-wrap {
+                .property-image-wrap {
+                    max-height: 360px;
+                    min-height: 360px;
+                    @extend %danzerpress-col-1;
+                    @extend %danzerpress-fix;
+                }
+                .property-content { 
+                    @extend %danzerpress-col-1;
+                    @extend %danzerpress-fix;
+                }
+            }
+        }
+    }
+}
