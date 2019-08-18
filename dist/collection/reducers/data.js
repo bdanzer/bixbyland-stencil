@@ -14,7 +14,7 @@ const getInitialState = () => {
             "sortBy": ""
         },
         views: "map",
-        fetchUrl: 'http://bixbyland.test/wp-json/bixby/v1/properties'
+        fetchUrl: 'https://bixbyland.coreylowe.io/wp-json/bixby/v1/properties'
     };
 };
 const dataReducer = (state = getInitialState(), action) => {

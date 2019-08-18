@@ -7,9 +7,11 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type  | Default     |
-| -------- | --------- | ----------- | ----- | ----------- |
-| `posts`  | `posts`   |             | `any` | `undefined` |
+| Property       | Attribute        | Description | Type     | Default     |
+| -------------- | ---------------- | ----------- | -------- | ----------- |
+| `activePostId` | `active-post-id` |             | `any`    | `null`      |
+| `posts`        | `posts`          |             | `any`    | `undefined` |
+| `view`         | `view`           |             | `string` | `undefined` |
 
 
 ## Dependencies
@@ -20,11 +22,13 @@
 
 ### Depends on
 
+- [google-map](../google-map)
 - [card-list](../card-list)
 
 ### Graph
 ```mermaid
 graph TD;
+  property-listings --> google-map
   property-listings --> card-list
   card-list --> property-card
   portfolio-app --> property-listings

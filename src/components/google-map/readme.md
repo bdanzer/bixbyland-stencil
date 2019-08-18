@@ -1,4 +1,4 @@
-# card-list
+# google-map
 
 
 
@@ -10,8 +10,8 @@
 | Property       | Attribute        | Description | Type       | Default     |
 | -------------- | ---------------- | ----------- | ---------- | ----------- |
 | `activePostId` | `active-post-id` |             | `any`      | `false`     |
-| `handleCard`   | --               |             | `Function` | `undefined` |
-| `posts`        | `posts`          |             | `any`      | `undefined` |
+| `handleMarker` | --               |             | `Function` | `undefined` |
+| `posts`        | `posts`          |             | `any`      | `[]`        |
 
 
 ## Dependencies
@@ -20,16 +20,11 @@
 
  - [property-listings](../property-listings)
 
-### Depends on
-
-- [property-card](../property-card)
-
 ### Graph
 ```mermaid
 graph TD;
-  card-list --> property-card
-  property-listings --> card-list
-  style card-list fill:#f9f,stroke:#333,stroke-width:4px
+  property-listings --> google-map
+  style google-map fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

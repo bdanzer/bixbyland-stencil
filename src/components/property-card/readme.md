@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property   | Attribute   | Description | Type  | Default     |
-| ---------- | ----------- | ----------- | ----- | ----------- |
-| `postData` | `post-data` |             | `any` | `undefined` |
+| Property       | Attribute        | Description | Type  | Default     |
+| -------------- | ---------------- | ----------- | ----- | ----------- |
+| `activePostId` | `active-post-id` |             | `any` | `false`     |
+| `postData`     | `post-data`      |             | `any` | `undefined` |
 
 
 ## Dependencies
