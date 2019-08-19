@@ -10,6 +10,7 @@
 | Property  | Attribute | Description | Type  | Default     |
 | --------- | --------- | ----------- | ----- | ----------- |
 | `filters` | `filters` |             | `any` | `undefined` |
+| `posts`   | `posts`   |             | `any` | `[]`        |
 | `search`  | `search`  |             | `any` | `undefined` |
 
 
