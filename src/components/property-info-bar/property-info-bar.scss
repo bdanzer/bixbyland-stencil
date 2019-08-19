@@ -10,6 +10,16 @@
     background: #11284A 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.23);
 
+    @media screen and (max-width: 950px) {
+        padding: 30px 40px;
+    }
+
+    .property-count-wrap {
+        @media screen and (max-width: 1300px) {
+            display: none;
+        }
+    }
+
     .property-info-stats {
         font: 600 Italic 24px/32px Roboto;
         letter-spacing: 1.44px;
@@ -18,6 +28,13 @@
 
         display: flex;
         align-items: center;
+
+        @media screen and (max-width: 950px) {
+            flex-direction: column;
+            letter-spacing: 1.44px;
+            font: 700 Italic 12px/16px Roboto;
+            letter-spacing: 0.72px;
+        }
     }
 
     .property-info-header {
@@ -42,5 +59,12 @@
         color: #FFFFFF;
         opacity: 1;
         margin-right: 10px;
+
+        @media screen and (max-width: 950px) {
+            font: 500 24px/90px Roboto;
+            margin: 0px;
+            max-height: 65px;
+            line-height: 1;
+        }
     }
 }

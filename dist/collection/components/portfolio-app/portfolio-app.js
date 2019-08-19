@@ -31,7 +31,6 @@ export class PortfolioApp {
         this.loadPosts();
     }
     handleView(view) {
-        console.log(view);
         this.changeView(view);
     }
     render() {

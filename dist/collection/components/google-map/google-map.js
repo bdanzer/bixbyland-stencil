@@ -1,4 +1,5 @@
 import { h } from "@stencil/core";
+import * as R from 'ramda';
 export class GoogleMap {
     constructor() {
         this.posts = [];
@@ -6,11 +7,9 @@ export class GoogleMap {
         this.markersObj = {};
     }
     componentDidLoad() {
+        console.log(this.posts, 'google map');
         this.mapObject = new google.maps.Map(this.map, {
-            center: {
-                'lat': 34.052437,
-                'lng': -118.263159
-            },
+            center: this.findLatitudeAvg(),
             zoom: 7,
             streetViewControl: false,
             mapTypeControl: false,
@@ -19,16 +18,29 @@ export class GoogleMap {
                 position: google.maps.ControlPosition.TOP_RIGHT
             }
         });
+        this.addMarkers();
     }
     postsWatch(_newData, _oldData) {
         this.clearMarkers();
         this.addMarkers();
+        this.setCenter();
     }
     activePostIdWatch(newId, oldId) {
         if (newId !== oldId) {
             let markerData = this.markersObj[newId];
             this.mapObject.setCenter(markerData.position);
         }
+    }
+    setCenter() {
+        this.mapObject.setCenter(this.findLatitudeAvg());
+    }
+    findLatitudeAvg() {
+        let lat = R.mean(R.map((post) => post.meta.latitude[0], this.posts));
+        let long = R.mean(R.map((post) => post.meta.longitude[0], this.posts));
+        return {
+            "lat": lat,
+            "lng": long
+        };
     }
     addMarkers() {
         this.posts.forEach(post => {

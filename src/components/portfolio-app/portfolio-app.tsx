@@ -57,7 +57,6 @@ export class PortfolioApp {
 
   private handleView(view) 
   {
-    console.log(view);
     this.changeView(view);
   }
 

@@ -54,7 +54,7 @@ export class FilterHeaderBar {
       <Host>
         <div class="filter-wrap">
           <div class="filters">
-            <span>Filter by:</span>
+            <span class="filter-label">Filter by:</span>
             <div class={(this.activeFilter == 'all') ? 'active' : ''} onClick={() => this.handleFilter('all')}>All</div>
             {this.categories.map((category) => {
               return (
@@ -63,7 +63,7 @@ export class FilterHeaderBar {
             })}
           </div>
           <div class="views">
-            <span>View As:</span>
+            <span class="filter-label">View As:</span>
             {this.getViews()}
           </div>
         </div>

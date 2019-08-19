@@ -1,7 +1,8 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Prop, State } from '@stencil/core';
 import { Store, Action } from "@stencil/redux";
 import { changeFilter, loadPosts } from "../../actions/data";
 import * as R from "ramda";
+import axios from "axios";
 
 @Component({
   tag: 'property-filters',
@@ -11,6 +12,10 @@ export class PropertyFilters {
   @Prop({ context: "store" }) store: Store;
   @Prop() search;
   @Prop() filters;
+  @Prop() posts: any = [];
+
+  @State() modal: boolean = false;
+  @State() regions: any = [];
 
   changeFilter: Action;
   loadPosts: Action;
@@ -19,10 +24,10 @@ export class PropertyFilters {
   {
     this.store.mapStateToProps(this, state => {
       const {
-        dataReducer: { filters }
+        dataReducer: { filters, posts }
       } = state;
       return {
-        filters
+        filters, posts
       };
     });
 
@@ -30,11 +35,14 @@ export class PropertyFilters {
       changeFilter,
       loadPosts
     });
+
+    this.getRegions()
   }
 
-  getRegions() 
+  async getRegions() 
   {
-
+    let response = await axios.get('https://bixbyland.coreylowe.io/wp-json/bixby/v1/properties/regions');
+    return this.regions = response.data;
   }
 
   handleSearch(e) 
@@ -49,7 +57,8 @@ export class PropertyFilters {
 
   handleRegion(e) 
   {
-    console.log((e.target as HTMLInputElement).value)
+    this.changeFilter({"region": (e.target as HTMLInputElement).value})
+    this.loadPosts();
   }
 
   handleSqFeet(_values, _handle, _unencoded, _tap, _positions) 
@@ -77,33 +86,32 @@ export class PropertyFilters {
   }
 
   render() {
-    return (
-      <div class="property-filters">
+    return [
+      <div class={`property-filters${(this.modal) ? ' modal-state' : ''}`}>
         <span class="property-count-wrap">
           <div class="result-header">Property Results</div>
-          <span class="property-count">25</span> properties match your results
+          <span class="property-count">{this.posts.length}</span> properties match your results
         </span>
+        {(this.modal) && (
+          <span class="filter-title">Filter</span>
+        )} 
         <input onChange={(e) => this.handleSearch(e)} type="text" value={(this.filters && this.filters.search) ? this.filters.search : ''} placeholder="Search properties by address or location" class="search"/>
-        <select name="cars" class="dropdown" onChange={(e) => this.handleRegion(e)}>
+        <select name="regions" class="dropdown" onChange={(e) => this.handleRegion(e)}>
           <option selected disabled>Regions</option>
-          <option value="saab">Saab 95</option>
-          <option value="mercedes">Mercedes SLK</option>
-          <option value="audi">Audi TT</option>
+          {this.regions.map(region => <option value={region.meta_value}>{region.meta_value}</option>)}
         </select>
         <no-ui-slider-wrapper
           start={(this.filters && this.filters.sqFootage) ? this.filters.sqFootage : [0, 100]}
           callback={this.handleSqFeet.bind(this)}>
             <slot name="title">Square Footage</slot>
         </no-ui-slider-wrapper>
-        <select name="cars" class="dropdown" onChange={(e) => this.handleSortBy(e)}>
+        <select name="sortby" class="dropdown" onChange={(e) => this.handleSortBy(e)}>
           <option selected disabled>SortBy</option>
-          <option value="volvo">Volvo XC90</option>
-          <option value="saab">Saab 95</option>
-          <option value="mercedes">Mercedes SLK</option>
-          <option value="audi">Audi TT</option>
         </select>
-        <button onClick={() => {this.handleResetFilters()}} class="reset-button">Reset Filters</button>
-      </div>
-    );
+        <button onClick={() => {(this.modal) ? this.modal = !this.modal : this.handleResetFilters()}} class="reset-button">{(this.modal) ? 'Apply' : 'Reset Filters'}</button>
+        <div class="modal-close-button" onClick={() => {this.modal = !this.modal}}>X</div>
+      </div>,
+      <div class="modal-button" onClick={() => this.modal = !this.modal}>Filter Results ({this.posts.length})</div>
+    ];
   }
 }

@@ -141,3 +141,15 @@ html .main-content {
 card-list.grid {
   display: flex;
 }
+@media screen and (max-width: 1024px) {
+  card-list.grid property-card {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+@media screen and (max-width: 900px) {
+  card-list.grid property-card {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

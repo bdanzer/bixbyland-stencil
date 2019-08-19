@@ -32,13 +32,13 @@ export class FilterHeaderBar {
         return (h(Host, null,
             h("div", { class: "filter-wrap" },
                 h("div", { class: "filters" },
-                    h("span", null, "Filter by:"),
+                    h("span", { class: "filter-label" }, "Filter by:"),
                     h("div", { class: (this.activeFilter == 'all') ? 'active' : '', onClick: () => this.handleFilter('all') }, "All"),
                     this.categories.map((category) => {
                         return (h("div", { class: (this.activeFilter == category) ? 'active' : '', onClick: () => this.handleFilter(category) }, category));
                     })),
                 h("div", { class: "views" },
-                    h("span", null, "View As:"),
+                    h("span", { class: "filter-label" }, "View As:"),
                     this.getViews()))));
     }
     static get is() { return "filter-header-bar"; }

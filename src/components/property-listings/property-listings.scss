@@ -1,20 +1,33 @@
 property-listings {
     @extend %danzerpress-flex-row;
     card-list {
-        @extend %danzerpress-one-third;
         display: inherit;
-        max-height: 500px;
-        overflow: scroll;
         flex-wrap: wrap;
+        &.map {
+            @extend %danzerpress-one-third;
+            @media screen and (max-width: 1300px) {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            max-height: 500px;
+            overflow: scroll;
+        }
         &.grid {
             @extend %danzerpress-col-1;
         }
     }
     google-map {
         @extend %danzerpress-two-thirds;
+        @media screen and (max-width: 1300px) {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
         #map {
             width: 100%;
             min-height: 500px;
+            @media screen and (max-width: 900px) {
+                min-height: 300px;
+            }
         }
     }
 }

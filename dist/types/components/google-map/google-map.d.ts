@@ -8,6 +8,11 @@ export declare class GoogleMap {
     componentDidLoad(): void;
     postsWatch(_newData: any, _oldData: any): void;
     activePostIdWatch(newId: any, oldId: any): void;
+    setCenter(): void;
+    findLatitudeAvg(): {
+        "lat": any;
+        "lng": any;
+    };
     addMarkers(): void;
     clearMarkers(): void;
     render(): any;

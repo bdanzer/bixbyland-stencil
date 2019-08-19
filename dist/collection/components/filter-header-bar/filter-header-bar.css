@@ -154,6 +154,51 @@ filter-header-bar .filter-wrap {
   margin: auto;
   justify-content: space-between;
 }
+@media screen and (max-width: 1024px) {
+  filter-header-bar .filter-wrap {
+    display: flex;
+    padding: 0;
+  }
+  filter-header-bar .filter-wrap .filter-label {
+    display: none;
+  }
+  filter-header-bar .filter-wrap .active:after {
+    display: none;
+  }
+  filter-header-bar .filter-wrap .views {
+    order: -1;
+    flex: 0 0 100%;
+  }
+  filter-header-bar .filter-wrap .views div {
+    flex: 0 0 50%;
+    max-width: 50%;
+    margin: 0;
+    text-align: center;
+    border-top: 0.25px solid #8390A2;
+    padding: 15px 0;
+  }
+  filter-header-bar .filter-wrap .filters {
+    flex: 0 0 100%;
+    box-shadow: 0px 3px 6px #000000;
+  }
+  filter-header-bar .filter-wrap .filters div {
+    flex: 0 0 33.3333%;
+    margin: 0;
+    text-align: center;
+    padding: 12px 0;
+  }
+  filter-header-bar .filter-wrap .filters div:after {
+    height: 100%;
+    content: "";
+    width: 1px;
+    background: #8390A2;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    max-height: 50%;
+    transform: translate(0%, -50%);
+  }
+}
 filter-header-bar .filters span, filter-header-bar .filters div,
 filter-header-bar .views span,
 filter-header-bar .views div {

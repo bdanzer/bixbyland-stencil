@@ -46,7 +46,7 @@ h5 {
 }
 
 @media screen and (max-width: 1024px) {
-  property-listings google-map, property-listings card-list {
+  property-listings google-map, property-listings card-list.map {
     -ms-flex: 0 0 100%;
     flex: 0 0 100%;
     max-width: 100%;
@@ -69,7 +69,7 @@ h5 {
   }
 }
 
-property-listings google-map, property-listings card-list, .danzerpress-col-5, .danzerpress-col-4, .danzerpress-col-3, .danzerpress-col-2, property-listings card-list.grid, .danzerpress-col-1 {
+property-listings google-map, property-listings card-list.map, .danzerpress-col-5, .danzerpress-col-4, .danzerpress-col-3, .danzerpress-col-2, property-listings card-list.grid, .danzerpress-col-1 {
   width: 100%;
   position: relative;
   margin-bottom: 20px;
@@ -106,7 +106,7 @@ property-listings card-list.grid, .danzerpress-col-1 {
   max-width: 20%;
 }
 
-property-listings card-list {
+property-listings card-list.map {
   -ms-flex: 0 0 33.333333%;
   flex: 0 0 33.333333%;
   max-width: 33.333333%;
@@ -166,11 +166,30 @@ html .main-content {
 
 property-listings card-list {
   display: inherit;
+  flex-wrap: wrap;
+}
+property-listings card-list.map {
   max-height: 500px;
   overflow: scroll;
-  flex-wrap: wrap;
+}
+@media screen and (max-width: 1300px) {
+  property-listings card-list.map {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+@media screen and (max-width: 1300px) {
+  property-listings google-map {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }
 property-listings google-map #map {
   width: 100%;
   min-height: 500px;
+}
+@media screen and (max-width: 900px) {
+  property-listings google-map #map {
+    min-height: 300px;
+  }
 }

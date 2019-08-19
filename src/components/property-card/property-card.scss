@@ -15,6 +15,10 @@ property-card {
             }
             .property-image-wrap {
                 @extend %danzerpress-one-third;
+                @media screen and (max-width: 1300px) {
+                    flex: 0 0 100%;
+                    max-width: 100%;
+                }
                 @extend %danzerpress-fix;
                 img {
                     width: 100%;
@@ -24,6 +28,10 @@ property-card {
             }
             .property-content {
                 @extend %danzerpress-two-thirds;
+                @media screen and (max-width: 1300px) {
+                    flex: 0 0 100%;
+                    max-width: 100%;
+                }
                 @extend %danzerpress-fix;
 
                 .property-content-wrap {
@@ -56,6 +64,7 @@ card-list {
     &.grid {
         .property-card {
             .property-card-content-wrap {
+                padding: 0px;
                 .property-image-wrap {
                     max-height: 360px;
                     min-height: 360px;
