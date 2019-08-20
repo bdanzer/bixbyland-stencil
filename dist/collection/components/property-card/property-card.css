@@ -224,3 +224,11 @@ card-list.grid .property-card .property-card-content-wrap .property-image-wrap {
   max-height: 360px;
   min-height: 360px;
 }
+card-list.grid .property-card .property-card-content-wrap .property-content span.property-title:before {
+  content: "";
+  height: 3px;
+  background: #11284A;
+  width: 40px;
+  display: block;
+  margin-bottom: 7px;
+}

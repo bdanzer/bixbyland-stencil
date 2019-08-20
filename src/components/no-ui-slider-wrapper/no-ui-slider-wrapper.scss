@@ -25,6 +25,7 @@ no-ui-slider-wrapper {
             background: none;
             box-shadow: none;
             outline: none;
+            top: -9px;
             &.noUi-handle-upper {
                 right: -2px;
             }
@@ -54,6 +55,7 @@ no-ui-slider-wrapper {
                 letter-spacing: 0.66px;
                 color: #FFFFFF;
                 border: none;
+                padding: 2.5px 5px;
             }   
         }
     }

@@ -167,6 +167,7 @@ no-ui-slider-wrapper #double-slider .noUi-handle {
   background: none;
   box-shadow: none;
   outline: none;
+  top: -9px;
 }
 no-ui-slider-wrapper #double-slider .noUi-handle.noUi-handle-upper {
   right: -2px;
@@ -197,4 +198,5 @@ no-ui-slider-wrapper #double-slider.noUi-horizontal .noUi-tooltip {
   letter-spacing: 0.66px;
   color: #FFFFFF;
   border: none;
+  padding: 2.5px 5px;
 }

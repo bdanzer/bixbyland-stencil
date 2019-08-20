@@ -72,6 +72,14 @@ card-list {
                     @extend %danzerpress-fix;
                 }
                 .property-content { 
+                    span.property-title:before {
+                        content: "";
+                        height: 3px;
+                        background: #11284A;
+                        width: 40px;
+                        display: block;
+                        margin-bottom: 7px;
+                    }
                     @extend %danzerpress-col-1;
                     @extend %danzerpress-fix;
                 }

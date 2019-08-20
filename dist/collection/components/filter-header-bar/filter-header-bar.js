@@ -16,7 +16,7 @@ export class FilterHeaderBar {
         var views = [];
         for (let viewType in this.views) {
             let viewName = this.views[viewType];
-            views.push(h("div", { class: (this.activeView == viewType) ? 'active' : '', onClick: () => this.handleView(viewType) }, viewName));
+            views.push(h("span", { class: `filter-label-icon ${viewType} ${(this.activeView == viewType) ? 'active' : ''}` }), h("div", { class: `filter-label-type ${viewType} ${(this.activeView == viewType) ? 'active' : ''}`, onClick: () => this.handleView(viewType) }, viewName));
         }
         return views;
     }

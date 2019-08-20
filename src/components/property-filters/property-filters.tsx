@@ -95,9 +95,9 @@ export class PropertyFilters {
         {(this.modal) && (
           <span class="filter-title">Filter</span>
         )} 
-        <input onChange={(e) => this.handleSearch(e)} type="text" value={(this.filters && this.filters.search) ? this.filters.search : ''} placeholder="Search properties by address or location" class="search"/>
+        <input onChange={(e) => this.handleSearch(e)} type="text" value={(this.filters && this.filters.search) ? this.filters.search : ''} placeholder="Search properties by address" class="search"/>
         <select name="regions" class="dropdown" onChange={(e) => this.handleRegion(e)}>
-          <option selected disabled>Regions</option>
+          <option selected={(this.filters.region) ? false : true} disabled>Regions</option>
           {this.regions.map(region => <option value={region.meta_value}>{region.meta_value}</option>)}
         </select>
         <no-ui-slider-wrapper
