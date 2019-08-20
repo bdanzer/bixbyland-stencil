@@ -17,7 +17,6 @@ export namespace Components {
   interface FilterHeaderBar {
     'activeFilter': string;
     'activeView': string;
-    'categories': any;
     'filter': Function;
     'view': Function;
     'views': any;
@@ -35,8 +34,9 @@ export namespace Components {
     'title': string;
   }
   interface PortfolioApp {
+    'baseUrl': string;
+    'changeCategory': (filter: any) => Promise<void>;
     'googleApiKey': string;
-    'urlToFetch': string;
   }
   interface PropertyCard {
     'activePostId': any;
@@ -135,7 +135,6 @@ declare namespace LocalJSX {
   interface FilterHeaderBar extends JSXBase.HTMLAttributes<HTMLFilterHeaderBarElement> {
     'activeFilter'?: string;
     'activeView'?: string;
-    'categories'?: any;
     'filter'?: Function;
     'view'?: Function;
     'views'?: any;
@@ -153,8 +152,8 @@ declare namespace LocalJSX {
     'title'?: string;
   }
   interface PortfolioApp extends JSXBase.HTMLAttributes<HTMLPortfolioAppElement> {
+    'baseUrl'?: string;
     'googleApiKey'?: string;
-    'urlToFetch'?: string;
   }
   interface PropertyCard extends JSXBase.HTMLAttributes<HTMLPropertyCardElement> {
     'activePostId'?: any;

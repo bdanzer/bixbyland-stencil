@@ -1,10 +1,10 @@
 export declare class FilterHeaderBar {
     filter: Function;
     view: Function;
-    categories: any;
     views: any;
     activeFilter: string;
     activeView: string;
+    categories: any;
     private getViews;
     private handleView;
     private handleFilter;

@@ -7,7 +7,6 @@ export declare class PropertyInfoBar {
     componentDidLoad(): void;
     countPosts(): any;
     createInfoObj(): any;
-    getSubString(numberString: any, removeNumber: any): any;
     getPrice(): any;
     render(): any;
 }

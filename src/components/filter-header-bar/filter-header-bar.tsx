@@ -7,12 +7,6 @@ import { Component, h, Prop, Host } from '@stencil/core';
 export class FilterHeaderBar {
   @Prop() filter:Function;
   @Prop() view:Function;
-
-  @Prop() categories: any = [
-    'industrial',
-    'office'
-  ];
-
   @Prop() views: any = {
     'map': 'Property Map',
     'grid': 'Property Grid'
@@ -20,6 +14,11 @@ export class FilterHeaderBar {
 
   @Prop() activeFilter: string = 'all';
   @Prop() activeView: string = 'map';
+
+  categories: any = [
+    'industrial',
+    'office'
+  ];
 
   private getViews() 
   {

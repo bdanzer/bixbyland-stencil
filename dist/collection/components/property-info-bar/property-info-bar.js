@@ -1,5 +1,5 @@
 import { h } from "@stencil/core";
-import * as R from 'ramda';
+import { formatLargeNumber } from '../../utils/utils';
 export class PropertyInfoBar {
     async count(number) {
         var i = 1;
@@ -21,58 +21,18 @@ export class PropertyInfoBar {
     countPosts() {
         return this.posts.length;
     }
+    //TODO: want to turn this into one object will all the data at once
     createInfoObj() {
         // R.objOf('propertyInfo')
         // var sqFt = 0;
         const func = (obj) => (obj.meta.sq_ft[0]) ? parseInt(obj.meta.sq_ft[0]) : 0;
-        console.log(R.map(func, this.posts));
-        let number = R.sum(R.map(func, this.posts));
-        let numberString = number.toString();
-        let numberLength = number.toString().length;
-        switch (numberLength) {
-            //35000
-            case 5:
-            case 6:
-                return `${this.getSubString(numberString, 3)}K`;
-            // return numberString.replace('000', 'K');
-            //3300000
-            case 7:
-            case 8:
-            case 9:
-                // str.substring(0, str.length - 1);
-                return `${this.getSubString(numberString, 6)}M`;
-        }
-        return numberString;
-    }
-    getSubString(numberString, removeNumber) {
-        return numberString.substring(0, numberString.length - removeNumber);
+        return formatLargeNumber(func, this.posts);
     }
     getPrice() {
         // R.objOf('propertyInfo')
         // var sqFt = 0;
         const func = (obj) => (obj.meta.price[0]) ? parseInt(obj.meta.price[0]) : 0;
-        console.log(R.map(func, this.posts));
-        let number = R.sum(R.map(func, this.posts));
-        let numberString = number.toString();
-        let numberLength = number.toString().length;
-        switch (numberLength) {
-            //35000
-            case 5:
-            case 6:
-                return `${this.getSubString(numberString, 3)}K`;
-            // return numberString.replace('000', 'K');
-            //3300000
-            case 7:
-            case 8:
-            case 9:
-                // str.substring(0, str.length - 1);
-                return `${this.getSubString(numberString, 6)}M`;
-            case 10:
-            case 11:
-            case 12:
-                return `${this.getSubString(numberString, 9)}B`;
-        }
-        return numberString;
+        return formatLargeNumber(func, this.posts);
     }
     render() {
         return (h("div", { class: "property-info-bar" },

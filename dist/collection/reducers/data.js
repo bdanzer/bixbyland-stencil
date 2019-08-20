@@ -2,6 +2,7 @@ import { Actions } from "../actions/index";
 import * as R from "ramda";
 const getInitialState = () => {
     return {
+        baseUrl: '',
         items: [],
         loading: false,
         error: null,
@@ -14,7 +15,7 @@ const getInitialState = () => {
             "sortBy": ""
         },
         views: "map",
-        fetchUrl: 'https://bixbyland.coreylowe.io/wp-json/bixby/v1/properties'
+        fetchUrl: '/wp-json/bixby/v1/properties'
     };
 };
 const dataReducer = (state = getInitialState(), action) => {
@@ -37,6 +38,9 @@ const dataReducer = (state = getInitialState(), action) => {
         }
         case Actions.CHANGE_VIEW: {
             return Object.assign({}, state, { views: action.payload });
+        }
+        case Actions.SET_BASE: {
+            return Object.assign({}, state, { baseUrl: action.payload });
         }
     }
     return state;

@@ -16,5 +16,14 @@ declare const dataReducer: (state: DataState, action: ActionTypes) => {
     filters: object;
     views: string;
     fetchUrl: string;
+} | {
+    baseUrl: string;
+    items: string[];
+    loading: boolean;
+    error: any;
+    posts: any;
+    filters: object;
+    views: string;
+    fetchUrl: string;
 };
 export default dataReducer;

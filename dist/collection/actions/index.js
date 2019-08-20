@@ -4,4 +4,5 @@ export var Actions;
     Actions["LOAD_POSTS"] = "LOAD_POSTS";
     Actions["CHANGE_FILTER"] = "CHANGE_FILTER";
     Actions["CHANGE_VIEW"] = "CHANGE_VIEW";
+    Actions["SET_BASE"] = "SET_BASE";
 })(Actions || (Actions = {}));

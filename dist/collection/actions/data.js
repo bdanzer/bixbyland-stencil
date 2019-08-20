@@ -7,9 +7,10 @@ export const loadDataBegin = data => async (dispatch, _getState) => {
     });
 };
 export const loadPosts = () => async (dispatch, _getState) => {
-    let { filters, fetchUrl } = _getState().dataReducer;
+    let { filters, fetchUrl, baseUrl } = _getState().dataReducer;
+    console.log(baseUrl, 'loadPosts');
     try {
-        let response = await axios.get(fetchUrl, {
+        let response = await axios.get(baseUrl + fetchUrl, {
             params: Object.assign({}, filters)
         });
         if (response.status == 200) {
@@ -32,6 +33,12 @@ export const changeFilter = (data) => async (dispatch, _getState) => {
 export const changeView = (data) => async (dispatch, _getState) => {
     return dispatch({
         type: Actions.CHANGE_VIEW,
+        payload: data
+    });
+};
+export const setBase = (data) => async (dispatch, _getState) => {
+    return dispatch({
+        type: Actions.SET_BASE,
         payload: data
     });
 };

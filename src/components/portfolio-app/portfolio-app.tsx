@@ -1,9 +1,10 @@
-import { Component, h, Host, State, Prop } from '@stencil/core';
+import { Component, h, Host, State, Prop, Method, Watch } from '@stencil/core';
 
 import '@stencil/redux';
 import { Store, Action } from "@stencil/redux";
 import { configureStore } from "../../store/index";
-import { loadPosts, changeFilter, changeView } from "../../actions/data";
+import { loadPosts, changeFilter, changeView, setBase } from "../../actions/data";
+import * as R from 'ramda';
 
 @Component({
   tag: 'portfolio-app',
@@ -13,26 +14,29 @@ export class PortfolioApp {
   @Prop({ context: "store" }) store: Store;
 
   @Prop() googleApiKey: string;
-  @Prop() urlToFetch: string = 'http://bixbyland.test/wp-json/bixby/v1/properties';
+  @Prop({mutable: true}) baseUrl: string;
   
-  @State() filter: any = 'all';
+  @State() filters: any = 'all';
   @State() views: any = 'map';
   @State() posts: any;
+
+  acceptedCats: any = ['all', 'industrial', 'office'];
 
   loadPosts: Action;
   changeFilter: Action;
   changeView: Action;
+  setBase: Action;
 
   componentWillLoad() {
     this.store.setStore(configureStore({}));
 
     this.store.mapStateToProps(this, state => {
       const {
-        dataReducer: { posts, filter, views }
+        dataReducer: { posts, filters, views }
       } = state;
       return {
         posts,
-        filter,
+        filters,
         views
       };
     });
@@ -40,8 +44,18 @@ export class PortfolioApp {
     this.store.mapDispatchToProps(this, {
       loadPosts,
       changeFilter,
-      changeView
+      changeView,
+      setBase
     });
+
+    this.setBase(this.baseUrl);
+  }
+
+  @Watch('baseUrl')
+  watchBaseUrl(_new, _old) {
+    if (_new !== _old) {
+      this.setBase(_new);
+    }
   }
 
   componentDidLoad() 
@@ -49,10 +63,18 @@ export class PortfolioApp {
     this.loadPosts();
   }
 
-  private handleFilter(filter) 
+  private async handleFilter(filter) 
   {
-    this.changeFilter({"category": filter});
+    await this.changeCategory(filter);
     this.loadPosts();
+  }
+
+  @Method()
+  async changeCategory(filter) {
+    if (R.includes(filter, this.acceptedCats)) {
+      this.changeFilter({"category": filter});
+      this.loadPosts();
+    }
   }
 
   private handleView(view) 
@@ -65,6 +87,7 @@ export class PortfolioApp {
     return (
       <Host class="portfolio-app">
         <filter-header-bar
+          activeFilter={this.filters.category}
           filter={this.handleFilter.bind(this)}
           view={this.handleView.bind(this)}>
         </filter-header-bar>

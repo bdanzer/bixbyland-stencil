@@ -1,16 +1,16 @@
 import { h, Host } from "@stencil/core";
 export class FilterHeaderBar {
     constructor() {
-        this.categories = [
-            'industrial',
-            'office'
-        ];
         this.views = {
             'map': 'Property Map',
             'grid': 'Property Grid'
         };
         this.activeFilter = 'all';
         this.activeView = 'map';
+        this.categories = [
+            'industrial',
+            'office'
+        ];
     }
     getViews() {
         var views = [];
@@ -86,24 +86,6 @@ export class FilterHeaderBar {
                 "tags": [],
                 "text": ""
             }
-        },
-        "categories": {
-            "type": "any",
-            "mutable": false,
-            "complexType": {
-                "original": "any",
-                "resolved": "any",
-                "references": {}
-            },
-            "required": false,
-            "optional": false,
-            "docs": {
-                "tags": [],
-                "text": ""
-            },
-            "attribute": "categories",
-            "reflect": false,
-            "defaultValue": "[\n    'industrial',\n    'office'\n  ]"
         },
         "views": {
             "type": "any",

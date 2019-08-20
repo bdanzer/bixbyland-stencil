@@ -19,3 +19,8 @@ export interface ChangeView {
     payload: string;
 }
 export declare const changeView: (data: any) => (dispatch: any, _getState: any) => Promise<any>;
+export interface SetBase {
+    type: Actions.SET_BASE;
+    payload: string;
+}
+export declare const setBase: (data: any) => (dispatch: any, _getState: any) => Promise<any>;

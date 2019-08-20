@@ -19,10 +19,12 @@ export interface LoadPosts {
 }
 
 export const loadPosts = () => async (dispatch, _getState) => {
-  let {filters, fetchUrl} = _getState().dataReducer;
+  let {filters, fetchUrl, baseUrl} = _getState().dataReducer;
+
+  console.log(baseUrl, 'loadPosts');
 
   try {
-    let response = await axios.get(fetchUrl, {
+    let response = await axios.get(baseUrl + fetchUrl, {
       params: {
         ...filters
       }
@@ -59,6 +61,18 @@ export interface ChangeView {
 export const changeView = (data) => async (dispatch, _getState) => {
   return dispatch({
     type: Actions.CHANGE_VIEW,
+    payload: data
+  });
+}
+
+export interface SetBase {
+  type: Actions.SET_BASE,
+  payload: string;
+}
+
+export const setBase = (data) => async (dispatch, _getState) => {
+  return dispatch({
+    type: Actions.SET_BASE,
     payload: data
   });
 }
