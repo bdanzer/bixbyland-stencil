@@ -11,7 +11,6 @@
 | -------------- | --------------- | ----------- | ---------- | -------------------------------------------------------------- |
 | `activeFilter` | `active-filter` |             | `string`   | `'all'`                                                        |
 | `activeView`   | `active-view`   |             | `string`   | `'map'`                                                        |
-| `categories`   | `categories`    |             | `any`      | `[     'industrial',     'office'   ]`                         |
 | `filter`       | --              |             | `Function` | `undefined`                                                    |
 | `view`         | --              |             | `Function` | `undefined`                                                    |
 | `views`        | `views`         |             | `any`      | `{     'map': 'Property Map',     'grid': 'Property Grid'   }` |

@@ -7,10 +7,23 @@
 
 ## Properties
 
-| Property       | Attribute        | Description | Type     | Default                                               |
-| -------------- | ---------------- | ----------- | -------- | ----------------------------------------------------- |
-| `googleApiKey` | `google-api-key` |             | `string` | `undefined`                                           |
-| `urlToFetch`   | `url-to-fetch`   |             | `string` | `'http://bixbyland.test/wp-json/bixby/v1/properties'` |
+| Property       | Attribute        | Description | Type     | Default     |
+| -------------- | ---------------- | ----------- | -------- | ----------- |
+| `baseUrl`      | `base-url`       |             | `string` | `undefined` |
+| `googleApiKey` | `google-api-key` |             | `string` | `undefined` |
+
+
+## Methods
+
+### `changeCategory(filter: any) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 
 ## Dependencies
