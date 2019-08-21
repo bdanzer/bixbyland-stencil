@@ -167,7 +167,12 @@ no-ui-slider-wrapper #double-slider .noUi-handle {
   background: none;
   box-shadow: none;
   outline: none;
-  top: -9px;
+  top: 0;
+}
+@media screen and (min-width: 1024px) {
+  no-ui-slider-wrapper #double-slider .noUi-handle {
+    top: -9px;
+  }
 }
 no-ui-slider-wrapper #double-slider .noUi-handle.noUi-handle-upper {
   right: -2px;

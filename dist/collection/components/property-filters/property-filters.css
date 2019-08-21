@@ -247,7 +247,8 @@ html .main-content {
     display: none;
   }
   .property-filters slot-fb[name=title],
-.property-filters .filter-title {
+.property-filters .filter-title,
+.property-filters input::placeholder {
     font: 600 20px/30px Roboto;
     letter-spacing: 1.2px;
     color: #B4BFC8;

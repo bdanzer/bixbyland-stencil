@@ -25,7 +25,10 @@ no-ui-slider-wrapper {
             background: none;
             box-shadow: none;
             outline: none;
-            top: -9px;
+            top: 0;
+            @media screen and (min-width: 1024px) {
+                top: -9px;
+            }
             &.noUi-handle-upper {
                 right: -2px;
             }
