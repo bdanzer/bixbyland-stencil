@@ -154,6 +154,9 @@ filter-header-bar .filter-wrap {
   margin: auto;
   justify-content: space-between;
 }
+filter-header-bar .filter-wrap .views .filter-label-wrap {
+  display: flex;
+}
 @media screen and (max-width: 1024px) {
   filter-header-bar .filter-wrap {
     display: flex;
@@ -166,16 +169,18 @@ filter-header-bar .filter-wrap {
     display: none;
   }
   filter-header-bar .filter-wrap .views {
+    border-top: 0.25px solid #8390A2;
     order: -1;
     flex: 0 0 100%;
   }
-  filter-header-bar .filter-wrap .views div {
+  filter-header-bar .filter-wrap .views .filter-label-wrap {
+    align-items: center;
+    justify-content: center;
     flex: 0 0 50%;
     max-width: 50%;
     margin: 0;
     text-align: center;
-    border-top: 0.25px solid #8390A2;
-    padding: 15px 0;
+    padding: 15px 16px;
   }
   filter-header-bar .filter-wrap .filters {
     flex: 0 0 100%;
@@ -214,7 +219,6 @@ filter-header-bar .filters div,
 filter-header-bar .views div {
   position: relative;
   color: #B4BFC8;
-  margin-right: 40px;
   text-transform: uppercase;
   font-weight: 500;
   cursor: pointer;
@@ -233,6 +237,13 @@ filter-header-bar .views div.active:after {
   bottom: -3px;
   left: 0;
   max-width: 40px;
+}
+@media screen and (min-width: 1024px) {
+  filter-header-bar .filters .filter-label-wrap, filter-header-bar .filters:not(.views) div,
+filter-header-bar .views .filter-label-wrap,
+filter-header-bar .views:not(.views) div {
+    margin-right: 40px;
+  }
 }
 filter-header-bar .filters .filter-label-icon,
 filter-header-bar .views .filter-label-icon {

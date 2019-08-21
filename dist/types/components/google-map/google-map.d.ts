@@ -8,10 +8,20 @@ export declare class GoogleMap {
     componentDidLoad(): void;
     postsWatch(_newData: any, _oldData: any): void;
     activePostIdWatch(newId: any, oldId: any): void;
+    CenterControl(controlDiv: any, _map: any): void;
+    getCurrentPosition(): void;
     setCenter(): void;
     findLatitudeAvg(): {
         "lat": any;
         "lng": any;
+    };
+    addMarker(position: any): void;
+    getIconType(post: any): string;
+    addImage(url: any): {
+        url: any;
+        size: any;
+        origin: any;
+        anchor: any;
     };
     addMarkers(): void;
     clearMarkers(): void;

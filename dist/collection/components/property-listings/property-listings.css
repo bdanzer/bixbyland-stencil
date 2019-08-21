@@ -178,6 +178,11 @@ property-listings card-list.map {
     max-width: 100%;
   }
 }
+property-listings card-list.grid {
+  max-width: 1300px;
+  margin: auto;
+  padding: 0;
+}
 @media screen and (max-width: 1300px) {
   property-listings google-map {
     flex: 0 0 100%;

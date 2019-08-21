@@ -8,7 +8,7 @@ import { formatLargeNumber } from '../../utils/utils';
 })
 export class PropertyInfoBar {
   @Prop({ context: "store" }) store: Store;
-  @Prop() posts: any;
+  @Prop() posts: any = [];
 
   async count(number) 
   {
@@ -22,7 +22,7 @@ export class PropertyInfoBar {
   watchPosts(_newValue, _oldValue) 
   {
     console.log(...arguments);
-  } 
+  }
 
   componentDidLoad() 
   {

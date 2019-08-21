@@ -14,6 +14,9 @@ property-listings {
         }
         &.grid {
             @extend %danzerpress-col-1;
+            max-width: 1300px;
+            margin: auto;
+            padding: 0;
         }
     }
     google-map {

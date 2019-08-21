@@ -6,7 +6,7 @@
     align-items: center;
 }
 .property-info-bar {
-    padding: 41px 80px;
+    padding: 30px 80px;
     background: #11284A 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.23);
 
@@ -35,6 +35,11 @@
             font: 700 Italic 12px/16px Roboto;
             letter-spacing: 0.72px;
         }
+    }
+
+    .property-info-stats,
+    .property-info-header {
+        text-transform: uppercase;
     }
 
     .property-info-header {

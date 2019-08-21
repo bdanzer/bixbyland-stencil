@@ -5,4 +5,5 @@ export var Actions;
     Actions["CHANGE_FILTER"] = "CHANGE_FILTER";
     Actions["CHANGE_VIEW"] = "CHANGE_VIEW";
     Actions["SET_BASE"] = "SET_BASE";
+    Actions["SORT_BY"] = "SORT_BY";
 })(Actions || (Actions = {}));

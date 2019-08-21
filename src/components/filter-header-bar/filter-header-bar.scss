@@ -7,6 +7,12 @@ filter-header-bar {
         @extend %danzerpress-flex-row;
         justify-content: space-between;
 
+        .views {
+            .filter-label-wrap {
+                display: flex;
+            }
+        }
+
         @media screen and (max-width: 1024px) {
             display: flex;
             padding: 0;
@@ -17,15 +23,17 @@ filter-header-bar {
                 display: none;
             }
             .views {
+                border-top: 0.25px solid #8390A2;
                 order: -1;
                 flex: 0 0 100%;
-                div {
+                .filter-label-wrap {
+                    align-items: center;
+                    justify-content: center;
                     flex: 0 0 50%;
                     max-width: 50%;
                     margin: 0;
                     text-align: center;
-                    border-top: 0.25px solid #8390A2;
-                    padding: 15px 0;
+                    padding: 15px 16px;
                 }
             }
             .filters {
@@ -65,7 +73,6 @@ filter-header-bar {
         div {
             position: relative;
             color: #B4BFC8;
-            margin-right: 40px;
             text-transform: uppercase;
             font-weight: 500;
             cursor: pointer;
@@ -81,6 +88,13 @@ filter-header-bar {
                     left: 0;
                     max-width: 40px;
                 }
+            }
+        }
+
+        //TODO: fix, hack solution for now
+        .filter-label-wrap, &:not(.views) div {
+            @media screen and (min-width: 1024px) {
+                margin-right: 40px;   
             }
         }
 

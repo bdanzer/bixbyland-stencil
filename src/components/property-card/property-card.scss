@@ -43,6 +43,8 @@ property-card {
                         color: #11284A;
                         margin-bottom: 6px;
                         display: block;
+                        font: 400 23px/30px Roboto;
+                        letter-spacing: 0.92px;
                     }
                     span {
                         color: #11284A;
@@ -50,7 +52,7 @@ property-card {
                         font-weight: 700;
                         font-style: italic;
                     }
-                    p {
+                    p:not(:last-child) {
                         margin-bottom: 7px;
                         color: #7C8388;
                     }

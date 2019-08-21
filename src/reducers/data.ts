@@ -19,10 +19,10 @@ const getInitialState = () => {
     error: null,
     posts: [],
     filters: {
-      "category": "",
+      "category": "all",
       "region": "",
       "search": "",
-      "sqFootage": [0, 100],
+      "sqFootage": [10, 100],
       "sortBy": ""
     },
     views: "map",
@@ -81,6 +81,17 @@ const dataReducer = (
       return {
         ...state,
         baseUrl: action.payload
+      }
+    }
+
+    case Actions.SORT_BY: {
+      return {
+        ...state,
+        posts: action.payload.posts,
+        filters: {
+          ...state.filters,
+          "sortBy": action.payload.sortBy
+        }
       }
     }
   }

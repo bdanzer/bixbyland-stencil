@@ -14,5 +14,5 @@ export declare class NoUiSliderWrapper {
     onSlide(_values: any, _handle: any, _unencoded: any, _tap: any, _positions: any): void;
     onStart(_values: any, _handle: any, _unencoded: any, _tap: any, _positions: any): void;
     onUpdate(_values: any, _handle: any, _unencoded: any, _tap: any, _positions: any): void;
-    render(): any[];
+    render(): any;
 }

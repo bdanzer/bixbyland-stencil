@@ -7,11 +7,12 @@
 
 ## Properties
 
-| Property  | Attribute | Description | Type  | Default     |
-| --------- | --------- | ----------- | ----- | ----------- |
-| `filters` | `filters` |             | `any` | `undefined` |
-| `posts`   | `posts`   |             | `any` | `[]`        |
-| `search`  | `search`  |             | `any` | `undefined` |
+| Property  | Attribute  | Description | Type  | Default     |
+| --------- | ---------- | ----------- | ----- | ----------- |
+| `baseUrl` | `base-url` |             | `""`  | `undefined` |
+| `filters` | `filters`  |             | `any` | `undefined` |
+| `posts`   | `posts`    |             | `any` | `[]`        |
+| `search`  | `search`   |             | `any` | `undefined` |
 
 
 ## Dependencies

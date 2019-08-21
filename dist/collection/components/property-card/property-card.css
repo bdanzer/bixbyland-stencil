@@ -205,6 +205,8 @@ property-card .property-card .property-card-content-wrap .property-content .prop
   color: #11284A;
   margin-bottom: 6px;
   display: block;
+  font: 400 23px/30px Roboto;
+  letter-spacing: 0.92px;
 }
 property-card .property-card .property-card-content-wrap .property-content .property-content-wrap span {
   color: #11284A;
@@ -212,7 +214,7 @@ property-card .property-card .property-card-content-wrap .property-content .prop
   font-weight: 700;
   font-style: italic;
 }
-property-card .property-card .property-card-content-wrap .property-content .property-content-wrap p {
+property-card .property-card .property-card-content-wrap .property-content .property-content-wrap p:not(:last-child) {
   margin-bottom: 7px;
   color: #7C8388;
 }

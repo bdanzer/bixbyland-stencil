@@ -30,3 +30,26 @@ export function formatLargeNumber(func, postArray) {
     }
     return numberString;
 }
+/**
+ * TODO: Use R.sortWith with R.ascend & R.descend
+ */
+export function sorter(value, haystack) {
+    switch (value) {
+        case 'alpha_asc':
+            var sortByNameCaseInsensitive = R.sortBy(R.prop('post_title'));
+            var sort = sortByNameCaseInsensitive(haystack);
+            return sort;
+        case 'alpha_dsc':
+            var sortByNameCaseInsensitive = R.sortBy(R.prop('post_title'));
+            var sort = sortByNameCaseInsensitive(haystack);
+            return R.reverse(sort);
+        case 'sqft_asc':
+            var sortByNameCaseInsensitive = R.sortBy((haystack) => haystack.meta.sq_ft[0]);
+            var sort = sortByNameCaseInsensitive(haystack);
+            return sort;
+        case 'sqft_dsc':
+            var sortByNameCaseInsensitive = R.sortBy((haystack) => haystack.meta.sq_ft[0]);
+            var sort = sortByNameCaseInsensitive(haystack);
+            return R.reverse(sort);
+    }
+}

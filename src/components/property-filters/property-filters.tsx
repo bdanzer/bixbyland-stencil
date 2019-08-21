@@ -1,8 +1,9 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { Store, Action } from "@stencil/redux";
-import { changeFilter, loadPosts } from "../../actions/data";
+import { changeFilter, loadPosts, sortBy } from "../../actions/data";
 import * as R from "ramda";
 import axios from "axios";
+import { sorter } from '../../utils/utils';
 
 @Component({
   tag: 'property-filters',
@@ -13,27 +14,37 @@ export class PropertyFilters {
   @Prop() search;
   @Prop() filters;
   @Prop() posts: any = [];
+  @Prop() baseUrl: '';
 
   @State() modal: boolean = false;
   @State() regions: any = [];
 
   changeFilter: Action;
   loadPosts: Action;
+  sortBy: Action;
+
+  sortByInfo = {
+    "alpha_asc": "Alphabetical ASC",
+    "alpha_dsc": "Alphabetical DSC",
+    "sqft_asc" : "Square Feet ASC",
+    "sqft_dsc" : "Square Feet DSC"
+  };
 
   componentDidLoad() 
   {
     this.store.mapStateToProps(this, state => {
       const {
-        dataReducer: { filters, posts }
+        dataReducer: { filters, posts, baseUrl }
       } = state;
       return {
-        filters, posts
+        filters, posts, baseUrl
       };
     });
 
     this.store.mapDispatchToProps(this, {
       changeFilter,
-      loadPosts
+      loadPosts,
+      sortBy
     });
 
     this.getRegions()
@@ -41,7 +52,7 @@ export class PropertyFilters {
 
   async getRegions() 
   {
-    let response = await axios.get('https://bixbyland.coreylowe.io/wp-json/bixby/v1/properties/regions');
+    let response = await axios.get(this.baseUrl + '/wp-json/bixby/v1/properties/regions');
     return this.regions = response.data;
   }
 
@@ -69,9 +80,23 @@ export class PropertyFilters {
     this.loadPosts();
   }
 
-  handleSortBy(_e) 
+  getSortBy() 
   {
+    let options = [];
+    for (let key in this.sortByInfo) {
+      options.push((<option value={key}>{this.sortByInfo[key]}</option>));
+    }
+    
+    return options;
+  }
 
+  handleSortBy(e) 
+  {
+    let value = (e.target as HTMLInputElement).value;
+    this.sortBy({
+      'posts': sorter(value, this.posts),
+      'sortBy': value
+    });
   }
 
   handleResetFilters() 
@@ -97,7 +122,7 @@ export class PropertyFilters {
         )} 
         <input onChange={(e) => this.handleSearch(e)} type="text" value={(this.filters && this.filters.search) ? this.filters.search : ''} placeholder="Search properties by address" class="search"/>
         <select name="regions" class="dropdown" onChange={(e) => this.handleRegion(e)}>
-          <option selected={(this.filters.region) ? false : true} disabled>Regions</option>
+          <option selected={(this.filters && this.filters.region) ? false : true} disabled>Regions</option>
           {this.regions.map(region => <option value={region.meta_value}>{region.meta_value}</option>)}
         </select>
         <no-ui-slider-wrapper
@@ -106,7 +131,8 @@ export class PropertyFilters {
             <slot name="title">Square Footage</slot>
         </no-ui-slider-wrapper>
         <select name="sortby" class="dropdown" onChange={(e) => this.handleSortBy(e)}>
-          <option selected disabled>SortBy</option>
+          <option selected={(this.filters && this.filters.sortBy) ? false : true} disabled>SortBy</option>
+          {this.getSortBy()}
         </select>
         <button onClick={() => {(this.modal) ? this.modal = !this.modal : this.handleResetFilters()}} class="reset-button">{(this.modal) ? 'Apply' : 'Reset Filters'}</button>
         <div class="modal-close-button" onClick={() => {this.modal = !this.modal}}>X</div>

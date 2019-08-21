@@ -1,4 +1,4 @@
-import { Component, h, Prop, Watch } from '@stencil/core';
+import { Component, h, Prop, Watch, Host } from '@stencil/core';
 import noUiSlider from 'nouislider';
 import * as R from 'ramda';
 
@@ -97,9 +97,11 @@ export class NoUiSliderWrapper {
   onUpdate(_values, _handle, _unencoded, _tap, _positions) {}
 
   render() {
-    return [
-      <slot name="title"/>,
-      <div ref={el => this.el = el} id="double-slider"></div>
-    ];
+    return (
+      <Host>
+        <slot name="title"/>
+        <div ref={el => this.el = el} id="double-slider"></div>
+      </Host>
+    );
   }
 }

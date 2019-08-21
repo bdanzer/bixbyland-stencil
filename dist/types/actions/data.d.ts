@@ -24,3 +24,8 @@ export interface SetBase {
     payload: string;
 }
 export declare const setBase: (data: any) => (dispatch: any, _getState: any) => Promise<any>;
+export interface SortBy {
+    type: Actions.SORT_BY;
+    payload: any;
+}
+export declare const sortBy: (data: any) => (dispatch: any, _getState: any) => Promise<any>;

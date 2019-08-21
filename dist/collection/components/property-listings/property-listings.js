@@ -10,7 +10,6 @@ export class PropertyListings {
         this.activePostId = post.ID;
     }
     render() {
-        console.log('view', this.view);
         return (h(Host, null,
             this.view === 'map' && (h("google-map", { posts: this.posts, handleMarker: this.handleMarker.bind(this), activePostId: this.activePostId })),
             h("card-list", { class: this.view, handleCard: this.handleCard.bind(this), activePostId: this.activePostId, posts: this.posts })));

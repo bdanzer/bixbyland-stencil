@@ -8,10 +8,10 @@ const getInitialState = () => {
         error: null,
         posts: [],
         filters: {
-            "category": "",
+            "category": "all",
             "region": "",
             "search": "",
-            "sqFootage": [0, 100],
+            "sqFootage": [10, 100],
             "sortBy": ""
         },
         views: "map",
@@ -41,6 +41,9 @@ const dataReducer = (state = getInitialState(), action) => {
         }
         case Actions.SET_BASE: {
             return Object.assign({}, state, { baseUrl: action.payload });
+        }
+        case Actions.SORT_BY: {
+            return Object.assign({}, state, { posts: action.payload.posts, filters: Object.assign({}, state.filters, { "sortBy": action.payload.sortBy }) });
         }
     }
     return state;

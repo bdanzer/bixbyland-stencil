@@ -43,6 +43,7 @@ export namespace Components {
     'postData': any;
   }
   interface PropertyFilters {
+    'baseUrl': '';
     'filters': any;
     'posts': any;
     'search': any;
@@ -160,6 +161,7 @@ declare namespace LocalJSX {
     'postData'?: any;
   }
   interface PropertyFilters extends JSXBase.HTMLAttributes<HTMLPropertyFiltersElement> {
+    'baseUrl'?: '';
     'filters'?: any;
     'posts'?: any;
     'search'?: any;

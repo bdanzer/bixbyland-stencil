@@ -1,4 +1,4 @@
-import { h } from "@stencil/core";
+import { h, Host } from "@stencil/core";
 import noUiSlider from 'nouislider';
 import * as R from 'ramda';
 export class NoUiSliderWrapper {
@@ -68,10 +68,9 @@ export class NoUiSliderWrapper {
     onStart(_values, _handle, _unencoded, _tap, _positions) { }
     onUpdate(_values, _handle, _unencoded, _tap, _positions) { }
     render() {
-        return [
+        return (h(Host, null,
             h("slot", { name: "title" }),
-            h("div", { ref: el => this.el = el, id: "double-slider" })
-        ];
+            h("div", { ref: el => this.el = el, id: "double-slider" })));
     }
     static get is() { return "no-ui-slider-wrapper"; }
     static get originalStyleUrls() { return {

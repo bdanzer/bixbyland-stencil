@@ -1,6 +1,9 @@
 import { h } from "@stencil/core";
 import { formatLargeNumber } from '../../utils/utils';
 export class PropertyInfoBar {
+    constructor() {
+        this.posts = [];
+    }
     async count(number) {
         var i = 1;
         while (number + 1 !== i) {
@@ -73,7 +76,8 @@ export class PropertyInfoBar {
                 "text": ""
             },
             "attribute": "posts",
-            "reflect": false
+            "reflect": false,
+            "defaultValue": "[]"
         }
     }; }
     static get contextProps() { return [{

@@ -21,7 +21,6 @@ export class PropertyListings {
 
   render() 
   {
-    console.log('view', this.view)
     return (
       <Host>
         {this.view === 'map' && (
