@@ -158,7 +158,7 @@ export class PropertyFilters {
         },
         "baseUrl": {
             "type": "string",
-            "mutable": false,
+            "mutable": true,
             "complexType": {
                 "original": "''",
                 "resolved": "\"\"",

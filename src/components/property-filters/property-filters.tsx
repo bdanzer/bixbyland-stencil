@@ -14,7 +14,7 @@ export class PropertyFilters {
   @Prop() search;
   @Prop() filters;
   @Prop() posts: any = [];
-  @Prop() baseUrl: '';
+  @Prop({mutable: true}) baseUrl: '';
 
   @State() modal: boolean = false;
   @State() regions: any = [];
