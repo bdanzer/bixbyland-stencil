@@ -6425,7 +6425,10 @@ const PropertyInfoBar = class {
         }
     }
     watchPosts(_newValue, _oldValue) {
-        axios$1.get(this.baseUrl + '/wp-json/bixby/v1/properties/category-info', {
+        /**
+         * TODO: convert to use baseUrl
+         */
+        axios$1.get('https://bixbyland.coreylowe.io/wp-json/bixby/v1/properties/category-info', {
             params: {
                 'category': _newValue.category
             }

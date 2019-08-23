@@ -5960,7 +5960,10 @@ var PropertyInfoBar = /** @class */ (function () {
     };
     class_8.prototype.watchPosts = function (_newValue, _oldValue) {
         var _this = this;
-        axios$1.get(this.baseUrl + '/wp-json/bixby/v1/properties/category-info', {
+        /**
+         * TODO: convert to use baseUrl
+         */
+        axios$1.get('https://bixbyland.coreylowe.io/wp-json/bixby/v1/properties/category-info', {
             params: {
                 'category': _newValue.category
             }

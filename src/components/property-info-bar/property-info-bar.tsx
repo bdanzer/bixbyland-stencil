@@ -27,7 +27,10 @@ export class PropertyInfoBar {
   @Watch('filters')
   watchPosts(_newValue, _oldValue) 
   {
-    axios.get(this.baseUrl + '/wp-json/bixby/v1/properties/category-info', {
+    /**
+     * TODO: convert to use baseUrl
+     */
+    axios.get('https://bixbyland.coreylowe.io/wp-json/bixby/v1/properties/category-info', {
       params: {
         'category': _newValue.category
       }
