@@ -11,6 +11,7 @@ import * as R from 'ramda';
 export class PropertyInfoBar {
   @Prop({ context: "store" }) store: Store;
   @Prop() posts: any = [];
+  @Prop() baseUrl;
   @Prop({mutable: true}) filters = {
     "category": ""
   };
@@ -26,7 +27,7 @@ export class PropertyInfoBar {
   @Watch('filters')
   watchPosts(_newValue, _oldValue) 
   {
-    axios.get('http://bixbyland.test/wp-json/bixby/v1/properties/category-info', {
+    axios.get(this.baseUrl + '/wp-json/bixby/v1/properties/category-info', {
       params: {
         'category': _newValue.category
       }
@@ -40,10 +41,10 @@ export class PropertyInfoBar {
   {
     this.store.mapStateToProps(this, state => {
       const {
-        dataReducer: { filters }
+        dataReducer: { filters, baseUrl }
       } = state;
       return {
-        filters
+        filters, baseUrl
       };
     });
   }

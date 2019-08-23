@@ -16,7 +16,7 @@ export class PropertyInfoBar {
         }
     }
     watchPosts(_newValue, _oldValue) {
-        axios.get('http://bixbyland.test/wp-json/bixby/v1/properties/category-info', {
+        axios.get(this.baseUrl + '/wp-json/bixby/v1/properties/category-info', {
             params: {
                 'category': _newValue.category
             }
@@ -26,9 +26,9 @@ export class PropertyInfoBar {
     }
     componentDidLoad() {
         this.store.mapStateToProps(this, state => {
-            const { dataReducer: { filters } } = state;
+            const { dataReducer: { filters, baseUrl } } = state;
             return {
-                filters
+                filters, baseUrl
             };
         });
     }
@@ -89,6 +89,23 @@ export class PropertyInfoBar {
             "attribute": "posts",
             "reflect": false,
             "defaultValue": "[]"
+        },
+        "baseUrl": {
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "base-url",
+            "reflect": false
         },
         "filters": {
             "type": "unknown",

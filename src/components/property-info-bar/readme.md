@@ -7,9 +7,11 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type  | Default |
-| -------- | --------- | ----------- | ----- | ------- |
-| `posts`  | `posts`   |             | `any` | `[]`    |
+| Property  | Attribute  | Description | Type                      | Default                    |
+| --------- | ---------- | ----------- | ------------------------- | -------------------------- |
+| `baseUrl` | `base-url` |             | `any`                     | `undefined`                |
+| `filters` | --         |             | `{ "category": string; }` | `{     "category": ""   }` |
+| `posts`   | `posts`    |             | `any`                     | `[]`                       |
 
 
 ## Dependencies

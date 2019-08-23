@@ -91,11 +91,14 @@ export class GoogleMap {
         });
         marker.setMap(this.mapObject);
     }
+    /**
+     * TODO: Add baseUrl
+     */
     async getIcons() {
         if (!this.icons) {
-            let res = await axios.get('http://bixbyland.test/wp-json/bixby/v1/theme-settings');
+            let res = await axios.get('https://bixbyland.coreylowe.io/wp-json/bixby/v1/theme-settings');
             let icons = R.map((themeOptions) => {
-                return 'http://bixbyland.test' + themeOptions.url;
+                return 'https://bixbyland.coreylowe.io' + themeOptions.url;
             }, res.data);
             this.icons = icons;
         }

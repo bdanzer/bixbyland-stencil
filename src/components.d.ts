@@ -49,6 +49,7 @@ export namespace Components {
     'search': any;
   }
   interface PropertyInfoBar {
+    'baseUrl': any;
     'filters': { "category": string; };
     'posts': any;
   }
@@ -168,6 +169,7 @@ declare namespace LocalJSX {
     'search'?: any;
   }
   interface PropertyInfoBar extends JSXBase.HTMLAttributes<HTMLPropertyInfoBarElement> {
+    'baseUrl'?: any;
     'filters'?: { "category": string; };
     'posts'?: any;
   }

@@ -2,6 +2,7 @@ import { Store } from "@stencil/redux";
 export declare class PropertyInfoBar {
     store: Store;
     posts: any;
+    baseUrl: any;
     filters: {
         "category": string;
     };

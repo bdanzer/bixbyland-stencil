@@ -17,6 +17,9 @@ export declare class GoogleMap {
         "lng": any;
     };
     addMarker(position: any): void;
+    /**
+     * TODO: Add baseUrl
+     */
     getIcons(): Promise<void>;
     /**
      * TODO: clean up for a better solution
