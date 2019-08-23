@@ -92,7 +92,7 @@ export class PropertyInfoBar {
         },
         "baseUrl": {
             "type": "any",
-            "mutable": false,
+            "mutable": true,
             "complexType": {
                 "original": "any",
                 "resolved": "any",

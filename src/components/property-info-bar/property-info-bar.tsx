@@ -11,7 +11,7 @@ import * as R from 'ramda';
 export class PropertyInfoBar {
   @Prop({ context: "store" }) store: Store;
   @Prop() posts: any = [];
-  @Prop() baseUrl;
+  @Prop({mutable: true}) baseUrl;
   @Prop({mutable: true}) filters = {
     "category": ""
   };
