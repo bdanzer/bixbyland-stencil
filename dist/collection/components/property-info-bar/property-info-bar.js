@@ -1,8 +1,13 @@
 import { h } from "@stencil/core";
 import { formatLargeNumber } from '../../utils/utils';
+import axios from 'axios';
+import * as R from 'ramda';
 export class PropertyInfoBar {
     constructor() {
         this.posts = [];
+        this.filters = {
+            "category": ""
+        };
     }
     async count(number) {
         var i = 1;
@@ -11,13 +16,19 @@ export class PropertyInfoBar {
         }
     }
     watchPosts(_newValue, _oldValue) {
-        console.log(...arguments);
+        axios.get('http://bixbyland.test/wp-json/bixby/v1/properties/category-info', {
+            params: {
+                'category': _newValue.category
+            }
+        }).then(res => {
+            this.posts = res.data;
+        });
     }
     componentDidLoad() {
         this.store.mapStateToProps(this, state => {
-            const { dataReducer: { posts } } = state;
+            const { dataReducer: { filters } } = state;
             return {
-                posts
+                filters
             };
         });
     }
@@ -28,14 +39,14 @@ export class PropertyInfoBar {
     createInfoObj() {
         // R.objOf('propertyInfo')
         // var sqFt = 0;
-        const func = (obj) => (obj.meta.sq_ft[0]) ? parseInt(obj.meta.sq_ft[0]) : 0;
-        return formatLargeNumber(func, this.posts);
+        let sqFootSum = R.sum(R.map(postData => postData.sq_ft, this.posts));
+        return formatLargeNumber(sqFootSum);
     }
     getPrice() {
         // R.objOf('propertyInfo')
         // var sqFt = 0;
-        const func = (obj) => (obj.meta.price[0]) ? parseInt(obj.meta.price[0]) : 0;
-        return formatLargeNumber(func, this.posts);
+        let priceSum = R.sum(R.map(postData => postData.price, this.posts));
+        return formatLargeNumber(priceSum);
     }
     render() {
         return (h("div", { class: "property-info-bar" },
@@ -78,6 +89,22 @@ export class PropertyInfoBar {
             "attribute": "posts",
             "reflect": false,
             "defaultValue": "[]"
+        },
+        "filters": {
+            "type": "unknown",
+            "mutable": true,
+            "complexType": {
+                "original": "{ \"category\": string; }",
+                "resolved": "{ \"category\": string; }",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "defaultValue": "{\n    \"category\": \"\"\n  }"
         }
     }; }
     static get contextProps() { return [{
@@ -85,7 +112,7 @@ export class PropertyInfoBar {
             "context": "store"
         }]; }
     static get watchers() { return [{
-            "propName": "posts",
+            "propName": "filters",
             "methodName": "watchPosts"
         }]; }
 }

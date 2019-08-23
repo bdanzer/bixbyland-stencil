@@ -3,6 +3,7 @@ export declare class GoogleMap {
     handleMarker: Function;
     activePostId: any;
     mapObject: any;
+    icons: any;
     map: any;
     markersObj: any;
     componentDidLoad(): void;
@@ -16,7 +17,11 @@ export declare class GoogleMap {
         "lng": any;
     };
     addMarker(position: any): void;
-    getIconType(post: any): string;
+    getIcons(): Promise<void>;
+    /**
+     * TODO: clean up for a better solution
+     */
+    getIconType(post: any): any;
     addImage(url: any): {
         url: any;
         size: any;

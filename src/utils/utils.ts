@@ -13,8 +13,7 @@ export function getSubString(numberString, removeNumber)
   return numberString.substring(0, numberString.length - removeNumber)
 }
 
-export function formatLargeNumber(func, postArray) {
-  let number = R.sum(R.map(func, postArray));
+export function formatLargeNumber(number) {
   let numberString = number.toString();
   let numberLength = number.toString().length;
 

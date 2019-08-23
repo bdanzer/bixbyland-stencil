@@ -1,13 +1,15 @@
-import * as R from 'ramda';
-export function format(first, middle, last) {
+import { s as sum, m as map, b as sortBy, p as prop, r as reverse } from './index-9c3a60e3.js';
+
+function format(first, middle, last) {
     return ((first || '') +
         (middle ? ` ${middle}` : '') +
         (last ? ` ${last}` : ''));
 }
-export function getSubString(numberString, removeNumber) {
+function getSubString(numberString, removeNumber) {
     return numberString.substring(0, numberString.length - removeNumber);
 }
-export function formatLargeNumber(number) {
+function formatLargeNumber(func, postArray) {
+    let number = sum(map(func, postArray));
     let numberString = number.toString();
     let numberLength = number.toString().length;
     switch (numberLength) {
@@ -32,23 +34,25 @@ export function formatLargeNumber(number) {
 /**
  * TODO: Use R.sortWith with R.ascend & R.descend
  */
-export function sorter(value, haystack) {
+function sorter(value, haystack) {
     switch (value) {
         case 'alpha_asc':
-            var sortByNameCaseInsensitive = R.sortBy(R.prop('post_title'));
+            var sortByNameCaseInsensitive = sortBy(prop('post_title'));
             var sort = sortByNameCaseInsensitive(haystack);
             return sort;
         case 'alpha_dsc':
-            var sortByNameCaseInsensitive = R.sortBy(R.prop('post_title'));
+            var sortByNameCaseInsensitive = sortBy(prop('post_title'));
             var sort = sortByNameCaseInsensitive(haystack);
-            return R.reverse(sort);
+            return reverse(sort);
         case 'sqft_asc':
-            var sortByNameCaseInsensitive = R.sortBy((haystack) => haystack.meta.sq_ft[0]);
+            var sortByNameCaseInsensitive = sortBy((haystack) => haystack.meta.sq_ft[0]);
             var sort = sortByNameCaseInsensitive(haystack);
             return sort;
         case 'sqft_dsc':
-            var sortByNameCaseInsensitive = R.sortBy((haystack) => haystack.meta.sq_ft[0]);
+            var sortByNameCaseInsensitive = sortBy((haystack) => haystack.meta.sq_ft[0]);
             var sort = sortByNameCaseInsensitive(haystack);
-            return R.reverse(sort);
+            return reverse(sort);
     }
 }
+
+export { formatLargeNumber as f, sorter as s };

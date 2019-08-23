@@ -1,5 +1,6 @@
 import { Component, h, Prop, Watch, State } from '@stencil/core';
 import * as R from 'ramda';
+import axios from 'axios';
 
 declare var google: any;
 
@@ -13,6 +14,7 @@ export class GoogleMap {
   @Prop() activePostId: any = false;
 
   @State() mapObject;
+  @State() icons: any;
 
   map: any;
   markersObj: any = {};
@@ -30,19 +32,21 @@ export class GoogleMap {
       }
     });
 
-    var centerControlDiv = document.createElement('div');
-    this.CenterControl(centerControlDiv, this.mapObject);
+    (async () => {
+      await this.getIcons();
 
-    centerControlDiv['index'] = 1;
-    this.mapObject.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
+      var centerControlDiv = document.createElement('div');
+      this.CenterControl(centerControlDiv, this.mapObject);
 
-    this.addMarkers();
+      centerControlDiv['index'] = 1;
+      this.mapObject.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
+    })();
   }
 
   @Watch('posts')
   postsWatch(_newData, _oldData) {
     this.clearMarkers();
-    this.addMarkers();
+    this.getIcons();
     this.setCenter();
   }
 
@@ -50,6 +54,8 @@ export class GoogleMap {
   activePostIdWatch(newId, oldId) {
     if (newId !== oldId) {
       let markerData = this.markersObj[newId];
+      this.clearMarkers();
+      this.getIcons();
       this.mapObject.setCenter(markerData.position);
     }
   }
@@ -68,13 +74,9 @@ export class GoogleMap {
 
     // Set CSS for the control interior.
     var controlText = document.createElement('div');
-    controlText.style.color = 'rgb(25,25,25)';
-    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-    controlText.style.fontSize = '16px';
-    controlText.style.lineHeight = '38px';
-    controlText.style.paddingLeft = '5px';
-    controlText.style.paddingRight = '5px';
-    controlText.innerHTML = 'Find Location';
+    controlText.style.padding = '10px';
+    controlText.style.lineHeight = '0';
+    controlText.innerHTML = `<img style="max-width: 25px" src="${this.icons.google_map_current_location}">`;
     controlUI.appendChild(controlText);
 
     // Setup the click event listeners: simply set the map to Chicago.
@@ -122,18 +124,39 @@ export class GoogleMap {
     marker.setMap(this.mapObject);
   }
 
+  async getIcons() 
+  {
+    if (!this.icons) {
+      let res = await axios.get('http://bixbyland.test/wp-json/bixby/v1/theme-settings');
+      let icons = R.map((themeOptions) => {
+        return 'http://bixbyland.test' + themeOptions.url
+      }, res.data);
+
+      this.icons = icons;
+    }
+
+    this.addMarkers();
+  }
+
+  /**
+   * TODO: clean up for a better solution
+   */
   getIconType(post) 
   {
-    if (this.activePostId === post.ID) {
-      // return this.addImage('https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png');
+    if (this.activePostId === post.ID && post.categories[0]['slug'] == 'office') {
+      return (this.icons && this.icons.google_map_office_active_icon) ? this.icons.google_map_office_active_icon : '';
+    }
+
+    if (this.activePostId === post.ID && post.categories[0]['slug'] == 'industrial') {
+      return (this.icons && this.icons.google_map_property_active_icon) ? this.icons.google_map_property_active_icon : '';
     }
 
     if (post.categories[0]['slug'] == 'industrial') {
-      // return this.addImage('https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png');
+      return (this.icons && this.icons.google_map_property_icon) ? this.icons.google_map_property_icon : '';
     }
 
     //otherwise it's an office image
-    return '';
+    return (this.icons && this.icons.google_map_office_icon) ? this.icons.google_map_office_icon : '';
   }
 
   addImage(url) {
@@ -154,21 +177,22 @@ export class GoogleMap {
   {
     this.posts.forEach(post => {
       let position = {
-        lat: parseInt(post.meta.latitude[0]), 
-        lng: parseInt(post.meta.longitude[0])
+        lat: parseFloat(post.meta.latitude[0]), 
+        lng: parseFloat(post.meta.longitude[0])
       };
 
       var marker = new google.maps.Marker({
         position: position,
         map: this.mapObject,
-        title: 'Hello World!',
         icon: this.getIconType(post)
       });
 
       let markerObj = {
         ID: post.ID,
+        categories: post.categories,
         marker: marker,
-        position: position
+        position: position,
+        post: post
       }
 
       this.markersObj[post.ID] = markerObj;
@@ -181,14 +205,8 @@ export class GoogleMap {
           'lat': e.latLng.lat(),
           'lng': e.latLng.lng()
         });
-
-        // markerObj.marker.setIcon('https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png');
       });
     });
-
-    // setTimeout(() => {
-    //   this.clearMarkers();
-    // }, 5000);
   }
 
   clearMarkers()
