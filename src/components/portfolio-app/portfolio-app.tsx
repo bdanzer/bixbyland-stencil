@@ -5,6 +5,7 @@ import { Store, Action } from "@stencil/redux";
 import { configureStore } from "../../store/index";
 import { loadPosts, changeFilter, changeView, setBase } from "../../actions/data";
 import * as R from 'ramda';
+import * as queryString from 'query-string';
 
 @Component({
   tag: 'portfolio-app',
@@ -49,12 +50,23 @@ export class PortfolioApp {
     });
 
     this.setBase(this.baseUrl);
+
+    this.checkUrl();
   }
 
   @Watch('baseUrl')
   watchBaseUrl(_new, _old) {
     if (_new !== _old) {
       this.setBase(_new);
+    }
+  }
+
+  async checkUrl() {
+    let obj = queryString.parseUrl(window.location.href);
+    let query = obj.query;
+    
+    if (query && query.category) {
+      await this.changeCategory(query.category);
     }
   }
 

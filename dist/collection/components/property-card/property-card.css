@@ -198,6 +198,8 @@ property-card .property-card .property-card-content-wrap .property-image-wrap im
 property-card .property-card .property-card-content-wrap .property-content .property-content-wrap {
   background: white;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 property-card .property-card .property-card-content-wrap .property-content .property-content-wrap .property-title {
   font-size: 23px;
@@ -218,6 +220,18 @@ property-card .property-card .property-card-content-wrap .property-content .prop
   margin-bottom: 7px;
   color: #7C8388;
 }
+property-card .property-card .property-card-content-wrap .property-content .property-content-wrap .post-link {
+  color: #11284A;
+  font-weight: 600;
+  font-style: italic;
+  font-family: "Roboto", sans-serif;
+  text-decoration: none;
+  border-bottom: 1px solid #11284A;
+  padding-bottom: 3px;
+  margin-top: 10px;
+  display: inline-block;
+  align-self: flex-end;
+}
 
 card-list.grid .property-card .property-card-content-wrap {
   padding: 0px;
@@ -233,4 +247,7 @@ card-list.grid .property-card .property-card-content-wrap .property-content span
   width: 40px;
   display: block;
   margin-bottom: 7px;
+}
+card-list.grid .property-card .property-card-content-wrap .property-content .post-link {
+  display: none;
 }

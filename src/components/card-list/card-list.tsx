@@ -1,6 +1,5 @@
 import { Component, h, Prop, Host, State } from '@stencil/core';
-import { Store, Action } from "@stencil/redux";
-import { loadDataBegin } from "../../actions/data";
+import { Store } from "@stencil/redux";
 
 @Component({
   tag: 'card-list',
@@ -15,30 +14,26 @@ export class CardList {
   @State() items: any;
   @State() loading: boolean;
   @State() error: any;
-
-  loadDataBegin: Action;
+  @State() views: any;
   
   componentWillLoad() {
     this.store.mapStateToProps(this, state => {
       const {
-        dataReducer: { items, loading, error, posts }
+        dataReducer: { items, loading, error, posts, views }
       } = state;
       return {
         items,
         loading,
         error,
-        posts
+        posts,
+        views
       };
     });
 
-    this.store.mapDispatchToProps(this, {
-      loadDataBegin
-    });
+    this.store.mapDispatchToProps(this, {});
   }
 
-  componentDidLoad() {
-    this.loadDataBegin('hi')
-  }
+  componentDidLoad() {}
 
   render() 
   {
@@ -47,6 +42,7 @@ export class CardList {
         {this.posts.map(post => {
           return (
             <property-card
+              view={this.views}
               onClick={() => this.handleCard(post)}
               activePostId={this.activePostId}
               postData={post}>

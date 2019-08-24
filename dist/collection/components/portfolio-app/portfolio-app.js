@@ -2,6 +2,7 @@ import { h, Host } from "@stencil/core";
 import { configureStore } from "../../store/index";
 import { loadPosts, changeFilter, changeView, setBase } from "../../actions/data";
 import * as R from 'ramda';
+import * as queryString from 'query-string';
 export class PortfolioApp {
     constructor() {
         this.filters = 'all';
@@ -25,10 +26,18 @@ export class PortfolioApp {
             setBase
         });
         this.setBase(this.baseUrl);
+        this.checkUrl();
     }
     watchBaseUrl(_new, _old) {
         if (_new !== _old) {
             this.setBase(_new);
+        }
+    }
+    async checkUrl() {
+        let obj = queryString.parseUrl(window.location.href);
+        let query = obj.query;
+        if (query && query.category) {
+            await this.changeCategory(query.category);
         }
     }
     componentDidLoad() {

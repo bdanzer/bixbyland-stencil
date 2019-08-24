@@ -41,6 +41,7 @@ export namespace Components {
   interface PropertyCard {
     'activePostId': any;
     'postData': any;
+    'view': any;
   }
   interface PropertyFilters {
     'baseUrl': '';
@@ -161,6 +162,7 @@ declare namespace LocalJSX {
   interface PropertyCard extends JSXBase.HTMLAttributes<HTMLPropertyCardElement> {
     'activePostId'?: any;
     'postData'?: any;
+    'view'?: any;
   }
   interface PropertyFilters extends JSXBase.HTMLAttributes<HTMLPropertyFiltersElement> {
     'baseUrl'?: '';

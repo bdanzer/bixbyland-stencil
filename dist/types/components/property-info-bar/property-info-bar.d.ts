@@ -6,7 +6,6 @@ export declare class PropertyInfoBar {
     filters: {
         "category": string;
     };
-    count(number: any): Promise<void>;
     watchPosts(_newValue: any, _oldValue: any): void;
     componentDidLoad(): void;
     countPosts(): any;

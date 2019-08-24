@@ -16,14 +16,6 @@ export class PropertyInfoBar {
     "category": ""
   };
 
-  async count(number) 
-  {
-    var i = 1;
-    while(number + 1 !== i) {
-      console.log(i++);
-    }
-  }
-
   @Watch('filters')
   watchPosts(_newValue, _oldValue) 
   {

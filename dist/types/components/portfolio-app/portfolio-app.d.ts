@@ -14,6 +14,7 @@ export declare class PortfolioApp {
     setBase: Action;
     componentWillLoad(): void;
     watchBaseUrl(_new: any, _old: any): void;
+    checkUrl(): Promise<void>;
     componentDidLoad(): void;
     private handleFilter;
     changeCategory(filter: any): Promise<void>;

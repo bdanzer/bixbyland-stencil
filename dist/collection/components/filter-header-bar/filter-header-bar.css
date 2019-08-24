@@ -192,7 +192,7 @@ filter-header-bar .filter-wrap .views .filter-label-wrap {
     text-align: center;
     padding: 12px 0;
   }
-  filter-header-bar .filter-wrap .filters div:after {
+  filter-header-bar .filter-wrap .filters div:not(:last-child):before {
     height: 100%;
     content: "";
     width: 1px;

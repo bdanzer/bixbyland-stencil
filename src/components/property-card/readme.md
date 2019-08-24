@@ -11,6 +11,7 @@
 | -------------- | ---------------- | ----------- | ----- | ----------- |
 | `activePostId` | `active-post-id` |             | `any` | `false`     |
 | `postData`     | `post-data`      |             | `any` | `undefined` |
+| `view`         | `view`           |             | `any` | `undefined` |
 
 
 ## Dependencies

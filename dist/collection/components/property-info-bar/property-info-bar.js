@@ -9,12 +9,6 @@ export class PropertyInfoBar {
             "category": ""
         };
     }
-    async count(number) {
-        var i = 1;
-        while (number + 1 !== i) {
-            console.log(i++);
-        }
-    }
     watchPosts(_newValue, _oldValue) {
         /**
          * TODO: convert to use baseUrl

@@ -37,6 +37,8 @@ property-card {
                 .property-content-wrap {
                     background: white;
                     padding: 20px;
+                    display: flex;
+                    flex-direction: column;
                     .property-title {
                         font-size: 23px;
                         font-family: $font-family-primary;
@@ -55,6 +57,18 @@ property-card {
                     p:not(:last-child) {
                         margin-bottom: 7px;
                         color: #7C8388;
+                    }
+                    .post-link {
+                        color: #11284A;
+                        font-weight: 600;
+                        font-style: italic;
+                        font-family: $font-family-primary;
+                        text-decoration: none;
+                        border-bottom: 1px solid #11284A;
+                        padding-bottom: 3px;
+                        margin-top: 10px;
+                        display: inline-block;
+                        align-self: flex-end;
                     }
                 }
             }
@@ -84,6 +98,10 @@ card-list {
                     }
                     @extend %danzerpress-col-1;
                     @extend %danzerpress-fix;
+                    .post-link {
+                        display: none;
+                        // align-self: flex-start;
+                    }
                 }
             }
         }

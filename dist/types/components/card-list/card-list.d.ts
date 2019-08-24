@@ -1,4 +1,4 @@
-import { Store, Action } from "@stencil/redux";
+import { Store } from "@stencil/redux";
 export declare class CardList {
     store: Store;
     posts: any;
@@ -7,7 +7,7 @@ export declare class CardList {
     items: any;
     loading: boolean;
     error: any;
-    loadDataBegin: Action;
+    views: any;
     componentWillLoad(): void;
     componentDidLoad(): void;
     render(): any;

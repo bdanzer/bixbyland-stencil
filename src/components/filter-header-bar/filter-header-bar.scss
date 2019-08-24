@@ -44,16 +44,18 @@ filter-header-bar {
                     margin: 0;
                     text-align: center;
                     padding: 12px 0;
-                    &:after {
-                        height: 100%;
-                        content: "";
-                        width: 1px;
-                        background: #8390A2;
-                        position: absolute;
-                        top: 50%;
-                        right: 0;
-                        max-height: 50%;
-                        transform: translate(0%, -50%);
+                    &:not(:last-child) {
+                        &:before {
+                            height: 100%;
+                            content: "";
+                            width: 1px;
+                            background: #8390A2;
+                            position: absolute;
+                            top: 50%;
+                            right: 0;
+                            max-height: 50%;
+                            transform: translate(0%, -50%);
+                        }
                     }
                 }
             }

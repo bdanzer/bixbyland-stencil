@@ -3,8 +3,16 @@ export class PropertyCard {
     constructor() {
         this.activePostId = false;
     }
+    getPostTitle() {
+        if (this.postData.meta.post_title_or_address && this.postData.meta.post_title_or_address[0] == '1' || !this.postData.meta.address) {
+            return this.postData.post_title;
+        }
+        else {
+            return this.postData.meta.address[0];
+        }
+    }
     render() {
-        return (h("div", { class: `property-card${(this.postData.ID == this.activePostId) ? ' active' : ''}` },
+        const Card = (h("div", { class: `property-card${(this.postData.ID == this.activePostId) ? ' active' : ''}` },
             h("div", { class: "property-card-content-wrap" },
                 h("div", { class: "property-image-wrap" },
                     h("img", { src: this.postData.thumbnail })),
@@ -12,7 +20,7 @@ export class PropertyCard {
                     h("div", { class: "property-content-wrap" },
                         h("span", { class: "property-title" },
                             h("div", { class: "property-address" },
-                                this.postData.post_title,
+                                this.getPostTitle(),
                                 ","),
                             " ",
                             this.postData.meta.city[0],
@@ -31,7 +39,12 @@ export class PropertyCard {
                         h("p", null,
                             h("span", null, "Total SQ FT:"),
                             " ",
-                            this.postData.meta.sq_ft[0]))))));
+                            this.postData.meta.sq_ft[0]),
+                        h("a", { class: "post-link", href: this.postData.link }, "View Details"))))));
+        if (this.view == 'grid') {
+            return (h("a", { href: this.postData.link }, Card));
+        }
+        return Card;
     }
     static get is() { return "property-card"; }
     static get originalStyleUrls() { return {
@@ -75,6 +88,23 @@ export class PropertyCard {
             "attribute": "active-post-id",
             "reflect": false,
             "defaultValue": "false"
+        },
+        "view": {
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "view",
+            "reflect": false
         }
     }; }
 }
