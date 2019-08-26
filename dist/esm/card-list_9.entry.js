@@ -5447,7 +5447,7 @@ const NoUiSliderWrapper = class {
             connect: true,
             range: {
                 'min': 0,
-                'max': 100
+                'max': 600
             },
             tooltips: true,
             format: {
@@ -6088,7 +6088,7 @@ const getInitialState = () => {
             "category": "all",
             "region": "",
             "search": "",
-            "sqFootage": [10, 100],
+            "sqFootage": [10, 600],
             "sortBy": ""
         },
         views: "map",
@@ -6717,7 +6717,7 @@ const PropertyFilters = class {
     }
     render() {
         return [
-            h("div", { class: `property-filters${(this.modal) ? ' modal-state' : ''}` }, h("span", { class: "property-count-wrap" }, h("div", { class: "result-header" }, "Property Results"), h("span", { class: "property-count" }, this.posts.length), " properties match your results"), (this.modal) && (h("span", { class: "filter-title" }, "Filter")), h("input", { onChange: (e) => this.handleSearch(e), type: "text", value: (this.filters && this.filters.search) ? this.filters.search : '', placeholder: "Search properties by address", class: "search" }), h("select", { name: "regions", class: "dropdown", onChange: (e) => this.handleRegion(e) }, h("option", { selected: (this.filters && this.filters.region) ? false : true, disabled: true }, "Regions"), this.regions.map(region => h("option", { value: region.meta_value }, region.meta_value))), h("no-ui-slider-wrapper", { start: (this.filters && this.filters.sqFootage) ? this.filters.sqFootage : [0, 100], callback: this.handleSqFeet.bind(this) }, h("slot", { name: "title" }, "Square Footage")), h("select", { name: "sortby", class: "dropdown", onChange: (e) => this.handleSortBy(e) }, h("option", { selected: (this.filters && this.filters.sortBy) ? false : true, disabled: true }, "SortBy"), this.getSortBy()), h("button", { onClick: () => { (this.modal) ? this.modal = !this.modal : this.handleResetFilters(); }, class: "reset-button" }, (this.modal) ? 'Apply' : 'Reset Filters'), h("div", { class: "modal-close-button", onClick: () => { this.modal = !this.modal; } }, "X")),
+            h("div", { class: `property-filters${(this.modal) ? ' modal-state' : ''}` }, h("span", { class: "property-count-wrap" }, h("div", { class: "result-header" }, "Property Results"), h("span", { class: "property-count" }, this.posts.length), " properties match your results"), (this.modal) && (h("span", { class: "filter-title" }, "Filter")), h("input", { onChange: (e) => this.handleSearch(e), type: "text", value: (this.filters && this.filters.search) ? this.filters.search : '', placeholder: "Search properties by address", class: "search" }), h("select", { name: "regions", class: "dropdown", onChange: (e) => this.handleRegion(e) }, h("option", { selected: (this.filters && this.filters.region) ? false : true, disabled: true }, "Regions"), this.regions.map(region => h("option", { value: region.meta_value }, region.meta_value))), h("no-ui-slider-wrapper", { start: (this.filters && this.filters.sqFootage) ? this.filters.sqFootage : [0, 600], callback: this.handleSqFeet.bind(this) }, h("slot", { name: "title" }, "Square Footage")), h("select", { name: "sortby", class: "dropdown", onChange: (e) => this.handleSortBy(e) }, h("option", { selected: (this.filters && this.filters.sortBy) ? false : true, disabled: true }, "SortBy"), this.getSortBy()), h("button", { onClick: () => { (this.modal) ? this.modal = !this.modal : this.handleResetFilters(); }, class: "reset-button" }, (this.modal) ? 'Apply' : 'Reset Filters'), h("div", { class: "modal-close-button", onClick: () => { this.modal = !this.modal; } }, "X")),
             h("div", { class: "modal-button", onClick: () => this.modal = !this.modal }, "Filter Results (", this.posts.length, ")")
         ];
     }
@@ -6734,10 +6734,7 @@ const PropertyInfoBar = class {
         this.store = getContext(this, "store");
     }
     watchPosts(_newValue, _oldValue) {
-        /**
-         * TODO: convert to use baseUrl
-         */
-        axios$1.get('https://bixbyland.coreylowe.io/wp-json/bixby/v1/properties/category-info', {
+        axios$1.get(this.baseUrl + '/wp-json/bixby/v1/properties/category-info', {
             params: {
                 'category': _newValue.category
             }

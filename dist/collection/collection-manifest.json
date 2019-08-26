@@ -1,14 +1,14 @@
 {
   "entries": [
     "components/card-list/card-list.js",
-    "components/portfolio-app/portfolio-app.js",
     "components/property-card/property-card.js",
-    "components/property-info-bar/property-info-bar.js",
     "components/property-listings/property-listings.js",
-    "components/filter-header-bar/filter-header-bar.js",
     "components/no-ui-slider-wrapper/no-ui-slider-wrapper.js",
+    "components/property-filters/property-filters.js",
+    "components/filter-header-bar/filter-header-bar.js",
+    "components/portfolio-app/portfolio-app.js",
     "components/google-map/google-map.js",
-    "components/property-filters/property-filters.js"
+    "components/property-info-bar/property-info-bar.js"
   ],
   "compiler": {
     "name": "@stencil/core",

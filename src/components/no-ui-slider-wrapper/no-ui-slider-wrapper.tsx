@@ -37,7 +37,7 @@ export class NoUiSliderWrapper {
       connect: true,
       range: {
           'min': 0,
-          'max': 100
+          'max': 600
       },
       tooltips: true,
       format: {

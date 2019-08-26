@@ -17,22 +17,19 @@ export class PropertyInfoBar {
   };
 
   @Watch('filters')
-  watchPosts(_newValue, _oldValue) 
+  watchPosts(_newValue, _oldValue)
   {
-    /**
-     * TODO: convert to use baseUrl
-     */
-    axios.get('https://bixbyland.coreylowe.io/wp-json/bixby/v1/properties/category-info', {
+    //handle first time without baseurl
+    axios.get(this.baseUrl + '/wp-json/bixby/v1/properties/category-info', {
       params: {
         'category': _newValue.category
       }
     }).then(res => {
       this.posts = res.data;
-      
     });
   }
 
-  componentDidLoad() 
+  componentDidLoad()
   {
     this.store.mapStateToProps(this, state => {
       const {
@@ -44,13 +41,13 @@ export class PropertyInfoBar {
     });
   }
 
-  countPosts() 
+  countPosts()
   {
     return this.posts.length
   }
 
   //TODO: want to turn this into one object will all the data at once
-  createInfoObj() 
+  createInfoObj()
   {
     // R.objOf('propertyInfo')
     // var sqFt = 0;
@@ -58,16 +55,16 @@ export class PropertyInfoBar {
     return formatLargeNumber(sqFootSum);
   }
 
-  getPrice() 
+  getPrice()
   {
     // R.objOf('propertyInfo')
     // var sqFt = 0;
-  
+
     let priceSum = R.sum(R.map(postData => postData.price ,this.posts));
     return formatLargeNumber(priceSum);
   }
 
-  render() 
+  render()
   {
     return (
       <div class="property-info-bar">
