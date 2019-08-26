@@ -15,10 +15,12 @@ export class PropertyInfoBar {
   @Prop({mutable: true}) filters = {
     "category": ""
   };
+  @Prop({mutable: true}) category;
 
   @Watch('filters')
   watchPosts(_newValue, _oldValue)
   {
+    this.category = _newValue.category;
     axios.get(this.baseUrl + '/wp-json/bixby/v1/properties/category-info', {
       params: {
         'category': _newValue.category
@@ -69,7 +71,7 @@ export class PropertyInfoBar {
       <div class="property-info-bar">
         <div class="property-info-bar-wrap">
           <span class="property-count-wrap">
-            <div class="property-info-header">All Properties</div>
+            <div class="property-info-header">{this.category} Properties</div>
             <span class="property-info-subheader">Completed or Underway</span>
           </span>
 

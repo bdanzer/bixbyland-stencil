@@ -9,7 +9,7 @@ export class PropertyCard {
   @Prop() activePostId: any = false;
   @Prop() view: any;
 
-  getPostTitle() 
+  getPostTitle()
   {
     if (this.postData.meta.post_title_or_address && this.postData.meta.post_title_or_address[0] == '1' || !this.postData.meta.address) {
       return this.postData.post_title;
@@ -18,7 +18,7 @@ export class PropertyCard {
     }
   }
 
-  render() 
+  render()
   {
     const Card = (
       <div class={`property-card${(this.postData.ID == this.activePostId) ? ' active' : ''}`}>
@@ -29,9 +29,10 @@ export class PropertyCard {
           <div class="property-content">
             <div class="property-content-wrap">
               <span class="property-title"><div class="property-address">{this.getPostTitle()},</div> {this.postData.meta.city[0]} {this.postData.meta.state_code[0]} {this.postData.meta.zip_code[0]}</span>
-              <p><span>Region:</span> {this.postData.meta.region[0]}</p>
-              <p><span>Submarket:</span> {this.postData.meta.sub_market[0]}</p>
-              <p><span>Total SQ FT:</span> {this.postData.meta.sq_ft[0]}</p>
+              <p><span>Region:</span>&nbsp;&nbsp;{this.postData.meta.region[0]}</p>
+              <p><span>Submarket:</span>&nbsp;&nbsp;{this.postData.meta.sub_market[0]}</p>
+              <p><span>Project Type:</span>&nbsp;&nbsp;{this.postData.categories[0].name}</p>
+              <p><span>Total SQ FT:</span>&nbsp;&nbsp;{new Intl.NumberFormat().format(this.postData.meta.sq_ft[0])}</p>
               <a class="post-link" href={this.postData.link}>View Details</a>
             </div>
           </div>

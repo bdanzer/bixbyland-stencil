@@ -10,6 +10,7 @@
 | Property       | Attribute        | Description | Type       | Default     |
 | -------------- | ---------------- | ----------- | ---------- | ----------- |
 | `activePostId` | `active-post-id` |             | `any`      | `false`     |
+| `baseUrl`      | `base-url`       |             | `any`      | `undefined` |
 | `handleMarker` | --               |             | `Function` | `undefined` |
 | `posts`        | `posts`          |             | `any`      | `[]`        |
 
