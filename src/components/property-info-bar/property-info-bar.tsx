@@ -19,7 +19,6 @@ export class PropertyInfoBar {
   @Watch('filters')
   watchPosts(_newValue, _oldValue)
   {
-    //handle first time without baseurl
     axios.get(this.baseUrl + '/wp-json/bixby/v1/properties/category-info', {
       params: {
         'category': _newValue.category
@@ -33,10 +32,10 @@ export class PropertyInfoBar {
   {
     this.store.mapStateToProps(this, state => {
       const {
-        dataReducer: { filters, baseUrl }
+        dataReducer: { baseUrl, filters  }
       } = state;
       return {
-        filters, baseUrl
+        baseUrl, filters
       };
     });
   }

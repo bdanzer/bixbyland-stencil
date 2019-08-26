@@ -1,6 +1,7 @@
 import { Component, h, Prop, Watch, State } from '@stencil/core';
 import * as R from 'ramda';
 import axios from 'axios';
+import {Store} from "@stencil/redux";
 
 declare var google: any;
 
@@ -9,9 +10,11 @@ declare var google: any;
   styleUrl: 'google-map.scss'
 })
 export class GoogleMap {
+  @Prop({ context: "store" }) store: Store;
   @Prop() posts: any = [];
   @Prop() handleMarker: Function;
   @Prop() activePostId: any = false;
+  @Prop({mutable: true}) baseUrl;
 
   @State() mapObject;
   @State() icons: any;
@@ -19,8 +22,17 @@ export class GoogleMap {
   map: any;
   markersObj: any = {};
 
-  componentDidLoad() 
+  componentDidLoad()
   {
+    this.store.mapStateToProps(this, state => {
+      const {
+        dataReducer: { baseUrl  }
+      } = state;
+      return {
+        baseUrl
+      };
+    });
+
     this.mapObject = new google.maps.Map(this.map, {
       center: (this.posts.length) ? this.findLatitudeAvg() : {lat: 0, lng: 0},
       zoom: 7,
@@ -86,10 +98,10 @@ export class GoogleMap {
   }
 
   getCurrentPosition() {
-    navigator.geolocation.getCurrentPosition((position) => { 
+    navigator.geolocation.getCurrentPosition((position) => {
 			var currentLatitude = position.coords.latitude;
       var currentLongitude = position.coords.longitude;
-      
+
       let currentPosition = {
         "lat": currentLatitude,
         "lng": currentLongitude
@@ -107,14 +119,14 @@ export class GoogleMap {
   findLatitudeAvg() {
     let lat = R.mean(R.map((post) => post.meta.latitude[0], this.posts));
     let lng = R.mean(R.map((post) => post.meta.longitude[0], this.posts));
-  
+
     return {
-      "lat": lat, 
+      "lat": lat,
       "lng": lng
     }
   }
 
-  addMarker(position) 
+  addMarker(position)
   {
     var marker = new google.maps.Marker({
       position: position,
@@ -124,15 +136,12 @@ export class GoogleMap {
     marker.setMap(this.mapObject);
   }
 
-  /**
-   * TODO: Add baseUrl
-   */
-  async getIcons() 
+  async getIcons()
   {
     if (!this.icons) {
-      let res = await axios.get('https://bixbyland.coreylowe.io/wp-json/bixby/v1/theme-settings');
+      let res = await axios.get(this.baseUrl + '/wp-json/bixby/v1/theme-settings');
       let icons = R.map((themeOptions) => {
-        return 'https://bixbyland.coreylowe.io' + themeOptions.url
+        return this.baseUrl + themeOptions.url
       }, res.data);
 
       this.icons = icons;
@@ -144,7 +153,7 @@ export class GoogleMap {
   /**
    * TODO: clean up for a better solution
    */
-  getIconType(post) 
+  getIconType(post)
   {
     if (this.activePostId === post.ID && post.categories[0]['slug'] == 'office') {
       return (this.icons && this.icons.google_map_office_active_icon) ? this.icons.google_map_office_active_icon : '';
@@ -176,11 +185,11 @@ export class GoogleMap {
     return image;
   }
 
-  addMarkers() 
+  addMarkers()
   {
     this.posts.forEach(post => {
       let position = {
-        lat: parseFloat(post.meta.latitude[0]), 
+        lat: parseFloat(post.meta.latitude[0]),
         lng: parseFloat(post.meta.longitude[0])
       };
 
@@ -221,7 +230,7 @@ export class GoogleMap {
     this.markersObj = {};
   }
 
-  render() 
+  render()
   {
     return (
       <div id="map" ref={el => this.map = el}></div>

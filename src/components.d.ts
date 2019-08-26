@@ -23,6 +23,7 @@ export namespace Components {
   }
   interface GoogleMap {
     'activePostId': any;
+    'baseUrl': any;
     'handleMarker': Function;
     'posts': any;
   }
@@ -145,6 +146,7 @@ declare namespace LocalJSX {
   }
   interface GoogleMap extends JSXBase.HTMLAttributes<HTMLGoogleMapElement> {
     'activePostId'?: any;
+    'baseUrl'?: any;
     'handleMarker'?: Function;
     'posts'?: any;
   }
