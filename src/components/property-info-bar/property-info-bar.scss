@@ -4,10 +4,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-  @media screen and (max-width: 1300px) {
-    justify-content: space-evenly;
-  }
 }
 .property-info-bar {
     padding: 30px 80px;
