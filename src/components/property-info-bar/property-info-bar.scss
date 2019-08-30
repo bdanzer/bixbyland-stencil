@@ -19,9 +19,9 @@
     }
 
     .property-count-wrap {
-        @media screen and (max-width: 1300px) {
-            display: none;
-        }
+        //@media screen and (max-width: 1300px) {
+        //    display: none;
+        //}
     }
 
     .property-info-stats {
@@ -52,6 +52,13 @@
         letter-spacing: 1.44px;
         color: #FFFFFF;
         opacity: 1;
+
+        @media screen and (max-width: 950px) {
+          flex-direction: column;
+          letter-spacing: 1.44px;
+          font: Bold Italic 12px/16px Roboto;
+          letter-spacing: 0.72px;
+      }
     }
 
     .property-info-subheader {
@@ -60,6 +67,13 @@
         letter-spacing: 1.2px;
         color: #FFFFFF;
         opacity: 1;
+
+        @media screen and (max-width: 950px) {
+          flex-direction: column;
+          letter-spacing: 1.44px;
+          font: 400 10px/13px Roboto;
+          letter-spacing: 0.72px;
+      }
     }
 
     .number-wrap {
