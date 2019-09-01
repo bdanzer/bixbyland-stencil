@@ -42,14 +42,14 @@ property-card {
                     .property-title {
                         font-size: 23px;
                         font-family: $font-family-primary;
-                        color: #11284A;
+                        color: $primary-color;
                         margin-bottom: 6px;
                         display: block;
                         font: 400 23px/30px Roboto;
                         letter-spacing: 0.92px;
                     }
                     span {
-                        color: #11284A;
+                        color: $primary-color;
                         font-size: 16px;
                         font-weight: 700;
                         font-style: italic;
@@ -59,12 +59,12 @@ property-card {
                         color: #7C8388;
                     }
                     .post-link {
-                        color: #11284A;
+                        color: $primary-color;
                         font-weight: 600;
                         font-style: italic;
                         font-family: $font-family-primary;
                         text-decoration: none;
-                        border-bottom: 1px solid #11284A;
+                        border-bottom: 1px solid $primary-color;
                         padding-bottom: 3px;
                         margin-top: 10px;
                         display: inline-block;
@@ -91,7 +91,7 @@ card-list {
                     span.property-title:before {
                         content: "";
                         height: 3px;
-                        background: #11284A;
+                        background: $primary-color;
                         width: 40px;
                         display: block;
                         margin-bottom: 7px;

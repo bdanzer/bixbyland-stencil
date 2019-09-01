@@ -83,7 +83,7 @@ export class PropertyFilters {
                 h("select", { name: "regions", class: "dropdown", onChange: (e) => this.handleRegion(e) },
                     h("option", { selected: (this.filters && this.filters.region) ? false : true, disabled: true }, "Regions"),
                     this.regions.map(region => h("option", { value: region.meta_value }, region.meta_value))),
-                h("no-ui-slider-wrapper", { start: (this.filters && this.filters.sqFootage) ? this.filters.sqFootage : [0, 600], callback: this.handleSqFeet.bind(this) },
+                h("no-ui-slider-wrapper", { start: (this.filters && this.filters.sqFootage) ? this.filters.sqFootage : [0, 100], callback: this.handleSqFeet.bind(this) },
                     h("slot", { name: "title" }, "Square Footage")),
                 h("select", { name: "sortby", class: "dropdown", onChange: (e) => this.handleSortBy(e) },
                     h("option", { selected: (this.filters && this.filters.sortBy) ? false : true, disabled: true }, "SortBy"),

@@ -1,3 +1,6 @@
+/**
+ * TODO: Need to figure out a better way to set min/mix and start
+ */
 export declare class NoUiSliderWrapper {
     title: string;
     slider: Element;

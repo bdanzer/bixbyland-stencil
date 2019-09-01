@@ -2,6 +2,9 @@ import { Component, h, Prop, Watch, Host } from '@stencil/core';
 import noUiSlider from 'nouislider';
 import * as R from 'ramda';
 
+/**
+ * TODO: Need to figure out a better way to set min/mix and start
+ */
 @Component({
   tag: 'no-ui-slider-wrapper',
   styleUrl: 'no-ui-slider-wrapper.scss'
@@ -36,8 +39,8 @@ export class NoUiSliderWrapper {
       start: this.start,
       connect: true,
       range: {
-          'min': 0,
-          'max': 600
+        'min': 0,
+        'max': 600
       },
       tooltips: true,
       format: {
@@ -100,7 +103,11 @@ export class NoUiSliderWrapper {
     return (
       <Host>
         <slot name="title"/>
-        <div ref={el => this.el = el} id="double-slider"></div>
+        <div class="row">
+          <span class="handle-number">1</span>
+          <div ref={el => this.el = el} id="double-slider"></div>
+          <span class="handle-number">600k</span>
+        </div>
       </Host>
     );
   }

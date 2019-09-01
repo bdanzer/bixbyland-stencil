@@ -1,6 +1,9 @@
 import { h, Host } from "@stencil/core";
 import noUiSlider from 'nouislider';
 import * as R from 'ramda';
+/**
+ * TODO: Need to figure out a better way to set min/mix and start
+ */
 export class NoUiSliderWrapper {
     componentDidLoad() {
         this.createSlider();
@@ -70,7 +73,10 @@ export class NoUiSliderWrapper {
     render() {
         return (h(Host, null,
             h("slot", { name: "title" }),
-            h("div", { ref: el => this.el = el, id: "double-slider" })));
+            h("div", { class: "row" },
+                h("span", { class: "handle-number" }, "1"),
+                h("div", { ref: el => this.el = el, id: "double-slider" }),
+                h("span", { class: "handle-number" }, "600k"))));
     }
     static get is() { return "no-ui-slider-wrapper"; }
     static get originalStyleUrls() { return {
