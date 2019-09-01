@@ -1,5 +1,6 @@
-import { Component, h, Prop, Host, State } from '@stencil/core';
+import { Component, h, Prop, Host, State, Element } from '@stencil/core';
 import { Store } from "@stencil/redux";
+import { scrollTo } from '../../utils/utils';
 
 @Component({
   tag: 'card-list',
@@ -15,6 +16,8 @@ export class CardList {
   @State() loading: boolean;
   @State() error: any;
   @State() views: any;
+  
+  @Element() el: HTMLElement;
   
   componentWillLoad() {
     this.store.mapStateToProps(this, state => {
@@ -35,6 +38,13 @@ export class CardList {
 
   componentDidLoad() {}
 
+  handleRef(el, post) 
+  {
+    if (post.ID == this.activePostId) {
+      scrollTo(this.el, el)
+    }
+  }
+
   render() 
   {
     return (
@@ -42,6 +52,7 @@ export class CardList {
         {this.posts.map(post => {
           return (
             <property-card
+              ref={(el) => this.handleRef(el, post)}
               view={this.views}
               onClick={() => this.handleCard(post)}
               activePostId={this.activePostId}

@@ -65,3 +65,15 @@ export function sorter(value, haystack) {
         return R.reverse(sort);
     }
 }
+
+export function scrollTo(parent, target, options = {}) {
+  let defaults = {
+    offset: 0,
+    ...options
+  };
+
+  let marginTop = window.getComputedStyle(parent).getPropertyValue("margin-top");
+  let containerSpacing = parseInt(marginTop);
+
+  parent.scrollTop = target.offsetTop - containerSpacing - defaults.offset;
+}
