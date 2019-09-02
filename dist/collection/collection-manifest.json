@@ -1,0 +1,25 @@
+{
+  "entries": [
+    "components/card-list/card-list.js",
+    "components/property-listings/property-listings.js",
+    "components/filter-header-bar/filter-header-bar.js",
+    "components/no-ui-slider-wrapper/no-ui-slider-wrapper.js",
+    "components/property-card/property-card.js",
+    "components/portfolio-app/portfolio-app.js",
+    "components/property-filters/property-filters.js",
+    "components/google-map/google-map.js",
+    "components/property-info-bar/property-info-bar.js"
+  ],
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "1.2.4",
+    "typescriptVersion": "3.5.3"
+  },
+  "collections": [
+    {
+      "name": "@stencil/redux",
+      "tags": []
+    }
+  ],
+  "bundles": []
+}
