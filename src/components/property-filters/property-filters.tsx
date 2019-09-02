@@ -126,7 +126,7 @@ export class PropertyFilters {
           {this.regions.map(region => <option value={region.meta_value}>{region.meta_value}</option>)}
         </select>
         <no-ui-slider-wrapper
-          start={(this.filters && this.filters.sqFootage) ? this.filters.sqFootage : [0, 600]}
+          start={(this.filters && this.filters.sqFootage) ? this.filters.sqFootage : [0, 100]}
           callback={this.handleSqFeet.bind(this)}>
             <slot name="title">Square Footage</slot>
         </no-ui-slider-wrapper>

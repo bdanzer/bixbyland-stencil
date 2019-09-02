@@ -7,7 +7,7 @@
 }
 .property-info-bar {
     padding: 30px 80px;
-    background: #11284A 0% 0% no-repeat padding-box;
+    background: $primary-color 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.23);
 
     @media screen and (max-width: 950px) {

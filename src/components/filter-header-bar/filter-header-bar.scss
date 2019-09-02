@@ -79,7 +79,7 @@ filter-header-bar {
             font-weight: 500;
             cursor: pointer;
             &.active {
-                color: #11284A;
+                color: $primary-color;
                 &:after {
                     content: "";
                     width: 100%;

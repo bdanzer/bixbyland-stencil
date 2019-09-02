@@ -156,16 +156,6 @@ html .main-content {
     padding: 30px 40px;
   }
 }
-@media screen and (max-width: 400px) {
-  .property-info-bar {
-    padding: 30px 20px;
-  }
-}
-@media screen and (max-width: 300px) {
-  .property-info-bar .property-count-wrap {
-    display: none;
-  }
-}
 .property-info-bar .property-info-stats {
   font: 600 Italic 24px/32px Roboto;
   letter-spacing: 1.44px;

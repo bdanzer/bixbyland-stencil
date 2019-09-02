@@ -1,4 +1,5 @@
 import { h, Host } from "@stencil/core";
+import { scrollTo } from '../../utils/utils';
 export class CardList {
     constructor() {
         this.activePostId = false;
@@ -17,9 +18,14 @@ export class CardList {
         this.store.mapDispatchToProps(this, {});
     }
     componentDidLoad() { }
+    handleRef(el, post) {
+        if (post.ID == this.activePostId) {
+            scrollTo(this.el, el);
+        }
+    }
     render() {
         return (this.posts && h(Host, null, this.posts.map(post => {
-            return (h("property-card", { view: this.views, onClick: () => this.handleCard(post), activePostId: this.activePostId, postData: post }));
+            return (h("property-card", { ref: (el) => this.handleRef(el, post), view: this.views, onClick: () => this.handleCard(post), activePostId: this.activePostId, postData: post }));
         })));
     }
     static get is() { return "card-list"; }
@@ -95,4 +101,5 @@ export class CardList {
         "error": {},
         "views": {}
     }; }
+    static get elementRef() { return "el"; }
 }

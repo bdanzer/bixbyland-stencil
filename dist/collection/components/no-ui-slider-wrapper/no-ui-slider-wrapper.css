@@ -151,16 +151,38 @@ no-ui-slider-wrapper {
 }
 no-ui-slider-wrapper slot-fb[name=title] {
   text-align: left;
-  font: Regular 15px/20px Roboto;
+  font: 500 15px/20px Roboto;
   letter-spacing: 0.9px;
   color: #11284A;
   opacity: 1;
   margin-bottom: 14px;
 }
+no-ui-slider-wrapper .row {
+  display: flex;
+  align-items: center;
+}
+no-ui-slider-wrapper .handle-number {
+  display: none;
+  text-align: left;
+  font: 500 11px/15px Roboto;
+  letter-spacing: 0.66px;
+  color: #11284A;
+  opacity: 1;
+}
+@media screen and (min-width: 1024px) {
+  no-ui-slider-wrapper .handle-number {
+    display: block;
+  }
+}
 no-ui-slider-wrapper #double-slider {
   max-width: 300px;
   width: 100%;
   margin: auto;
+}
+@media screen and (min-width: 1024px) {
+  no-ui-slider-wrapper #double-slider {
+    margin: 0 10px;
+  }
 }
 no-ui-slider-wrapper #double-slider .noUi-handle {
   border: none;

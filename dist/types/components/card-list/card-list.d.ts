@@ -8,7 +8,9 @@ export declare class CardList {
     loading: boolean;
     error: any;
     views: any;
+    el: HTMLElement;
     componentWillLoad(): void;
     componentDidLoad(): void;
+    handleRef(el: any, post: any): void;
     render(): any;
 }
