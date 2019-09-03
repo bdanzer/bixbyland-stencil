@@ -6,6 +6,7 @@ import { configureStore } from "../../store/index";
 import { loadPosts, changeFilter, changeView, setBase } from "../../actions/data";
 import * as R from 'ramda';
 import * as queryString from 'query-string';
+import Endpoint from '../../classes/endpoint';
 
 @Component({
   tag: 'portfolio-app',
@@ -50,6 +51,7 @@ export class PortfolioApp {
     });
 
     this.setBase(this.baseUrl);
+    Endpoint.baseUrl = this.baseUrl;
 
     this.checkUrl();
   }

@@ -30,6 +30,8 @@ export namespace Components {
   interface NoUiSliderWrapper {
     'callback': Function;
     'el': Element;
+    'max': any;
+    'min': any;
     'slider': Element;
     'start': any;
     'title': string;
@@ -154,6 +156,8 @@ declare namespace LocalJSX {
   interface NoUiSliderWrapper extends JSXBase.HTMLAttributes<HTMLNoUiSliderWrapperElement> {
     'callback'?: Function;
     'el'?: Element;
+    'max'?: any;
+    'min'?: any;
     'slider'?: Element;
     'start'?: any;
     'title'?: string;

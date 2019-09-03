@@ -1,6 +1,7 @@
 import { h, Host } from "@stencil/core";
 import noUiSlider from 'nouislider';
-import * as R from 'ramda';
+import { formatLargeNumber } from '../../utils/utils';
+//import * as R from 'ramda';
 /**
  * TODO: Need to figure out a better way to set min/mix and start
  */
@@ -8,12 +9,14 @@ export class NoUiSliderWrapper {
     componentDidLoad() {
         this.createSlider();
     }
-    watchStart(newValue, oldValue) {
-        if (!R.equals(newValue, oldValue)) {
-            this.sliderComponent.updateOptions({
-                start: newValue
-            });
-        }
+    watchStart(newValue, _oldValue) {
+        this.sliderComponent.updateOptions({
+            start: newValue,
+            range: {
+                min: parseInt(newValue[0]),
+                max: parseInt(newValue[1])
+            }
+        });
     }
     createSlider() {
         this.slider = this.el;
@@ -22,14 +25,14 @@ export class NoUiSliderWrapper {
             start: this.start,
             connect: true,
             range: {
-                'min': 0,
-                'max': 600
+                'min': parseInt(this.min),
+                'max': parseInt(this.max)
             },
             tooltips: true,
             format: {
                 // 'to' the formatted value. Receives a number.
                 to: function (value) {
-                    return Math.round(value) + 'k';
+                    return formatLargeNumber(Math.floor(value));
                 },
                 // 'from' the formatted value.
                 // Receives a string, should return a number.
@@ -73,10 +76,10 @@ export class NoUiSliderWrapper {
     render() {
         return (h(Host, null,
             h("slot", { name: "title" }),
-            h("div", { class: "row" },
-                h("span", { class: "handle-number" }, "1"),
+            h("div", { class: "bixby-slider-row" },
+                h("span", { class: "handle-number" }, formatLargeNumber(this.min)),
                 h("div", { ref: el => this.el = el, id: "double-slider" }),
-                h("span", { class: "handle-number" }, "600k"))));
+                h("span", { class: "handle-number" }, formatLargeNumber(this.max)))));
     }
     static get is() { return "no-ui-slider-wrapper"; }
     static get originalStyleUrls() { return {
@@ -175,6 +178,40 @@ export class NoUiSliderWrapper {
                 "text": ""
             },
             "attribute": "start",
+            "reflect": false
+        },
+        "min": {
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "min",
+            "reflect": false
+        },
+        "max": {
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "max",
             "reflect": false
         }
     }; }

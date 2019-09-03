@@ -3,6 +3,7 @@ import { configureStore } from "../../store/index";
 import { loadPosts, changeFilter, changeView, setBase } from "../../actions/data";
 import * as R from 'ramda';
 import * as queryString from 'query-string';
+import Endpoint from '../../classes/endpoint';
 export class PortfolioApp {
     constructor() {
         this.filters = 'all';
@@ -26,6 +27,7 @@ export class PortfolioApp {
             setBase
         });
         this.setBase(this.baseUrl);
+        Endpoint.baseUrl = this.baseUrl;
         this.checkUrl();
     }
     watchBaseUrl(_new, _old) {
