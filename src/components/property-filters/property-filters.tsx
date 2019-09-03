@@ -1,9 +1,10 @@
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, h, Prop, State, Watch } from '@stencil/core';
 import { Store, Action } from "@stencil/redux";
 import { changeFilter, loadPosts, sortBy } from "../../actions/data";
 import * as R from "ramda";
 import axios from "axios";
 import { sorter } from '../../utils/utils';
+import Endpoint from '../../classes/endpoint';
 
 @Component({
   tag: 'property-filters',
@@ -13,11 +14,16 @@ export class PropertyFilters {
   @Prop({ context: "store" }) store: Store;
   @Prop() search;
   @Prop() filters;
+
   @Prop() posts: any = [];
   @Prop({mutable: true}) baseUrl: '';
 
   @State() modal: boolean = false;
   @State() regions: any = [];
+
+  @State() start: any;
+  @State() min: any;
+  @State() max: any;
 
   changeFilter: Action;
   loadPosts: Action;
@@ -29,6 +35,22 @@ export class PropertyFilters {
     "sqft_asc" : "Square Feet ASC",
     "sqft_dsc" : "Square Feet DSC"
   };
+
+  @Watch('filters')
+  watchFilters(newValue, oldValue) 
+  {
+    let newCat = newValue.category;
+    let oldCat = (oldValue) ? oldValue.category : null;
+    
+    if (newCat != oldCat) {
+      this.getMinMaxSqFt(newCat);
+    }
+  }
+
+  componentWillLoad() 
+  {
+    this.getMinMaxSqFt()
+  }
 
   componentDidLoad()
   {
@@ -52,18 +74,41 @@ export class PropertyFilters {
 
   async getRegions()
   {
-    let response = await axios.get(this.baseUrl + '/wp-json/bixby/v1/properties/regions');
+    let response = await axios.get(Endpoint.baseUrl + '/wp-json/bixby/v1/properties/regions');
     return this.regions = response.data;
+  }
+
+  /**
+   * TODO: Could clean this up to be cleaner with how R is used and maybe move to application state
+   */
+  async getMinMaxSqFt(category = 'all') {
+    let response = await axios.get(Endpoint.baseUrl + '/wp-json/bixby/v1/properties/category-info', {
+      params: {
+        category: category
+      }
+    });
+
+    let newData = R.map((data) => data.sq_ft, response.data);
+
+    let sortedArray = R.sortBy(
+      (data) => parseInt(data),
+      newData
+    );
+
+    this.min = sortedArray[0];
+    this.max = sortedArray[sortedArray.length - 1];
+
+    this.start = [this.min, this.max]
+
+    this.changeFilter({"sqFootage": [sortedArray[0], sortedArray[sortedArray.length - 1]]});
   }
 
   handleSearch(e)
   {
     let value = (e.target as HTMLInputElement).value;
-    this.changeFilter({"search": value});
 
-    // if (value.length >= 3) {
-      this.loadPosts();
-    // }
+    this.changeFilter({"search": value});
+    this.loadPosts();
   }
 
   handleRegion(e)
@@ -99,14 +144,15 @@ export class PropertyFilters {
     });
   }
 
-  handleResetFilters()
+  async handleResetFilters()
   {
     const isEmpty = (x) => R.isEmpty(x) === true
     let result = R.reject(isEmpty, this.filters);
 
     if (!R.isEmpty(result)) {
-      this.changeFilter({});
-      this.loadPosts();
+      await this.changeFilter({});
+      await this.getMinMaxSqFt();
+      await this.loadPosts();
     }
   }
 
@@ -125,11 +171,13 @@ export class PropertyFilters {
           <option selected={(this.filters && this.filters.region) ? false : true} disabled>Regions</option>
           {this.regions.map(region => <option value={region.meta_value}>{region.meta_value}</option>)}
         </select>
-        <no-ui-slider-wrapper
-          start={(this.filters && this.filters.sqFootage) ? this.filters.sqFootage : [0, 100]}
+        {this.start && <no-ui-slider-wrapper
+          start={this.start}
+          min={this.min}
+          max={this.max}
           callback={this.handleSqFeet.bind(this)}>
             <slot name="title">Square Footage</slot>
-        </no-ui-slider-wrapper>
+        </no-ui-slider-wrapper>}
         <select name="sortby" class="dropdown" onChange={(e) => this.handleSortBy(e)}>
           <option selected={(this.filters && this.filters.sortBy) ? false : true} disabled>SortBy</option>
           {this.getSortBy()}

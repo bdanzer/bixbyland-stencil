@@ -11,6 +11,8 @@
 | ---------- | --------- | ----------- | ---------- | ----------- |
 | `callback` | --        |             | `Function` | `undefined` |
 | `el`       | --        |             | `Element`  | `undefined` |
+| `max`      | `max`     |             | `any`      | `undefined` |
+| `min`      | `min`     |             | `any`      | `undefined` |
 | `slider`   | --        |             | `Element`  | `undefined` |
 | `start`    | `start`   |             | `any`      | `undefined` |
 | `title`    | `title`   |             | `string`   | `undefined` |

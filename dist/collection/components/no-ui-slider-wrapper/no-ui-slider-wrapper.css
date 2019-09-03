@@ -157,7 +157,7 @@ no-ui-slider-wrapper slot-fb[name=title] {
   opacity: 1;
   margin-bottom: 14px;
 }
-no-ui-slider-wrapper .row {
+no-ui-slider-wrapper .bixby-slider-row {
   display: flex;
   align-items: center;
 }

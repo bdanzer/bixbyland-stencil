@@ -3,6 +3,7 @@ import { changeFilter, loadPosts, sortBy } from "../../actions/data";
 import * as R from "ramda";
 import axios from "axios";
 import { sorter } from '../../utils/utils';
+import Endpoint from '../../classes/endpoint';
 export class PropertyFilters {
     constructor() {
         this.posts = [];
@@ -14,6 +15,16 @@ export class PropertyFilters {
             "sqft_asc": "Square Feet ASC",
             "sqft_dsc": "Square Feet DSC"
         };
+    }
+    watchFilters(newValue, oldValue) {
+        let newCat = newValue.category;
+        let oldCat = (oldValue) ? oldValue.category : null;
+        if (newCat != oldCat) {
+            this.getMinMaxSqFt(newCat);
+        }
+    }
+    componentWillLoad() {
+        this.getMinMaxSqFt();
     }
     componentDidLoad() {
         this.store.mapStateToProps(this, state => {
@@ -30,15 +41,29 @@ export class PropertyFilters {
         this.getRegions();
     }
     async getRegions() {
-        let response = await axios.get(this.baseUrl + '/wp-json/bixby/v1/properties/regions');
+        let response = await axios.get(Endpoint.baseUrl + '/wp-json/bixby/v1/properties/regions');
         return this.regions = response.data;
+    }
+    /**
+     * TODO: Could clean this up to be cleaner with how R is used and maybe move to application state
+     */
+    async getMinMaxSqFt(category = 'all') {
+        let response = await axios.get(Endpoint.baseUrl + '/wp-json/bixby/v1/properties/category-info', {
+            params: {
+                category: category
+            }
+        });
+        let newData = R.map((data) => data.sq_ft, response.data);
+        let sortedArray = R.sortBy((data) => parseInt(data), newData);
+        this.min = sortedArray[0];
+        this.max = sortedArray[sortedArray.length - 1];
+        this.start = [this.min, this.max];
+        this.changeFilter({ "sqFootage": [sortedArray[0], sortedArray[sortedArray.length - 1]] });
     }
     handleSearch(e) {
         let value = e.target.value;
         this.changeFilter({ "search": value });
-        // if (value.length >= 3) {
         this.loadPosts();
-        // }
     }
     handleRegion(e) {
         this.changeFilter({ "region": e.target.value });
@@ -63,12 +88,13 @@ export class PropertyFilters {
             'sortBy': value
         });
     }
-    handleResetFilters() {
+    async handleResetFilters() {
         const isEmpty = (x) => R.isEmpty(x) === true;
         let result = R.reject(isEmpty, this.filters);
         if (!R.isEmpty(result)) {
-            this.changeFilter({});
-            this.loadPosts();
+            await this.changeFilter({});
+            await this.getMinMaxSqFt();
+            await this.loadPosts();
         }
     }
     render() {
@@ -83,7 +109,7 @@ export class PropertyFilters {
                 h("select", { name: "regions", class: "dropdown", onChange: (e) => this.handleRegion(e) },
                     h("option", { selected: (this.filters && this.filters.region) ? false : true, disabled: true }, "Regions"),
                     this.regions.map(region => h("option", { value: region.meta_value }, region.meta_value))),
-                h("no-ui-slider-wrapper", { start: (this.filters && this.filters.sqFootage) ? this.filters.sqFootage : [0, 100], callback: this.handleSqFeet.bind(this) },
+                this.start && h("no-ui-slider-wrapper", { start: this.start, min: this.min, max: this.max, callback: this.handleSqFeet.bind(this) },
                     h("slot", { name: "title" }, "Square Footage")),
                 h("select", { name: "sortby", class: "dropdown", onChange: (e) => this.handleSortBy(e) },
                     h("option", { selected: (this.filters && this.filters.sortBy) ? false : true, disabled: true }, "SortBy"),
@@ -180,6 +206,13 @@ export class PropertyFilters {
         }]; }
     static get states() { return {
         "modal": {},
-        "regions": {}
+        "regions": {},
+        "start": {},
+        "min": {},
+        "max": {}
     }; }
+    static get watchers() { return [{
+            "propName": "filters",
+            "methodName": "watchFilters"
+        }]; }
 }

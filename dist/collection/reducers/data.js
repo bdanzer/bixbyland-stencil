@@ -11,7 +11,7 @@ const getInitialState = () => {
             "category": "all",
             "region": "",
             "search": "",
-            "sqFootage": [0, 600],
+            "sqFootage": "all",
             "sortBy": ""
         },
         views: "map",

@@ -1,6 +1,7 @@
-import { Component, h, Prop, Watch, Host } from '@stencil/core';
+import { Component, h, Prop, Host, Watch } from '@stencil/core';
 import noUiSlider from 'nouislider';
-import * as R from 'ramda';
+import { formatLargeNumber } from '../../utils/utils';
+//import * as R from 'ramda';
 
 /**
  * TODO: Need to figure out a better way to set min/mix and start
@@ -14,7 +15,10 @@ export class NoUiSliderWrapper {
   @Prop() slider: Element;
   @Prop() el: Element;
   @Prop() callback: Function;
+
   @Prop() start: any;
+  @Prop() min: any;
+  @Prop() max: any;
 
   sliderComponent: any;
 
@@ -23,12 +27,14 @@ export class NoUiSliderWrapper {
   }
 
   @Watch('start')
-  watchStart(newValue, oldValue) {
-    if (!R.equals(newValue, oldValue)) {
-      this.sliderComponent.updateOptions({
-        start: newValue
-      });
-    }
+  watchStart(newValue, _oldValue) {
+    this.sliderComponent.updateOptions({
+      start: newValue,
+      range: {
+        min: parseInt(newValue[0]),
+        max: parseInt(newValue[1])
+      }
+    });
   }
 
   createSlider() {
@@ -39,19 +45,19 @@ export class NoUiSliderWrapper {
       start: this.start,
       connect: true,
       range: {
-        'min': 0,
-        'max': 600
+        'min': parseInt(this.min),
+        'max': parseInt(this.max)
       },
       tooltips: true,
       format: {
          // 'to' the formatted value. Receives a number.
          to: function (value) {
-          return Math.round(value) + 'k';
+          return formatLargeNumber(Math.floor(value));
         },
         // 'from' the formatted value.
         // Receives a string, should return a number.
         from: function (value) {
-            return Number(value.replace(',-', ''));
+          return Number(value.replace(',-', ''));
         }
       }
     });
@@ -103,10 +109,10 @@ export class NoUiSliderWrapper {
     return (
       <Host>
         <slot name="title"/>
-        <div class="row">
-          <span class="handle-number">1</span>
+        <div class="bixby-slider-row">
+          <span class="handle-number">{formatLargeNumber(this.min)}</span>
           <div ref={el => this.el = el} id="double-slider"></div>
-          <span class="handle-number">600k</span>
+          <span class="handle-number">{formatLargeNumber(this.max)}</span>
         </div>
       </Host>
     );
