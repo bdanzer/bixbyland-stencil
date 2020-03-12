@@ -1,4 +1,4 @@
-import { Component, h, Prop, Watch, State } from '@stencil/core';
+import {Component, h, Prop, Watch, State} from '@stencil/core';
 import * as R from 'ramda';
 import axios from 'axios';
 import {Store} from "@stencil/redux";
@@ -10,7 +10,7 @@ declare var google: any;
   styleUrl: 'google-map.scss'
 })
 export class GoogleMap {
-  @Prop({ context: "store" }) store: Store;
+  @Prop({context: "store"}) store: Store;
   @Prop() posts: any = [];
   @Prop() handleMarker: Function;
   @Prop() activePostId: any = false;
@@ -22,11 +22,10 @@ export class GoogleMap {
   map: any;
   markersObj: any = {};
 
-  componentDidLoad()
-  {
+  componentDidLoad() {
     this.store.mapStateToProps(this, state => {
       const {
-        dataReducer: { baseUrl  }
+        dataReducer: {baseUrl}
       } = state;
       return {
         baseUrl
@@ -34,8 +33,6 @@ export class GoogleMap {
     });
 
     this.mapObject = new google.maps.Map(this.map, {
-      center: (this.posts.length) ? this.findLatitudeAvg() : {lat: 0, lng: 0},
-      zoom: 7,
       streetViewControl: false,
       mapTypeControl: false,
       fullscreenControl: false,
@@ -69,6 +66,7 @@ export class GoogleMap {
       this.clearMarkers();
       this.getIcons();
       this.mapObject.setCenter(markerData.position);
+      this.mapObject.setZoom(9);
     }
   }
 
@@ -99,7 +97,7 @@ export class GoogleMap {
 
   getCurrentPosition() {
     navigator.geolocation.getCurrentPosition((position) => {
-			var currentLatitude = position.coords.latitude;
+      var currentLatitude = position.coords.latitude;
       var currentLongitude = position.coords.longitude;
 
       let currentPosition = {
@@ -107,27 +105,28 @@ export class GoogleMap {
         "lng": currentLongitude
       };
 
-			this.mapObject.setCenter(currentPosition);
+      this.mapObject.setCenter(currentPosition);
       this.addMarker(currentPosition);
-		});
+    });
   }
 
   setCenter() {
-    this.mapObject.setCenter(this.findLatitudeAvg());
-  }
-
-  findLatitudeAvg() {
-    let lat = R.mean(R.map((post) => post.meta.latitude[0], this.posts));
-    let lng = R.mean(R.map((post) => post.meta.longitude[0], this.posts));
-
-    return {
-      "lat": lat,
-      "lng": lng
+    if (this.posts.length == 1) {
+      this.mapObject.setCenter(new google.maps.LatLng(this.posts[0].meta.latitude[0], this.posts[0].meta.longitude[0]));
+      this.mapObject.setZoom(9);
+    } else if (this.posts.length > 1) {
+      let latLongs = new google.maps.LatLngBounds();
+      this.posts.forEach(function (post) {
+        latLongs.extend(new google.maps.LatLng(post.meta.latitude[0], post.meta.longitude[0]));
+      });
+      this.mapObject.fitBounds(latLongs);
+    } else {
+      this.mapObject.setCenter(39.8097343, -98.5556199);
+      this.mapObject.setZoom(4);
     }
   }
 
-  addMarker(position)
-  {
+  addMarker(position) {
     var marker = new google.maps.Marker({
       position: position,
       map: this.mapObject
@@ -136,8 +135,7 @@ export class GoogleMap {
     marker.setMap(this.mapObject);
   }
 
-  async getIcons()
-  {
+  async getIcons() {
     if (!this.icons) {
       let res = await axios.get(this.baseUrl + '/wp-json/bixby/v1/theme-settings');
       let icons = R.map((themeOptions) => {
@@ -153,8 +151,7 @@ export class GoogleMap {
   /**
    * TODO: clean up for a better solution
    */
-  getIconType(post)
-  {
+  getIconType(post) {
     if (this.activePostId === post.ID && post.categories[0]['slug'] == 'office') {
       return (this.icons && this.icons.google_map_office_active_icon) ? this.icons.google_map_office_active_icon : '';
     }
@@ -185,8 +182,7 @@ export class GoogleMap {
     return image;
   }
 
-  addMarkers()
-  {
+  addMarkers() {
     this.posts.forEach(post => {
       let position = {
         lat: parseFloat(post.meta.latitude[0]),
@@ -221,8 +217,7 @@ export class GoogleMap {
     });
   }
 
-  clearMarkers()
-  {
+  clearMarkers() {
     for (let markerObj in this.markersObj) {
       this.markersObj[markerObj].marker.setMap(null);
     }
@@ -230,8 +225,7 @@ export class GoogleMap {
     this.markersObj = {};
   }
 
-  render()
-  {
+  render() {
     return (
       <div id="map" ref={el => this.map = el}></div>
     );

@@ -1,9 +1,9 @@
-import { Component, h, Prop, State, Watch } from '@stencil/core';
-import { Store, Action } from "@stencil/redux";
-import { changeFilter, loadPosts, sortBy } from "../../actions/data";
+import {Component, h, Prop, State, Watch} from '@stencil/core';
+import {Store, Action} from "@stencil/redux";
+import {changeFilter, loadPosts, sortBy} from "../../actions/data";
 import * as R from "ramda";
 import axios from "axios";
-import { sorter } from '../../utils/utils';
+import {sorter} from '../../utils/utils';
 import Endpoint from '../../classes/endpoint';
 
 @Component({
@@ -11,7 +11,7 @@ import Endpoint from '../../classes/endpoint';
   styleUrl: 'property-filters.scss'
 })
 export class PropertyFilters {
-  @Prop({ context: "store" }) store: Store;
+  @Prop({context: "store"}) store: Store;
   @Prop() search;
   @Prop() filters;
 
@@ -30,33 +30,30 @@ export class PropertyFilters {
   sortBy: Action;
 
   sortByInfo = {
-    "alpha_asc": "Alphabetical ASC",
-    "alpha_dsc": "Alphabetical DSC",
-    "sqft_asc" : "Square Feet ASC",
-    "sqft_dsc" : "Square Feet DSC"
+    "alpha_dsc": "A-Z",
+    "alpha_asc": "Z-A",
+    "sqft_asc": "Square Feet (Low to High)",
+    "sqft_dsc": "Square Feet (High to Low)"
   };
 
   @Watch('filters')
-  watchFilters(newValue, oldValue) 
-  {
+  watchFilters(newValue, oldValue) {
     let newCat = newValue.category;
     let oldCat = (oldValue) ? oldValue.category : null;
-    
+
     if (newCat != oldCat) {
       this.getMinMaxSqFt(newCat);
     }
   }
 
-  componentWillLoad() 
-  {
+  componentWillLoad() {
     this.getMinMaxSqFt()
   }
 
-  componentDidLoad()
-  {
+  componentDidLoad() {
     this.store.mapStateToProps(this, state => {
       const {
-        dataReducer: { filters, posts, baseUrl }
+        dataReducer: {filters, posts, baseUrl}
       } = state;
       return {
         filters, posts, baseUrl
@@ -72,8 +69,7 @@ export class PropertyFilters {
     this.getRegions()
   }
 
-  async getRegions()
-  {
+  async getRegions() {
     let response = await axios.get(Endpoint.baseUrl + '/wp-json/bixby/v1/properties/regions');
     return this.regions = response.data;
   }
@@ -103,30 +99,26 @@ export class PropertyFilters {
     this.changeFilter({"sqFootage": [sortedArray[0], sortedArray[sortedArray.length - 1]]});
   }
 
-  handleSearch(e)
-  {
+  handleSearch(e) {
     let value = (e.target as HTMLInputElement).value;
 
     this.changeFilter({"search": value});
     this.loadPosts();
   }
 
-  handleRegion(e)
-  {
+  handleRegion(e) {
     this.changeFilter({"region": (e.target as HTMLInputElement).value})
     this.loadPosts();
   }
 
-  handleSqFeet(_values, _handle, _unencoded, _tap, _positions)
-  {
+  handleSqFeet(_values, _handle, _unencoded, _tap, _positions) {
     let roundNumbers = _unencoded.map(number => Math.round(number));
 
     this.changeFilter({"sqFootage": roundNumbers});
     this.loadPosts();
   }
 
-  getSortBy()
-  {
+  getSortBy() {
     let options = [];
     for (let key in this.sortByInfo) {
       options.push((<option value={key}>{this.sortByInfo[key]}</option>));
@@ -135,8 +127,7 @@ export class PropertyFilters {
     return options;
   }
 
-  handleSortBy(e)
-  {
+  handleSortBy(e) {
     let value = (e.target as HTMLInputElement).value;
     this.sortBy({
       'posts': sorter(value, this.posts),
@@ -144,8 +135,7 @@ export class PropertyFilters {
     });
   }
 
-  async handleResetFilters()
-  {
+  async handleResetFilters() {
     const isEmpty = (x) => R.isEmpty(x) === true
     let result = R.reject(isEmpty, this.filters);
 
@@ -166,24 +156,31 @@ export class PropertyFilters {
         {(this.modal) && (
           <span class="filter-title">Filter</span>
         )}
-        <input onChange={(e) => this.handleSearch(e)} type="text" value={(this.filters && this.filters.search) ? this.filters.search : ''} placeholder="Search properties by address" class="search"/>
+        <input onChange={(e) => this.handleSearch(e)} type="text"
+               value={(this.filters && this.filters.search) ? this.filters.search : ''}
+               placeholder="Search by address, city, state, or zip code" class="search"/>
         <select name="regions" class="dropdown" onChange={(e) => this.handleRegion(e)}>
           <option selected={(this.filters && this.filters.region) ? false : true} disabled>Regions</option>
           {this.regions.map(region => <option value={region.meta_value}>{region.meta_value}</option>)}
         </select>
         {this.start && <no-ui-slider-wrapper
-          start={this.start}
-          min={this.min}
-          max={this.max}
-          callback={this.handleSqFeet.bind(this)}>
+            start={this.start}
+            min={this.min}
+            max={this.max}
+            callback={this.handleSqFeet.bind(this)}>
             <slot name="title">Square Footage</slot>
         </no-ui-slider-wrapper>}
         <select name="sortby" class="dropdown" onChange={(e) => this.handleSortBy(e)}>
-          <option selected={(this.filters && this.filters.sortBy) ? false : true} disabled>SortBy</option>
+          <option selected={(this.filters && this.filters.sortBy) ? false : true} disabled>Sort by</option>
           {this.getSortBy()}
         </select>
-        <button onClick={() => {(this.modal) ? this.modal = !this.modal : this.handleResetFilters()}} class="reset-button">{(this.modal) ? 'Apply' : 'Reset Filters'}</button>
-        <div class="modal-close-button" onClick={() => {this.modal = !this.modal}}>X</div>
+        <button onClick={() => {
+          (this.modal) ? this.modal = !this.modal : this.handleResetFilters()
+        }} class="reset-button">{(this.modal) ? 'Apply' : 'Reset Filters'}</button>
+        <div class="modal-close-button" onClick={() => {
+          this.modal = !this.modal
+        }}>X
+        </div>
       </div>,
       <div class="modal-button" onClick={() => this.modal = !this.modal}>Filter Results ({this.posts.length})</div>
     ];

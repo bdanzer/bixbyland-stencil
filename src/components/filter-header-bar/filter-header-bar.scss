@@ -2,7 +2,7 @@ filter-header-bar {
     font-family: $font-family-primary;
     .filter-wrap {
         padding: 45px 0;
-        max-width: 1300px;
+        max-width: 1500px;
         margin: auto;
         @extend %danzerpress-flex-row;
         justify-content: space-between;
@@ -96,7 +96,7 @@ filter-header-bar {
         //TODO: fix, hack solution for now
         .filter-label-wrap, &:not(.views) div {
             @media screen and (min-width: 1024px) {
-                margin-right: 40px;   
+                margin-right: 40px;
             }
         }
 
